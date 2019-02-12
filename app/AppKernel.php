@@ -20,6 +20,11 @@ class AppKernel extends Kernel
             new FrontBundle\FrontBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new UserBundle\UserBundle(),
+            new ProjectBundle\ProjectBundle(),
+            new ReviewBundle\ReviewBundle(),
+            new OfferBundle\OfferBundle(),
+            new BidBundle\BidBundle(),
+            new NoteBundle\NoteBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

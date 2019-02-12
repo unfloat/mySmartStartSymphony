@@ -27,6 +27,17 @@ security:
             security: false
 
         main:
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+                #remember_me feature enabling
+
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                #mainalways_remember_me: true
+
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -40,6 +51,11 @@ security:
                 csrf_token_generator: security.csrf.token_manager
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
+                require_previous_session: false
+                #this has been added to fix issue described below
+                #why we would need to have an existing session to be able to log in.
+                #After adding a remember_me firewall entry, you may hit an error when logging in that says:
+                #"No session available, it either timed out or cookies are not enabled"
 
             logout:       true
             anonymous:    true

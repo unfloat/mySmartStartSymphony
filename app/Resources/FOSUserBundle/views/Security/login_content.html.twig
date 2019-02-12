@@ -1,0 +1,33 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+{% endif %}
+
+
+
+
+<form action="{{ path("fos_user_security_check") }}" method="post" id="login-form">
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+    <div class="input-with-icon-left">
+        <i class="icon-material-baseline-mail-outline"></i>
+    <input class="input-text with-border"  placeholder="{{ 'security.login.username'|trans }}" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+    </div>
+    <div class="input-with-icon-left">
+        <i class="icon-material-outline-lock"></i>
+    <input type="password"  class="input-text with-border" placeholder="{{ 'security.login.password'|trans }}" id="password" name="_password" required="required" autocomplete="current-password" />
+    </div>
+
+        <div class="checkbox">
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me"><span class="checkbox-icon"></span>{{ 'security.login.remember_me'|trans }} </label>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+    </div>
+
+    <!-- Button -->
+    <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit"  id="_submit" name="_submit" form="login-form">{{ 'security.login.submit'|trans }} <i class="icon-material-outline-arrow-right-alt"></i></button>
+</form>

@@ -1,0 +1,4 @@
+services:
+#    bid.example:
+#        class: BidBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
