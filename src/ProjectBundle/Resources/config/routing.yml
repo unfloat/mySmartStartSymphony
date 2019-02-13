@@ -1,3 +1,7 @@
-project_homepage:
-    path:     /
-    defaults: { _controller: ProjectBundle:Default:index }
+tasks:
+    path:     /projects
+    defaults: { _controller: ProjectBundle:Project:projects}
+
+create:
+    path:     /create_project
+    defaults: { _controller: ProjectBundle:Project:createProject }

@@ -1,7 +1,7 @@
-index:
+bids:
     path:     /bids
-    defaults: { _controller: BidBundle:Bid:index }
+    defaults: { _controller: BidBundle:Bid:bids }
 
-update:
-    path:     /update
-    defaults: { _controller: BidBundle:Bid:update }
+bidders:
+    path:     /bidders
+    defaults: { _controller: BidBundle:Bid:manageBidders }

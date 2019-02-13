@@ -8,6 +8,6 @@ class PagesController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('@Front/pages/index.html.twig');
+        return $this->render('@Front/pages/active_bids.html.twig');
     }
 }

@@ -6,19 +6,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BidController extends Controller
 {
-    public function indexAction()
+    public function bidsAction()
     {
-        return $this->render('BidBundle:Bid:index.html.twig');
+        return $this->render('BidBundle:Freelancer:active_bids.html.twig');
         //, array(
         //            // ...
         //        ));
     }
 
-    public function updateAction()
+    public function manageBiddersAction()
     {
-        return $this->render('BidBundle:Bid:update.html.twig', array(
-            // ...
-        ));
+        return $this->render('BidBundle:Employer:manage_bidders.html.twig');
+        //, array(
+        //            // ...
+        //        ));
     }
+
+
 
 }

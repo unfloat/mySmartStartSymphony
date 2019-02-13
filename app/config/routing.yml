@@ -1,3 +1,7 @@
+job:
+    resource: "@JobBundle/Resources/config/routing.yml"
+    prefix:   /
+
 note:
     resource: "@NoteBundle/Resources/config/routing.yml"
     prefix:   /
