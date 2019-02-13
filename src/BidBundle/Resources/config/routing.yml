@@ -1,3 +1,7 @@
-bid_homepage:
-    path:     /
-    defaults: { _controller: BidBundle:Default:index }
+index:
+    path:     /bids
+    defaults: { _controller: BidBundle:Bid:index }
+
+update:
+    path:     /update
+    defaults: { _controller: BidBundle:Bid:update }
