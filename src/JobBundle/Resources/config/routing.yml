@@ -5,3 +5,7 @@ manage_jobs:
 manage_candidates:
     path:     /managecandidates
     defaults: { _controller: JobBundle:Job:managecandidates }
+
+post_job:
+    path:     /postJob
+    defaults: { _controller: JobBundle:Job:managecandidates }

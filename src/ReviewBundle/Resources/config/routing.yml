@@ -1,3 +1,11 @@
 review_homepage:
     path:     /
     defaults: { _controller: ReviewBundle:Default:index }
+
+rate_employer:
+    path:     /rateEmployer
+    defaults: { _controller: ReviewBundle:Review:rateEmployer }
+
+rate_freelancer:
+    path:     /rateFreelancer
+    defaults: { _controller: ReviewBundle:Review:rateFreelancer }

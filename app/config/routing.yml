@@ -1,3 +1,7 @@
+bookmark:
+    resource: "@BookmarkBundle/Resources/config/routing.yml"
+    prefix:   /
+
 job:
     resource: "@JobBundle/Resources/config/routing.yml"
     prefix:   /

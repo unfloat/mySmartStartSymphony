@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new BidBundle\BidBundle(),
             new NoteBundle\NoteBundle(),
             new JobBundle\JobBundle(),
+            new BookmarkBundle\BookmarkBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -20,4 +20,11 @@ class JobController extends Controller
         ));
     }
 
+    public function postJob()
+    {
+        return $this->render('JobBundle:Employer:postJob.html.twig', array(
+            // ...
+        ));
+    }
+
 }
