@@ -18,6 +18,7 @@
     {% endif %}
 </div>
 
+
 {% if app.request.hasPreviousSession %}
     {% for type, messages in app.session.flashbag.all() %}
         {% for message in messages %}
@@ -37,7 +38,7 @@
 
 {% endblock %}
 
-{% include 'footer.html.twig' %}
+{% include 'footer/footer.html.twig' %}
 
 </body>
 </html>
