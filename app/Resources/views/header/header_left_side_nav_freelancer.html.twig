@@ -26,28 +26,28 @@
                     </li>
                     <li><a href="#">Browse Tasks</a>
                         <ul class="dropdown-nav">
-                            <li><a href="tasks-list-layout-2.html">List Layout 2</a></li>
+                            <li><a href="{{ path('front_JobsList') }}">List Layout 2</a></li>
 
                         </ul>
                     </li>
-                    <li><a href="browse-companies.html">Browse Companies</a></li>
-                    <li><a href="single-job-page.html">Job Page</a></li>
-                    <li><a href="single-task-page.html">Task Page</a></li>
-                    <li><a href="single-company-profile.html">Company Profile</a></li>
+                    <li><a href="{{ path('front_browseCompanies') }}">Browse Companies</a></li>
+                    <li><a href="{{ path('front_Job') }}">Job Page</a></li>
+                    <li><a href="{{ path('front_Task') }}">Task Page</a></li>
+                    <li><a href="{{ path('front_Company') }}">Company Profile</a></li>
                 </ul>
             </li>
 
 
             <li><a href="#" class="current">Dashboard</a>
                 <ul class="dropdown-nav">
-                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="{{ path('freealancer_dashboard') }}">Dashboard</a></li>
                     <li><a href="dashboard-messages.html">Messages</a></li>
-                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                    <li><a href="dashboard-reviews.html">Reviews</a></li>
+                    <li><a href="{{ path('freelancer_bookmarks') }}">Bookmarks</a></li>
+                    <li><a href="{{ path('rate_employer') }}">Reviews</a></li>
 
                     <li><a href="dashboard-manage-tasks.html">Bids</a>
                         <ul class="dropdown-nav">
-                            <li><a href="dashboard-my-active-bids.html">My Active Bids</a></li>
+                            <li><a href="{{ path('bids') }}">My Active Bids</a></li>
                         </ul>
                     </li>
                     <li><a href="dashboard-settings.html">Settings</a></li>
