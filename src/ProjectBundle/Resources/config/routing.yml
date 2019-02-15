@@ -2,6 +2,6 @@ tasks:
     path:     /projects
     defaults: { _controller: ProjectBundle:Project:projects}
 
-create:
+create_task:
     path:     /create_project
     defaults: { _controller: ProjectBundle:Project:createProject }

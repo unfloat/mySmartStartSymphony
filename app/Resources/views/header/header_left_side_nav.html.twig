@@ -20,36 +20,33 @@
                 <ul class="dropdown-nav">
                     <li><a href="#">Find a Freelancer</a>
                         <ul class="dropdown-nav">
-                            <li><a href="freelancers-grid-layout-full-page.html">Full Page Grid</a></li>
-                            <li><a href="freelancers-grid-layout.html">Grid Layout</a></li>
-                            <li><a href="freelancers-list-layout-1.html">List Layout 1</a></li>
                             <li><a href="freelancers-list-layout-2.html">List Layout 2</a></li>
                         </ul>
                     </li>
                     <li><a href="single-freelancer-profile.html">Freelancer Profile</a></li>
-                    <li><a href="dashboard-post-a-job.html">Post a Job</a></li>
-                    <li><a href="dashboard-post-a-task.html">Post a Task</a></li>
+                    <li><a href="{{ path('post_job') }}">Post a Job</a></li>
+                    <li><a href="{{ path('create_task') }}">Post a Task</a></li>
                 </ul>
             </li>
 
             <li><a href="#" class="current">Dashboard</a>
                 <ul class="dropdown-nav">
-                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="{{ path('employer_dashboard') }}">Dashboard</a></li>
                     <li><a href="dashboard-messages.html">Messages</a></li>
-                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                    <li><a href="dashboard-reviews.html">Reviews</a></li>
+                    <li><a href="{{ path('employer_bookmarks') }}">Bookmarks</a></li>
+                    <li><a href="{{ path('rate_freelancer') }}">Reviews</a></li>
                     <li><a href="dashboard-manage-jobs.html">Jobs</a>
                         <ul class="dropdown-nav">
-                            <li><a href="dashboard-manage-jobs.html">Manage Jobs</a></li>
-                            <li><a href="dashboard-manage-candidates.html">Manage Candidates</a></li>
-                            <li><a href="dashboard-post-a-job.html">Post a Job</a></li>
+                            <li><a href="{{ path('manage_jobs') }}">Manage Jobs</a></li>
+                            <li><a href="{{ path('manage_candidates') }}">Manage Candidates</a></li>
+                            <li><a href="{{ path('post_job') }}">Post a Job</a></li>
                         </ul>
                     </li>
                     <li><a href="dashboard-manage-tasks.html">Tasks</a>
                         <ul class="dropdown-nav">
-                            <li><a href="dashboard-manage-tasks.html">Manage Tasks</a></li>
-                            <li><a href="dashboard-manage-bidders.html">Manage Bidders</a></li>
-                            <li><a href="dashboard-post-a-task.html">Post a Task</a></li>
+                            <li><a href="{{ path('tasks') }}">Manage Tasks</a></li>
+                            <li><a href="{{ path('bidders') }}">Manage Bidders</a></li>
+                            <li><a href="{{ path('create_task') }}">Post a Task</a></li>
                         </ul>
                     </li>
                     <li><a href="dashboard-settings.html">Settings</a></li>

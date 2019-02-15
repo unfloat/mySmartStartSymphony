@@ -4,8 +4,8 @@ front_homepage:
 
 
 front_front:
-    path:     /index
-    defaults: { _controller: FrontBundle:Pages:index }
+    path:     /findFreelancer
+    defaults: { _controller: FrontBundle:Pages:findFreelancer }
 
 front_browseCompanies:
     path:     /browseCompanies

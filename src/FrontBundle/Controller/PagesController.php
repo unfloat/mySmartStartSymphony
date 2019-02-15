@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PagesController extends Controller
 {
-    public function indexAction()
+    public function findFreelancerAction()
     {
-        return $this->render('@Front/pages/index.html.twig');
+        return $this->render('@Front/Employer/findFreelancer.html.twig');
     }
 
 
@@ -29,7 +29,7 @@ class PagesController extends Controller
 
     public function companyAction()
     {
-        return $this->render('@Front/Freelancer/CompanyProfile.html.twig');
+        return $this->render('@Front/Freelancer/companyProfile.html.twig');
     }
 
     public function taskListAction()
