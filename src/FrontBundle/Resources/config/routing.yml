@@ -6,3 +6,27 @@ front_homepage:
 front_front:
     path:     /index
     defaults: { _controller: FrontBundle:Pages:index }
+
+front_browseCompanies:
+    path:     /browseCompanies
+    defaults: { _controller: FrontBundle:Pages:browse }
+
+front_Job:
+    path:     /jobPage
+    defaults: { _controller: FrontBundle:Pages:job }
+
+front_Task:
+    path:     /taskPage
+    defaults: { _controller: FrontBundle:Pages:task }
+
+front_Company:
+    path:     /companyProfile
+    defaults: { _controller: FrontBundle:Pages:company }
+
+front_TaskList:
+    path:     /tasksList
+    defaults: { _controller: FrontBundle:Pages:taskList }
+
+front_JobsList:
+    path:     /jobsList
+    defaults: { _controller: FrontBundle:Pages:jobList }
