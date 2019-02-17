@@ -1,45 +1,40 @@
 dashboard:
     resource: "@DashboardBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /dashboard
 
 bookmark:
     resource: "@BookmarkBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /bookmarks
 
 job:
     resource: "@JobBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /job
 
 note:
     resource: "@NoteBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /note
 
 bid:
     resource: "@BidBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /bid
 
 offer:
     resource: "@OfferBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /offer
 
 review:
     resource: "@ReviewBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /review
 
 project:
     resource: "@ProjectBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /project
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /
 
-front:
+homepage:
     resource: "@FrontBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /homepage
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

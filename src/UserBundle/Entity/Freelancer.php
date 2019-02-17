@@ -6,20 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Freelancer
- *
- * @ORM\Table(name="freelancer")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\FreelancerRepository")
  */
 class Freelancer extends User
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+
 
     /**
      * @var string

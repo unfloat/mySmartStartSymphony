@@ -10,20 +10,15 @@
     <nav id="navigation">
         <ul id="responsive">
 
-            <li><a href="#">Home</a>
-                <ul class="dropdown-nav">
-                    <li><a href="index-3.html">Home</a></li>
-                </ul>
+            <li><a href="{{ path('employer_home') }}">Home</a>
+
             </li>
 
             <li><a href="#">For Employers</a>
                 <ul class="dropdown-nav">
-                    <li><a href="#">Find a Freelancer</a>
-                        <ul class="dropdown-nav">
-                            <li><a href="freelancers-list-layout-2.html">List Layout 2</a></li>
-                        </ul>
+                    <li><a href="{{ path('front_FindFreelancer') }}">Find a Freelancer</a>
+
                     </li>
-                    <li><a href="single-freelancer-profile.html">Freelancer Profile</a></li>
                     <li><a href="{{ path('post_job') }}">Post a Job</a></li>
                     <li><a href="{{ path('create_task') }}">Post a Task</a></li>
                 </ul>

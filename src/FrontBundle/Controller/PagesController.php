@@ -6,6 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PagesController extends Controller
 {
+    public function employerHomeAction()
+    {
+        return $this->render('@Front/Employer/home_employer.html.twig');
+    }
+    public function freelancerHomeAction()
+    {
+        return $this->render('@Front/Freelancer/home_freelancer.html.twig');
+    }
+
     public function findFreelancerAction()
     {
         return $this->render('@Front/Employer/findFreelancer.html.twig');
