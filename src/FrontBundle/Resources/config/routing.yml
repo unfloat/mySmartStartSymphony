@@ -1,5 +1,5 @@
 front_homepage:
-    path:     /
+    path:     /index
     defaults: { _controller: FrontBundle:Default:index }
 
 
