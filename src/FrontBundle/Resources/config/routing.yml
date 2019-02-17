@@ -30,3 +30,17 @@ front_TaskList:
 front_JobsList:
     path:     /jobsList
     defaults: { _controller: FrontBundle:Pages:jobList }
+
+
+
+
+front_FindFreelancer:
+    path:     /findFreelancer
+    defaults: { _controller: FrontBundle:Pages:findFreelancer }
+
+
+front_FreelancerProfile:
+    path:     /freelancerProfile
+    defaults: { _controller: FrontBundle:Pages:freelancerProfile }
+
+

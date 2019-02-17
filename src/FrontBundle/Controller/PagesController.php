@@ -41,6 +41,28 @@ class PagesController extends Controller
     {
         return $this->render('@Front/Freelancer/jobsList.html.twig');
     }
+
+
+
+
+    public function freelancerProfileAction()
+    {
+        return $this->render('@Front/Employer/freelancerProfile.html.twig');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
