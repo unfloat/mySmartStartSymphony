@@ -22,15 +22,18 @@ class RegistrationListener implements EventSubscriberInterface
         );
     }
 
-    public function onRegistrationSuccess(FormEvent $event)
+    public static function onRegistrationSuccess(FormEvent $event)
     {
-        $arrayRoles = array('ROLE_USER');
 
 
         /** @var $user \FOS\UserBundle\Model\UserInterface */
         $user = $event->getForm()->getData();
 
-            $user->setRoles($arrayRoles);
+        if ($event->getRequest()->get('account-type-radio') == "freelancer")
+            $user->setRoles(['ROLE_FREELANCER']);
+        else
+            $user->setRoles(['ROLE_EMPLOYER']);
+
 
     }
 
