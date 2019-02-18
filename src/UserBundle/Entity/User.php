@@ -44,6 +44,14 @@ class User extends BaseUser
         $this->type = $type;
     }
 
+    public function __toString()
+    {
+
+         if($this->getRoles()[0] == 'ROLE_FREELANCER'){
+             return "true";
+         }else
+             return "false";
+    }
 
 
 }

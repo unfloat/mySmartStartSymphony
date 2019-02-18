@@ -8,13 +8,17 @@
 
 namespace UserBundle\EventListener;
 
+use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
 class RegistrationListener implements EventSubscriberInterface
 {
+
     public static function getSubscribedEvents()
     {
         return array(
@@ -36,7 +40,6 @@ class RegistrationListener implements EventSubscriberInterface
 
 
     }
-
 
 
 }

@@ -39,3 +39,10 @@ services:
         arguments: []
         tags:
             - { name: kernel.event_subscriber }
+
+    user.registration_completed_listener:
+        class: UserBundle\EventListener\RegistrationCompletedListener
+        arguments:
+            - "@router"
+        tags:
+            - { name: kernel.event_subscriber }
