@@ -1,11 +1,11 @@
-front_homepage:
-    path:     /
-    defaults: { _controller: FrontBundle:Default:index }
+employer_home:
+    path:     /employer
+    defaults: { _controller: FrontBundle:Pages:employerHome }
 
 
-front_front:
-    path:     /findFreelancer
-    defaults: { _controller: FrontBundle:Pages:findFreelancer }
+freelancer_home:
+    path:     /freelancer
+    defaults: { _controller: FrontBundle:Pages:freelancerHome }
 
 front_browseCompanies:
     path:     /browseCompanies
@@ -20,7 +20,7 @@ front_Task:
     defaults: { _controller: FrontBundle:Pages:task }
 
 front_Company:
-    path:     /companyProfile
+    path:     /freelancer/companyProfile
     defaults: { _controller: FrontBundle:Pages:company }
 
 front_TaskList:
@@ -36,7 +36,7 @@ front_JobsList:
 
 
 front_FindFreelancer:
-    path:     /findFreelancer
+    path:     /employer/findFreelancer
     defaults: { _controller: FrontBundle:Pages:findFreelancer }
 
 

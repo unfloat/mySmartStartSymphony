@@ -1,7 +1,7 @@
 bids:
-    path:     /bids
+    path:     /freelancer/bids
     defaults: { _controller: BidBundle:Bid:bids }
 
 bidders:
-    path:     /bidders
+    path:     /employer/bidders
     defaults: { _controller: BidBundle:Bid:manageBidders }
