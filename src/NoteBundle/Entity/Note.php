@@ -35,13 +35,6 @@ class Note
      */
     private $noteText;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idFreelancer", type="integer")
-     */
-    private $idFreelancer;
-
 
     /**
      * Get id
@@ -101,28 +94,5 @@ class Note
         return $this->noteText;
     }
 
-    /**
-     * Set idFreelancer
-     *
-     * @param integer $idFreelancer
-     *
-     * @return Note
-     */
-    public function setIdFreelancer($idFreelancer)
-    {
-        $this->idFreelancer = $idFreelancer;
-
-        return $this;
-    }
-
-    /**
-     * Get idFreelancer
-     *
-     * @return int
-     */
-    public function getIdFreelancer()
-    {
-        return $this->idFreelancer;
-    }
 }
 
