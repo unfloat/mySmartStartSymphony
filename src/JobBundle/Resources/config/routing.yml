@@ -1,11 +1,11 @@
 manage_jobs:
-    path:     /manageJobs
+    path:     /manage
     defaults: { _controller: JobBundle:Job:manageJobs }
 
 manage_candidates:
-    path:     /managecandidates
+    path:     /candidates
     defaults: { _controller: JobBundle:Job:managecandidates }
 
 post_job:
-    path:     /postJob
+    path:     /post
     defaults: { _controller: JobBundle:Job:managecandidates }

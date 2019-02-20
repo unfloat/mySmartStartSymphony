@@ -5,17 +5,17 @@
 
     <div id="wrapper">
 
-        {% include 'Freelancer/header_freelancer.html.twig' %}
+        {% include 'header.html.twig' %}
         <div class="clearfix"></div>
 
         <div class="dashboard-container">
 
-            {% include 'Freelancer/sidebar_freelancer.html.twig' %}
+
             <div class="dashboard-content-container" data-simplebar>
                 <!-- Dashboard Content -->
                 <div class="dashboard-content-inner" >
 
-                    {% block content %}
+                    {% block homecontent %}
 
                     {% endblock %}
                 </div>
@@ -27,7 +27,3 @@
         </div>
     </div>
 {% endblock %}
-
-
-
-

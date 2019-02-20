@@ -1,10 +1,10 @@
 dashboard:
     resource: "@DashboardBundle/Resources/config/routing.yml"
-    prefix:   /dashboard
+    prefix:   /
 
 bookmark:
     resource: "@BookmarkBundle/Resources/config/routing.yml"
-    prefix:   /bookmarks
+    prefix:   /
 
 job:
     resource: "@JobBundle/Resources/config/routing.yml"
@@ -28,7 +28,7 @@ review:
 
 project:
     resource: "@ProjectBundle/Resources/config/routing.yml"
-    prefix:   /project
+    prefix:   /task
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
@@ -36,5 +36,5 @@ user:
 
 homepage:
     resource: "@FrontBundle/Resources/config/routing.yml"
-    prefix:   /homepage
+    prefix:   /
 

@@ -37,6 +37,29 @@ class Bid
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Project", inversedBy="bids")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     */
+    private $project;
+
+    /**
+     * @return mixed
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * @param mixed $project
+     */
+    public function setProject($project)
+    {
+        $this->project = $project;
+    }
+
+
+    /**
      * Get id
      *
      * @return int

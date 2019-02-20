@@ -1,46 +1,46 @@
 employer_home:
-    path:     /employer
+    path:     /Home
     defaults: { _controller: FrontBundle:Pages:employerHome }
 
 
 freelancer_home:
-    path:     /freelancer
+    path:     /Home
     defaults: { _controller: FrontBundle:Pages:freelancerHome }
 
 front_browseCompanies:
-    path:     /browseCompanies
+    path:     /companies
     defaults: { _controller: FrontBundle:Pages:browse }
 
 front_Job:
-    path:     /jobPage
+    path:     /job
     defaults: { _controller: FrontBundle:Pages:job }
 
 front_Task:
-    path:     /taskPage
+    path:     /task
     defaults: { _controller: FrontBundle:Pages:task }
 
 front_Company:
-    path:     /freelancer/companyProfile
+    path:     /company
     defaults: { _controller: FrontBundle:Pages:company }
 
 front_TaskList:
-    path:     /tasksList
+    path:     /tasks
     defaults: { _controller: FrontBundle:Pages:taskList }
 
 front_JobsList:
-    path:     /jobsList
+    path:     /jobs
     defaults: { _controller: FrontBundle:Pages:jobList }
 
 
 
 
 front_FindFreelancer:
-    path:     /employer/findFreelancer
-    defaults: { _controller: FrontBundle:Pages:findFreelancer }
+    path:     /find
+    defaults: { _controller: FrontBundle:EmployerPages:findFreelancer }
 
 
 front_FreelancerProfile:
-    path:     /freelancerProfile
+    path:     /profile
     defaults: { _controller: FrontBundle:Pages:freelancerProfile }
 
 

@@ -2,6 +2,7 @@
 
 namespace ProjectBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,32 +43,16 @@ class Project
      */
     private $maxBudget;
 
-
     /**
-     * @var string
-     *
-     * @ORM\Column(name="skills", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
      */
-    /**
-     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Skill")
-     * @ORM\JoinColumn(name="skill_id",referencedColumnName="id")
-     *
-     */
-    private $skills;
 
+    private $bids;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=255)
-     */
-    /**
-     * @ORM\OneToOne(targetEntity="ProjectBundle\Entity\Category")
-     * @ORM\JoinColumn(name="category_id",referencedColumnName="id")
-     *
-     */
-    private $category;
-
+    public function __construct()
+    {
+        $this->bids = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -151,45 +136,6 @@ class Project
         return $this->maxBudget;
     }
 
-    /**
-     * Set skills
-     *
-     * @param string $skills
-     *
-     * @return Project
-     */
-    public function setSkills($skills)
-    {
-        $this->skills = $skills;
-
-        return $this;
-    }
-
-    /**
-     * Get skills
-     *
-     * @return string
-     */
-    public function getSkills()
-    {
-        return $this->skills;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param mixed $category
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-    }
 
 
 }

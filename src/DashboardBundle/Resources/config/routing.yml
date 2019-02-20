@@ -1,11 +1,7 @@
-dashboard_homepage:
-    path:     /
-    defaults: { _controller: DashboardBundle:Default:index }
-
 freealancer_dashboard:
-    path:     /freealancerDashboard
+    path:     /dashboard
     defaults: { _controller: DashboardBundle:Dashboard:freealancerDashboard }
 
 employer_dashboard:
-    path:     /employerDashboard
+    path:     /dashboard
     defaults: { _controller: DashboardBundle:Dashboard:employerDashboard }
