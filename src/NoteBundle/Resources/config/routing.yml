@@ -1,3 +1,4 @@
 note_homepage:
     path:     /
     defaults: { _controller: NoteBundle:Default:index }
+

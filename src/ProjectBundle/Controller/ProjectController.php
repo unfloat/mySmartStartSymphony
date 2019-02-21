@@ -47,18 +47,7 @@ class ProjectController extends Controller
 
     public function projectSingleAction(Request $request)
     {
-        $bid = new Bid();
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(BidType::class,$bid);
-        $form->handleRequest($request);
-        if($form->isSubmitted())
-        {
-            $em->persist($bid);
-            $em->flush();
-
-        }
-        return $this->render('ProjectBundle:Employer:post_project.html.twig',['form'=>$form->createView()]);
-
+        return $this->render('ProjectBundle:Freelancer:singletask.html.twig');
     }
 
 
@@ -68,9 +57,10 @@ class ProjectController extends Controller
 
     public function detailsAction()
     {
-        return $this->render('ProjectBundle:Freelancer:details.html.twig');
+        return $this->render('ProjectBundle:Freelancer:singletask.html.twig');
         //, array(
         //            // ...
         //        ));
     }
+
 }

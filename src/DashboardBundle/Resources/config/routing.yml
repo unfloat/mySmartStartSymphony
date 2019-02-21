@@ -1,7 +1,13 @@
-freealancer_dashboard:
+freelancer_dashboard:
     path:     /freelancer
-    defaults: { _controller: DashboardBundle:Dashboard:freealancerDashboard }
+    defaults: { _controller: DashboardBundle:Dashboard:freelancerDashboard }
 
 employer_dashboard:
     path:     /employer
     defaults: { _controller: DashboardBundle:Dashboard:employerDashboard }
+
+new_note:
+    path: /new/{note?}/{priority?}
+    defaults: { _controller: DashboardBundle:Dashboard:new }
+
+

@@ -10,15 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 class DashboardController extends Controller
+
 {
+
+
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
-    public function freealancerDashboardAction()
+    public function freelancerDashboardAction()
     {
-        $notes = $this->getDoctrine()->getRepository(Note::class)->findAll();
-        return $this->render('DashboardBundle:Dashboard:freealancer_dashboard.html.twig', array(
-            'notes' => $notes
+        return $this->render('DashboardBundle:Dashboard:freelancer_dashboard.html.twig', array(// ...
         ));
     }
 
@@ -27,31 +28,40 @@ class DashboardController extends Controller
      */
     public function employerDashboardAction()
     {
-        return $this->render('DashboardBundle:Dashboard:employer_dashboard.html.twig', array(
-            // ...
+        return $this->render('DashboardBundle:Dashboard:employer_dashboard.html.twig', array(// ...
         ));
     }
 
-    public function ajaxAction(Request $request) {
-        $notes = $this->getDoctrine()
-            ->getRepository('NoteBundle:Note')
-            ->findAll();
 
-        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
-            $jsonData = array();
-            $idx = 0;
-            foreach($notes as $note) {
-                $temp = array(
-                    'priority' => $note->getPriority(),
-                    'note' => $note->getNoteText()
-                );
-                $jsonData[$idx++] = $temp;
-            }
-            return new JsonResponse($jsonData);
-        } else {
-            return $this->render('DashboardBundle:Dashboard:freealancer_dashboard.html.twig');
+    public function newAction(Request $request)
+    {
+        //parameters from request
+        $noteText = $request->get('note');
+        $priorityText = $request->get('priority');
+
+        //if fields empty
+        if ($priorityText == '' && $noteText == '') {
+            return new JsonResponse(["message" => 'Pirority and Note are required', "validate" => false]);
         }
+        if ($priorityText == '') {
+            return new JsonResponse(["message" => 'Priority is required', "validate" => false]);
+        } else if ($noteText == '') {
+            return new JsonResponse(["message" => 'Note is required', "validate" => false]);
+        } else if ($request->isXmlHttpRequest()) {
+            //fields filled and request made
+            $note = new Note();
+            $note->setNoteText($noteText);
+            $note->setPriority($priorityText);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($note);
+            $em->flush();
+
+            $url = $this->generateUrl('freelancer_dashboard');
+
+            return new JsonResponse(["message" => 'Note added :)', "validate" => true, "redirect" => $url]);
+        }
+
+
     }
-
-
 }

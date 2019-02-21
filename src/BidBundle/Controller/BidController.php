@@ -6,6 +6,8 @@ use BidBundle\Entity\Bid;
 use BidBundle\Form\BidType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class BidController extends Controller
 {
@@ -28,9 +30,11 @@ class BidController extends Controller
         //            // ...
         //        ));
     }
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function ajaxAction(Request $request) {
 
-    public function createBidAction(Request $request)
-    {
         $bid = new Bid();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(BidType::class,$bid);
@@ -41,9 +45,19 @@ class BidController extends Controller
             $em->flush();
 
         }
-        return $this->render('@Bid/Freelancer/placebidsidebar.html.twig',['form'=>$form->createView()]);
-
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
+            $jsonData = array();
+            $idx = 0;
+            return new JsonResponse($jsonData);
+        } else {
+            return $this->render('student/ajax.html.twig');
+        }
     }
+
+
+
+
+
 
 
 
