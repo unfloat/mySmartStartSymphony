@@ -57,7 +57,7 @@ class ProjectController extends Controller
             $em->flush();
 
         }
-        return $this->render('ProjectBundle:Freelancer:singletask.html.twig',['form'=>$form->createView()]);
+        return $this->render('ProjectBundle:Employer:post_project.html.twig',['form'=>$form->createView()]);
 
     }
 }

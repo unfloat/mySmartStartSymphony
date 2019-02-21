@@ -1,16 +1,16 @@
 tasks:
-    path:     /manage
-    defaults: { _controller: ProjectBundle:Project:projects}
+    path:     /readProject
+    defaults: { _controller: ProjectBundle:Project:readProject}
 
 create_task:
-    path:     /create
+    path:     /createProject
     defaults: { _controller: ProjectBundle:Project:createProject }
 
 list_tasks:
-    path:     /list
+    path:     /projectsList
     defaults: { _controller: ProjectBundle:Project:projectsList }
 
 single_task:
-    path:     /details
+    path:     /projectSingle
     defaults: { _controller: ProjectBundle:Project:projectSingle }
 

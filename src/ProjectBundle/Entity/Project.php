@@ -23,11 +23,66 @@ class Project
     private $id;
 
     /**
+ * @var string
+ *
+ * @ORM\Column(name="projectName", type="string", length=255)
+ */
+    public $projectName;
+
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="projectName", type="string", length=255)
+     * @ORM\Column(name="projectCountry", type="string", length=255)
      */
-    private $projectName;
+    private $projectCountry;
+
+    /**
+     * @return string
+     */
+    public function getProjectCountry()
+    {
+        return $this->projectCountry;
+    }
+
+    /**
+     * @param string $projectCountry
+     */
+    public function setProjectCountry($projectCountry)
+    {
+        $this->projectCountry = $projectCountry;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="projectDescription", type="string", length=255)
+     */
+    private $projectDescription;
+
+    /**
+     * @return string
+     */
+    public function getProjectDescription()
+    {
+        return $this->projectDescription;
+    }
+
+    /**
+     * @param string $projectDescription
+     */
+    public function setProjectDescription($projectDescription)
+    {
+        $this->projectDescription = $projectDescription;
+    }
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="maxBudget", type="float")
+     */
+    private $maxBudget;
+
 
     /**
      * @var float
@@ -37,24 +92,23 @@ class Project
     private $minBudget;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="maxBudget", type="float")
+     * @return float
      */
-    private $maxBudget;
-
-    /**
-     * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
-     */
-
-    private $bids;
-
-    public function __construct()
+    public function getMinBudget()
     {
-        $this->bids = new ArrayCollection();
+        return $this->minBudget;
     }
 
     /**
+     * @param float $minBudget
+     */
+    public function setMinBudget($minBudget)
+    {
+        $this->minBudget = $minBudget;
+    }
+
+
+       /**
      * Get id
      *
      * @return int
@@ -86,30 +140,6 @@ class Project
     public function getProjectName()
     {
         return $this->projectName;
-    }
-
-    /**
-     * Set minBudget
-     *
-     * @param float $minBudget
-     *
-     * @return Project
-     */
-    public function setMinBudget($minBudget)
-    {
-        $this->minBudget = $minBudget;
-
-        return $this;
-    }
-
-    /**
-     * Get minBudget
-     *
-     * @return float
-     */
-    public function getMinBudget()
-    {
-        return $this->minBudget;
     }
 
     /**
