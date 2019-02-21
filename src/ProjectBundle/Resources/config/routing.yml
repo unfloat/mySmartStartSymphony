@@ -3,16 +3,20 @@ tasks:
     defaults: { _controller: ProjectBundle:Project:readProject}
 
 create_task:
-    path:     /createProject
-    defaults: { _controller: ProjectBundle:Project:createProject }
+    path:     /projectCreate
+    defaults: { _controller: ProjectBundle:Project:projectCreate }
+
+list_projects:
+    path:     /projects
+    defaults: { _controller: ProjectBundle:Project:projects }
+
+
+
 
 list_tasks:
     path:     /projectsList
     defaults: { _controller: ProjectBundle:Project:projectsList }
 
-single_task:
-    path:     /projectSingle
-    defaults: { _controller: ProjectBundle:Project:projectSingle }
 
 
 details_task:

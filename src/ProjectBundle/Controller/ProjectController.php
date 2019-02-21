@@ -2,8 +2,8 @@
 
 namespace ProjectBundle\Controller;
 
-use BidBundle\Entity\Bid;
-use BidBundle\Form\BidType;
+use ProjectBundle\Entity\Project;
+use ProjectBundle\Form\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,55 +11,53 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends Controller
 {
+
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
-    public function createProjectAction()
+
+    public function projectCreateAction(Request $request)
     {
-        return $this->render('ProjectBundle:Employer:post_project.html.twig');
-        //, array(
-        //            // ...
-        //        ));
+        $project = new Project();
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ProjectType::class,$project);
+        $form->handleRequest($request);
+        if($form->isSubmitted())
+        {
+            $em->persist($project);
+            $em->flush();
+            $this->redirectToRoute('list_tasks');
+        }
+        return $this->render('@Project/Employer/post_project.html.twig',['form'=>$form->createView()]);
+
     }
+
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
 
     public function projectsAction()
     {
-        return $this->render('ProjectBundle:Employer:details.html.twig');
-        //, array(
-        //            // ...
-        //        ));
-    }
-
-    public function projectsListAction()
-    {
-        return $this->render('ProjectBundle:Freelancer:taskslist.html.twig');
-        //, array(
-        //            // ...
-        //        ));
-    }
-
-    /**
-     * @Security("has_role('ROLE_FREELANCER')")
-     */
-
-    public function projectSingleAction(Request $request)
-    {
-        $bid = new Bid();
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(BidType::class,$bid);
-        $form->handleRequest($request);
-        if($form->isSubmitted())
-        {
-            $em->persist($bid);
-            $em->flush();
-
-        }
-        return $this->render('ProjectBundle:Employer:post_project.html.twig',['form'=>$form->createView()]);
+        $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
+        return $this->render('ProjectBundle:Employer:task.html.twig',["projects" => $projects]);
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
