@@ -32,17 +32,10 @@ class ProjectController extends Controller
 
     }
 
+
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
-
-    public function projectsAction()
-    {
-        $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
-        return $this->render('@Project/Employer/tasks.html.twig',["projects" => $projects]);
-
-    }
-
 
     public function manage_projectsAction()
     {
@@ -52,7 +45,11 @@ class ProjectController extends Controller
     }
 
 
-    public function delete_manage_projectsAction($manage_project)
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+
+    public function delete_manage_projectsAction(Project $manage_project)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($manage_project);
@@ -60,6 +57,33 @@ class ProjectController extends Controller
         return $this->redirectToRoute('list_manage_projects');
     }
 
+
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+
+    public function update_manage_projectsAction(Project $manage_project)
+    {
+
+    }
+
+
+
+
+
+
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+
+    public function projectsAction()
+    {
+        $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
+        return $this->render('@Project/Freelancer/tasks.html.twig',["projects" => $projects]);
+
+    }
 
 
 
