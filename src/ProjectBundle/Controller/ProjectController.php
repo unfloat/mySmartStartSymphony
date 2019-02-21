@@ -78,11 +78,6 @@ class ProjectController extends Controller
 
 
 
-
-
-
-
-
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */

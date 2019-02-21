@@ -15,7 +15,6 @@ update_manage_projects:
     defaults: { _controller: ProjectBundle:Project:update_manage_projects }
 
 
-
 list_projects:
     path:     /projects
     defaults: { _controller: ProjectBundle:Project:projects }

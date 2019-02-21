@@ -140,25 +140,11 @@
                 <!-- Tasks Container -->
                 <div class="tasks-list-container compact-list margin-top-35">
 
-                    <!-- Job Listing Details -->
-                    <div class="task-listing-details">
-
-                        <!-- Details -->
-                        <div class="task-listing-description">
-                            <h3 class="task-listing-title">Food Delviery Mobile App</h3>
-                            <ul class="task-icons">
-                                <li><i class="icon-material-outline-location-on"></i> San Francisco</li>
-                                <li><i class="icon-material-outline-access-time"></i> 2 minutes ago</li>
-                            </ul>
-                            <p class="task-listing-text">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster.</p>
-
-                        </div>
-
-                    </div>
                     <!-- Task -->
                     {% for project in projects %}
 
-                        <a>
+                        <a href="single-task-page.html" class="task-listing">
+
                             <!-- Job Listing Details -->
                             <div class="task-listing-details">
 
@@ -183,7 +169,7 @@
                             <div class="task-listing-bid">
                                 <div class="task-listing-bid-inner">
                                     <div class="task-offers">
-                                        <strong>{{ project.minBudget }} - {{ project.maxBudget }}</strong>
+                                        <strong>$1,000 - $2,500</strong>
                                         <span>Fixed Price</span>
                                     </div>
                                     <span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
