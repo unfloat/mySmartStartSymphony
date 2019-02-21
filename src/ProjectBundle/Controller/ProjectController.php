@@ -62,8 +62,17 @@ class ProjectController extends Controller
      * @Security("has_role('ROLE_EMPLOYER')")
      */
 
-    public function update_manage_projectsAction(Project $manage_project)
-    {
+    public function update_manage_projectsAction(Request $request,Project $manage_project)
+    {{
+        $em=$this->getDoctrine()->getManager();
+        $form=$this->createForm(ProjectType::class,$manage_project);
+        $form=$form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('list_manage_projects');
+        }
+        return $this->render('@Project/Employer/post_project.html.twig', ["form" => $form->createView()]);
+    }
 
     }
 

@@ -65,7 +65,7 @@
                                 <!-- Buttons -->
                                 <div class="buttons-to-right always-visible">
                                     <a href="dashboard-manage-bidders.html" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">3</span></a>
-                                    <a href="#" class="button gray ripple-effect ico" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                    <a href="{{ path('update_manage_projects', {'id': mp.id}) }}" class="button gray ripple-effect ico" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
                                     <a href="{{ path('delete_manage_projects', {'id': mp.id}) }}" class="button gray ripple-effect ico" data-tippy-placement="top" title="Remove Project"><i class="icon-feather-trash-2"></i></a>
                                 </div>
                                 {% endfor %}
