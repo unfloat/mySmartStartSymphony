@@ -14,3 +14,9 @@ single_task:
     path:     /projectSingle
     defaults: { _controller: ProjectBundle:Project:projectSingle }
 
+
+details_task:
+    path:     /details
+    defaults: { _controller: ProjectBundle:Project:details }
+
+

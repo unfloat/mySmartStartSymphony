@@ -13,7 +13,7 @@ class ProjectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('projectName')->add('projectCountry')->add('projectDescription')->add('maxBudget');
+        $builder->add('projectName')->add('projectCategory')->add('projectLocation')->add('minBudget')->add('maxBudget')->add('projectSkill')->add('projectDescription');
     }/**
      * {@inheritdoc}
      */

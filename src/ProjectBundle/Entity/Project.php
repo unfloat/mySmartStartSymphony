@@ -2,7 +2,6 @@
 
 namespace ProjectBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,66 +22,25 @@ class Project
     private $id;
 
     /**
- * @var string
- *
- * @ORM\Column(name="projectName", type="string", length=255)
- */
-    public $projectName;
-
+     * @var string
+     *
+     * @ORM\Column(name="projectName", type="string", length=255)
+     */
+    private $projectName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="projectCountry", type="string", length=255)
+     * @ORM\Column(name="projectCategory", type="string", length=255)
      */
-    private $projectCountry;
-
-    /**
-     * @return string
-     */
-    public function getProjectCountry()
-    {
-        return $this->projectCountry;
-    }
-
-    /**
-     * @param string $projectCountry
-     */
-    public function setProjectCountry($projectCountry)
-    {
-        $this->projectCountry = $projectCountry;
-    }
+    private $projectCategory;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="projectDescription", type="string", length=255)
+     * @ORM\Column(name="projectLocation", type="string", length=255)
      */
-    private $projectDescription;
-
-    /**
-     * @return string
-     */
-    public function getProjectDescription()
-    {
-        return $this->projectDescription;
-    }
-
-    /**
-     * @param string $projectDescription
-     */
-    public function setProjectDescription($projectDescription)
-    {
-        $this->projectDescription = $projectDescription;
-    }
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="maxBudget", type="float")
-     */
-    private $maxBudget;
-
+    private $projectLocation;
 
     /**
      * @var float
@@ -92,23 +50,28 @@ class Project
     private $minBudget;
 
     /**
-     * @return float
+     * @var float
+     *
+     * @ORM\Column(name="maxBudget", type="float")
      */
-    public function getMinBudget()
-    {
-        return $this->minBudget;
-    }
+    private $maxBudget;
 
     /**
-     * @param float $minBudget
+     * @var string
+     *
+     * @ORM\Column(name="projectSkill", type="string", length=255)
      */
-    public function setMinBudget($minBudget)
-    {
-        $this->minBudget = $minBudget;
-    }
+    private $projectSkill;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="projectDescription", type="string", length=255)
+     */
+    private $projectDescription;
 
 
-       /**
+    /**
      * Get id
      *
      * @return int
@@ -143,6 +106,78 @@ class Project
     }
 
     /**
+     * Set projectCategory
+     *
+     * @param string $projectCategory
+     *
+     * @return Project
+     */
+    public function setProjectCategory($projectCategory)
+    {
+        $this->projectCategory = $projectCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get projectCategory
+     *
+     * @return string
+     */
+    public function getProjectCategory()
+    {
+        return $this->projectCategory;
+    }
+
+    /**
+     * Set projectLocation
+     *
+     * @param string $projectLocation
+     *
+     * @return Project
+     */
+    public function setProjectLocation($projectLocation)
+    {
+        $this->projectLocation = $projectLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get projectLocation
+     *
+     * @return string
+     */
+    public function getProjectLocation()
+    {
+        return $this->projectLocation;
+    }
+
+    /**
+     * Set minBudget
+     *
+     * @param float $minBudget
+     *
+     * @return Project
+     */
+    public function setMinBudget($minBudget)
+    {
+        $this->minBudget = $minBudget;
+
+        return $this;
+    }
+
+    /**
+     * Get minBudget
+     *
+     * @return float
+     */
+    public function getMinBudget()
+    {
+        return $this->minBudget;
+    }
+
+    /**
      * Set maxBudget
      *
      * @param float $maxBudget
@@ -166,7 +201,52 @@ class Project
         return $this->maxBudget;
     }
 
+    /**
+     * Set projectSkill
+     *
+     * @param string $projectSkill
+     *
+     * @return Project
+     */
+    public function setProjectSkill($projectSkill)
+    {
+        $this->projectSkill = $projectSkill;
 
+        return $this;
+    }
 
+    /**
+     * Get projectSkill
+     *
+     * @return string
+     */
+    public function getProjectSkill()
+    {
+        return $this->projectSkill;
+    }
+
+    /**
+     * Set projectDescription
+     *
+     * @param string $projectDescription
+     *
+     * @return Project
+     */
+    public function setProjectDescription($projectDescription)
+    {
+        $this->projectDescription = $projectDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get projectDescription
+     *
+     * @return string
+     */
+    public function getProjectDescription()
+    {
+        return $this->projectDescription;
+    }
 }
 

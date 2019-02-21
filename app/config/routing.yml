@@ -1,6 +1,6 @@
 dashboard:
     resource: "@DashboardBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /dashboard
 
 bookmark:
     resource: "@BookmarkBundle/Resources/config/routing.yml"
