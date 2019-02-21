@@ -6,7 +6,9 @@ bidders:
     path:     /bidders
     defaults: { _controller: BidBundle:Bid:manageBidders }
 
-place:
-    path:     /place
-    defaults: { _controller: BidBundle:Bid:createBid }
+place_bid:
+    path:     /place/{deliveryTime?}/{hourlyRate?}
+    defaults: { _controller: BidBundle:Bid:placeBid }
+
+
 

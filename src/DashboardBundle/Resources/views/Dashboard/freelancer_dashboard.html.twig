@@ -1,7 +1,7 @@
 {% extends "layout_freelancer.html.twig" %}
 
 
-{% block content %}
+{% block layoutcontent %}
     <!-- Dashboard Headline -->
     <div class="dashboard-headline">
         <h3>Howdy, Tom!</h3>
@@ -108,10 +108,8 @@
         </div>
     </div>
 
-    <!-- OUR MODAL ADD NOTE
-================================================== -->
+    <!-- OUR MODAL ADD NOTE -->
     <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
-
         <!--Tabs -->
         <div class="sign-in-form">
 
@@ -153,103 +151,8 @@
         </div>
     </div>
 
-    <!-- Apply for a job popup / End -->
-    <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
-    {% block javascripts %}
-        {{ parent() }}
-
-        <script>
-            // Snackbar for user status switcher
-            $('#snackbar-user-status label').click(function() {
-                Snackbar.show({
-                    text: 'Your status has been changed!',
-                    pos: 'bottom-center',
-                    showAction: false,
-                    actionText: "Dismiss",
-                    duration: 3000,
-                    textColor: '#fff',
-                    backgroundColor: '#383838'
-                });
-            });
-        </script>
-
-
-        <script>
-            Chart.defaults.global.defaultFontFamily = "Nunito";
-            Chart.defaults.global.defaultFontColor = '#888';
-            Chart.defaults.global.defaultFontSize = '14';
-
-            var ctx = document.getElementById('chart').getContext('2d');
-
-            var chart = new Chart(ctx, {
-                type: 'line',
-
-                // The data for our dataset
-                data: {
-                    labels: ["January", "February", "March", "April", "May", "June"],
-                    // Information about the dataset
-                    datasets: [{
-                        label: "Views",
-                        backgroundColor: 'rgba(42,65,232,0.08)',
-                        borderColor: '#2a41e8',
-                        borderWidth: "3",
-                        data: [196,132,215,362,210,252],
-                        pointRadius: 5,
-                        pointHoverRadius:5,
-                        pointHitRadius: 10,
-                        pointBackgroundColor: "#fff",
-                        pointHoverBackgroundColor: "#fff",
-                        pointBorderWidth: "2",
-                    }]
-                },
-
-                // Configuration options
-                options: {
-
-                    layout: {
-                        padding: 10,
-                    },
-
-                    legend: { display: false },
-                    title:  { display: false },
-
-                    scales: {
-                        yAxes: [{
-                            scaleLabel: {
-                                display: false
-                            },
-                            gridLines: {
-                                borderDash: [6, 10],
-                                color: "#d8d8d8",
-                                lineWidth: 1,
-                            },
-                        }],
-                        xAxes: [{
-                            scaleLabel: { display: false },
-                            gridLines:  { display: false },
-                        }],
-                    },
-
-                    tooltips: {
-                        backgroundColor: '#333',
-                        titleFontSize: 13,
-                        titleFontColor: '#fff',
-                        bodyFontColor: '#fff',
-                        bodyFontSize: 13,
-                        displayColors: false,
-                        xPadding: 10,
-                        yPadding: 10,
-                        intersect: false
-                    }
-                },
-
-
-            });
-
-        </script>
-
-
-        <script>
+{% block scripts %}
+        <script type="javascript">
             $(document).ready(function(){
                 $("#saveNote").on("click", function(event){
                     let note=$('#note-textarea');
@@ -259,7 +162,7 @@
 
                     event.preventDefault();
                     $.ajax({
-                        url:     '{{ path('new_note') }}',
+                        url:'{{ path('new_note') }}',
                         dataType:"json",
                         data:{"note":note.val(),"priority":priority.val()},
 
@@ -286,6 +189,95 @@
                 });
             });
         </script>
+    <script>
+        // Snackbar for user status switcher
+        $('#snackbar-user-status label').click(function() {
+            Snackbar.show({
+                text: 'Your status has been changed!',
+                pos: 'bottom-center',
+                showAction: false,
+                actionText: "Dismiss",
+                duration: 3000,
+                textColor: '#fff',
+                backgroundColor: '#383838'
+            });
+        });
+    </script>
+
+
+    <script>
+        Chart.defaults.global.defaultFontFamily = "Nunito";
+        Chart.defaults.global.defaultFontColor = '#888';
+        Chart.defaults.global.defaultFontSize = '14';
+
+        var ctx = document.getElementById('chart').getContext('2d');
+
+        var chart = new Chart(ctx, {
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June"],
+                // Information about the dataset
+                datasets: [{
+                    label: "Views",
+                    backgroundColor: 'rgba(42,65,232,0.08)',
+                    borderColor: '#2a41e8',
+                    borderWidth: "3",
+                    data: [196,132,215,362,210,252],
+                    pointRadius: 5,
+                    pointHoverRadius:5,
+                    pointHitRadius: 10,
+                    pointBackgroundColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointBorderWidth: "2",
+                }]
+            },
+
+            // Configuration options
+            options: {
+
+                layout: {
+                    padding: 10,
+                },
+
+                legend: { display: false },
+                title:  { display: false },
+
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: false
+                        },
+                        gridLines: {
+                            borderDash: [6, 10],
+                            color: "#d8d8d8",
+                            lineWidth: 1,
+                        },
+                    }],
+                    xAxes: [{
+                        scaleLabel: { display: false },
+                        gridLines:  { display: false },
+                    }],
+                },
+
+                tooltips: {
+                    backgroundColor: '#333',
+                    titleFontSize: 13,
+                    titleFontColor: '#fff',
+                    bodyFontColor: '#fff',
+                    bodyFontSize: 13,
+                    displayColors: false,
+                    xPadding: 10,
+                    yPadding: 10,
+                    intersect: false
+                }
+            },
+
+
+        });
+
+    </script>
     {% endblock %}
 
 

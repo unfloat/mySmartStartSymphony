@@ -3,7 +3,7 @@
 namespace BidBundle\Controller;
 
 use BidBundle\Entity\Bid;
-use BidBundle\Form\BidType;
+use ProjectBundle\Entity\Project;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,32 +33,33 @@ class BidController extends Controller
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
-    public function ajaxAction(Request $request) {
 
-        $bid = new Bid();
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(BidType::class,$bid);
-        $form->handleRequest($request);
-        if($form->isSubmitted())
-        {
+
+    public function placeBidAction(Request $request,Project $project)
+    {
+
+        //parameters from request
+        $minimalRate = $request->get('minimalRate');
+        $deliveryTime = $request->get('deliveryTime');
+        $id = $project->getId();
+
+
+        if ($request->isXmlHttpRequest()) {
+            //fields filled and request made
+            $bid = new Bid();
+            $bid->setMinimalRate($minimalRate);
+            $bid->setDeliveryTime($deliveryTime);
+            $bid->setProject($id);
+
+
+            $em = $this->getDoctrine()->getManager();
             $em->persist($bid);
             $em->flush();
 
-        }
-        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
-            $jsonData = array();
-            $idx = 0;
-            return new JsonResponse($jsonData);
-        } else {
-            return $this->render('student/ajax.html.twig');
+            $url = $this->generateUrl('single_task');
+
+            return new JsonResponse(["message" => 'Bid placed :)', "validate" => true, "redirect" => $url]);
         }
     }
-
-
-
-
-
-
-
 
 }
