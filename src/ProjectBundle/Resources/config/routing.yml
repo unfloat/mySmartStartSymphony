@@ -19,8 +19,4 @@ list_tasks:
 
 
 
-details_task:
-    path:     /details
-    defaults: { _controller: ProjectBundle:Project:details }
-
 
