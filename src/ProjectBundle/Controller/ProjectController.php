@@ -58,7 +58,6 @@ class ProjectController extends Controller
         $em->remove($manage_project);
         $em->flush();
         return $this->redirectToRoute('list_manage_projects');
-
     }
 
 
