@@ -3,6 +3,8 @@
 namespace ProjectBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +15,7 @@ class ProjectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('projectName')->add('projectCategory')->add('projectLocation')->add('minBudget')->add('maxBudget')->add('projectSkill')->add('projectDescription');
+        $builder->add('projectName')->add('projectCategory',ChoiceType::class,array('choices'=>['web'=>'web','database'=>'database']))->add('projectLocation')->add('minBudget')->add('maxBudget')->add('projectSkill')->add('projectDescription');
     }/**
      * {@inheritdoc}
      */
