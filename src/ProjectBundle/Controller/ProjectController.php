@@ -27,7 +27,7 @@ class ProjectController extends Controller
 
     public function projectsAction()
     {
-        return $this->render('ProjectBundle:Employer:project.html.twig');
+        return $this->render('ProjectBundle:Employer:details.html.twig');
         //, array(
         //            // ...
         //        ));
@@ -57,7 +57,20 @@ class ProjectController extends Controller
             $em->flush();
 
         }
-        return $this->render('ProjectBundle:Freelancer:singletask.html.twig',['form'=>$form->createView()]);
+        return $this->render('ProjectBundle:Employer:post_project.html.twig',['form'=>$form->createView()]);
 
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+
+    public function detailsAction()
+    {
+        return $this->render('ProjectBundle:Freelancer:details.html.twig');
+        //, array(
+        //            // ...
+        //        ));
     }
 }

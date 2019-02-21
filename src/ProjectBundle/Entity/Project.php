@@ -2,7 +2,6 @@
 
 namespace ProjectBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +29,20 @@ class Project
     private $projectName;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="projectCategory", type="string", length=255)
+     */
+    private $projectCategory;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="projectLocation", type="string", length=255)
+     */
+    private $projectLocation;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="minBudget", type="float")
@@ -44,15 +57,19 @@ class Project
     private $maxBudget;
 
     /**
-     * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
+     * @var string
+     *
+     * @ORM\Column(name="projectSkill", type="string", length=255)
      */
+    private $projectSkill;
 
-    private $bids;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="projectDescription", type="string", length=255)
+     */
+    private $projectDescription;
 
-    public function __construct()
-    {
-        $this->bids = new ArrayCollection();
-    }
 
     /**
      * Get id
@@ -86,6 +103,54 @@ class Project
     public function getProjectName()
     {
         return $this->projectName;
+    }
+
+    /**
+     * Set projectCategory
+     *
+     * @param string $projectCategory
+     *
+     * @return Project
+     */
+    public function setProjectCategory($projectCategory)
+    {
+        $this->projectCategory = $projectCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get projectCategory
+     *
+     * @return string
+     */
+    public function getProjectCategory()
+    {
+        return $this->projectCategory;
+    }
+
+    /**
+     * Set projectLocation
+     *
+     * @param string $projectLocation
+     *
+     * @return Project
+     */
+    public function setProjectLocation($projectLocation)
+    {
+        $this->projectLocation = $projectLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get projectLocation
+     *
+     * @return string
+     */
+    public function getProjectLocation()
+    {
+        return $this->projectLocation;
     }
 
     /**
@@ -136,7 +201,52 @@ class Project
         return $this->maxBudget;
     }
 
+    /**
+     * Set projectSkill
+     *
+     * @param string $projectSkill
+     *
+     * @return Project
+     */
+    public function setProjectSkill($projectSkill)
+    {
+        $this->projectSkill = $projectSkill;
 
+        return $this;
+    }
 
+    /**
+     * Get projectSkill
+     *
+     * @return string
+     */
+    public function getProjectSkill()
+    {
+        return $this->projectSkill;
+    }
+
+    /**
+     * Set projectDescription
+     *
+     * @param string $projectDescription
+     *
+     * @return Project
+     */
+    public function setProjectDescription($projectDescription)
+    {
+        $this->projectDescription = $projectDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get projectDescription
+     *
+     * @return string
+     */
+    public function getProjectDescription()
+    {
+        return $this->projectDescription;
+    }
 }
 

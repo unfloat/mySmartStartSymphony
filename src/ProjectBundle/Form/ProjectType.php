@@ -1,36 +1,26 @@
 <?php
 
-namespace UserBundle\Form;
+namespace ProjectBundle\Form;
 
-use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends RegistrationFormType
+class ProjectType extends AbstractType
 {
-    public function __construct()
-    {
-
-
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
-    }
-
-
-    /**
+        $builder->add('projectName')->add('projectCategory')->add('projectLocation')->add('minBudget')->add('maxBudget')->add('projectSkill')->add('projectDescription');
+    }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\User'
+            'data_class' => 'ProjectBundle\Entity\Project'
         ));
     }
 
@@ -39,10 +29,8 @@ class UserType extends RegistrationFormType
      */
     public function getBlockPrefix()
     {
-        return 'userbundle_user';
+        return 'projectbundle_project';
     }
-
-
 
 
 }

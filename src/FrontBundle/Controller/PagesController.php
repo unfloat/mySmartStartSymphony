@@ -56,7 +56,7 @@ class PagesController extends Controller
      */
     public function taskAction()
     {
-        return $this->render('@Front/Freelancer/taskPage.html.twig');
+        return $this->render('@Front/Freelancer/projectPage.html.twig');
     }
 
     /**
