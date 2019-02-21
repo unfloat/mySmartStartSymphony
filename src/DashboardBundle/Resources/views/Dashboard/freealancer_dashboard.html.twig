@@ -89,28 +89,6 @@
                 <div class="content with-padding">
                     <!-- Note -->
                     <div class="dashboard-note">
-                        <p>Meeting with candidate at 3pm who applied for Bilingual Event Support Specialist</p>
-                        <div class="note-footer">
-                            <span class="note-priority high">High Priority</span>
-                            <div class="note-buttons">
-                                <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Note -->
-                    <div class="dashboard-note">
-                        <p>Extend premium plan for next month</p>
-                        <div class="note-footer">
-                            <span class="note-priority low">Low Priority</span>
-                            <div class="note-buttons">
-                                <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Note -->
-                    <div class="dashboard-note">
                         <p>Send payment to David Peterson</p>
                         <div class="note-footer">
                             <span class="note-priority medium">Medium Priority</span>
@@ -270,9 +248,86 @@
 
     </div>
     <!-- Row / End -->
+    <!-- Apply for a job popup
+================================================== -->
+    <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+        <!--Tabs -->
+        <div class="sign-in-form">
+
+            <ul class="popup-tabs-nav">
+                <li><a href="#tab">Add Note</a></li>
+            </ul>
+
+            <div class="popup-tabs-container">
+
+                <!-- Tab -->
+                <div class="popup-tab-content" id="tab">
+
+                    <!-- Welcome Text -->
+                    <div class="welcome-text">
+                        <h3>Do Not Forget 😎</h3>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="post" id="add-note">
+
+                        <select class="selectpicker with-border default margin-bottom-20" data-size="7" title="Priority">
+                            <option>Low Priority</option>
+                            <option>Medium Priority</option>
+                            <option>High Priority</option>
+                        </select>
+
+                        <textarea name="textarea" cols="10" placeholder="Note" class="with-border"></textarea>
+
+                    </form>
+
+                    <!-- Button -->
+                    <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="add-note">Add Note <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Apply for a job popup / End -->
     <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
     <script src="{{ asset('js/chart.min.js') }}"></script>
+    {% block javascripts %}
+        <script language = "javascript"
+                src = "https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+        <script language = "javascript">
+            $(document).ready(function(){
+                $("#loadNotes").on("click", function(event){
+                    $.ajax({
+                        url:        '/student/ajax',
+                        type:       'POST',
+                        dataType:   'json',
+                        async:      true,
+
+                        success: function(data, status) {
+                            var e = $('<tr><th>Name</th><th>Address</th></tr>');
+                            $('#student').html('');
+                            $('#student').append(e);
+
+                            for(i = 0; i < data.length; i++) {
+                                student = data[i];
+                                var e = $('<tr><td id = "name"></td><td id = "address"></td></tr>');
+
+                                $('#name', e).html(student['name']);
+                                $('#address', e).html(student['address']);
+                                $('#student').append(e);
+                            }
+                        },
+                        error : function(xhr, textStatus, errorThrown) {
+                            alert('Ajax request failed.');
+                        }
+                    });
+                });
+            });
+        </script>
+    {% endblock %}
     <script>
         Chart.defaults.global.defaultFontFamily = "Nunito";
         Chart.defaults.global.defaultFontColor = '#888';

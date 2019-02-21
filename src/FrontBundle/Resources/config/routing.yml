@@ -1,10 +1,10 @@
 employer_home:
-    path:     /Home
+    path:     /home
     defaults: { _controller: FrontBundle:Pages:employerHome }
 
 
 freelancer_home:
-    path:     /Home
+    path:     /welcome
     defaults: { _controller: FrontBundle:Pages:freelancerHome }
 
 front_browseCompanies:

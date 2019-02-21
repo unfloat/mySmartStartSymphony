@@ -46,3 +46,8 @@ services:
             - "@router"
         tags:
             - { name: kernel.event_subscriber }
+
+    user.form.profile:
+        class: UserBundle\Form\FreelancerType
+        tags:
+            - { name: form.type, alias: userbundle_freelancer }

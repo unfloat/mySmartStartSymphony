@@ -28,7 +28,6 @@ class AppKernel extends Kernel
             new JobBundle\JobBundle(),
             new BookmarkBundle\BookmarkBundle(),
             new DashboardBundle\DashboardBundle(),
-
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

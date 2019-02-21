@@ -92,3 +92,8 @@ fos_user:
     registration:
         form:
             type: UserBundle\Form\UserType
+
+    profile:
+        form:
+            type: UserBundle\Form\FreelancerType
+

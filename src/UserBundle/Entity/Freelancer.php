@@ -6,11 +6,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Freelancer
+ *
+ * @ORM\Table(name="freelancer")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\FreelancerRepository")
  */
-class Freelancer extends User
+class Freelancer
 {
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
      * @var string
@@ -32,6 +41,20 @@ class Freelancer extends User
      * @ORM\Column(name="hourlyRate", type="integer")
      */
     private $hourlyRate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tagline", type="string", length=255, nullable=true)
+     */
+    private $tagline;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="intro", type="text", nullable=true)
+     */
+    private $intro;
 
 
     /**
@@ -114,6 +137,54 @@ class Freelancer extends User
     public function getHourlyRate()
     {
         return $this->hourlyRate;
+    }
+
+    /**
+     * Set tagline
+     *
+     * @param string $tagline
+     *
+     * @return Freelancer
+     */
+    public function setTagline($tagline)
+    {
+        $this->tagline = $tagline;
+
+        return $this;
+    }
+
+    /**
+     * Get tagline
+     *
+     * @return string
+     */
+    public function getTagline()
+    {
+        return $this->tagline;
+    }
+
+    /**
+     * Set intro
+     *
+     * @param string $intro
+     *
+     * @return Freelancer
+     */
+    public function setIntro($intro)
+    {
+        $this->intro = $intro;
+
+        return $this;
+    }
+
+    /**
+     * Get intro
+     *
+     * @return string
+     */
+    public function getIntro()
+    {
+        return $this->intro;
     }
 }
 

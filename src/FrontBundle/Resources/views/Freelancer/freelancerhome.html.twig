@@ -5,22 +5,21 @@
 
     <div id="wrapper">
 
-        {% include 'header/header.html.twig' %}
+        {% include ':Freelancer:header_freelancer.html.twig' %}
         <div class="clearfix"></div>
 
         <div class="dashboard-container">
-
 
             <div class="dashboard-content-container" data-simplebar>
                 <!-- Dashboard Content -->
                 <div class="dashboard-content-inner" >
 
-                    {% block content %}
-                        employer
+                    {% block homecontent %}
+
                     {% endblock %}
                 </div>
                 <!-- Row / End -->
-                {% include 'footer/footer_home.html.twig' %}
+                {% include 'footer/footer.html.twig' %}
 
 
             </div>

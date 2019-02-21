@@ -13,8 +13,17 @@ class PagesController extends Controller
      */
     public function employerHomeAction()
     {
-        return $this->render('@Front/Employer/home_employer.html.twig');
+        return $this->render('@Front/Employer/employerhome.html.twig');
     }
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function freelancerHomeAction()
+    {
+        return $this->render('@Front/Freelancer/freelancerhome.html.twig');
+    }
+
 
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
@@ -25,14 +34,6 @@ class PagesController extends Controller
         return $this->render('@Front/Employer/findFreelancer.html.twig');
     }
 
-
-    /**
-     * @Security("has_role('ROLE_FREELANCER')")
-     */
-    public function freelancerHomeAction()
-    {
-        return $this->render('@Front/Freelancer/home_freelancer.html.twig');
-    }
 
     /**
      * @Security("has_role('ROLE_FREELANCER')")
