@@ -58,9 +58,7 @@ class ProjectController extends Controller
     public function detailsAction()
     {
         return $this->render('ProjectBundle:Freelancer:singletask.html.twig');
-        //, array(
-        //            // ...
-        //        ));
+
     }
 
 }

@@ -212,7 +212,7 @@
 
                                 <!-- Price Slider -->
                                 <div class="bidding-value">$<span id="biddingVal"></span></div>
-                                <input class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="2500" data-slider-max="4500" data-slider-value="auto" data-slider-step="50" data-slider-tooltip="hide" />
+                                <input id="slide-range" class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="2500" data-slider-max="4500" data-slider-value="auto" data-slider-step="50" data-slider-tooltip="hide" />
 
                                 <!-- Headline -->
                                 <span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
@@ -223,7 +223,7 @@
                                         <!-- Quantity Buttons -->
                                         <div class="qtyButtons">
                                             <div class="qtyDec"></div>
-                                            <input type="text" name="qtyInput" value="1">
+                                            <input id="count-time" type="text" name="qtyInput" value="1">
                                             <div class="qtyInc"></div>
                                         </div>
                                     </div>
@@ -236,7 +236,7 @@
                                 </div>
 
                                 <!-- Button -->
-                                <button id="snackbar-place-bid" class="button ripple-effect move-on-hover full-width margin-top-30"><span>Place a Bid</span></button>
+                                <button id="snackbar-place-bid placeBid" class="button ripple-effect move-on-hover full-width margin-top-30"><span>Place a Bid</span></button>
 
                             </div>
                             <div class="bidding-signup">Don't have an account? <a href="#sign-in-dialog" class="register-tab sign-in popup-with-zoom-anim">Sign Up</a></div>
@@ -286,14 +286,37 @@
     <!-- Spacer -->
     <div class="margin-top-15"></div>
     <!-- Spacer / End-->
-    <script>
+{% block scripts %}
+    <script type="javascript">
+        $(document).ready(function(){
+            $("#placeBid").on("click", function(event){
+                let deliveryTime=$('#count-time');
+                let hourlyRate=$('#slide-range');
 
-    // Snackbar for "place a bid" button
-    $('#snackbar-place-bid').click(function() {
-    Snackbar.show({
-    text: 'Your bid has been placed!',
-    });
-    });
+                event.preventDefault();
+                $.ajax({
+                    url:'{{ path('place_bid') }}',
+                    dataType:"json",
+                    data:{"minimalRate":hourlyRate.val(),"deliveryTime":deliveryTime.val()},
+
+                    success:function() {
+                        Snackbar.show({
+                            text: 'Your bid has been placed!',
+                        });
+                    },
+
+                    error: function (err) {
+                        Snackbar.show({
+                            text: 'Nope!',
+                        });
+
+                    }
+
+                });
+            });
+        });
+    </script>
+    <script>
 
 
     // Snackbar for copy to clipboard button
@@ -303,4 +326,5 @@
     });
     });
     </script>
+    {% endblock %}
 {% endblock %}

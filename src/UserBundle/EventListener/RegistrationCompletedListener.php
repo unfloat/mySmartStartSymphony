@@ -50,7 +50,7 @@ class RegistrationCompletedListener implements EventSubscriberInterface
         }
         else if(in_array("ROLE_FREELANCER", $user->getRoles())){
             /** @var RedirectResponse $response */
-            $response->setTargetUrl($this->router->generate('freealancer_dashboard'));
+            $response->setTargetUrl($this->router->generate('freelancer_dashboard'));
         }
 
 
