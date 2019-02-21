@@ -26,7 +26,7 @@ class ProjectController extends Controller
         {
             $em->persist($project);
             $em->flush();
-            $this->redirectToRoute('list_tasks');
+            return $this->redirectToRoute('list_manage_projects');
         }
         return $this->render('@Project/Employer/post_project.html.twig',['form'=>$form->createView()]);
 
@@ -39,9 +39,29 @@ class ProjectController extends Controller
     public function projectsAction()
     {
         $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
-        return $this->render('ProjectBundle:Employer:task.html.twig',["projects" => $projects]);
+        return $this->render('@Project/Employer/tasks.html.twig',["projects" => $projects]);
 
     }
+
+
+    public function manage_projectsAction()
+    {
+        $manage_projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
+        return $this->render('@Project/Employer/manage_projects.html.twig',["manage_projects" => $manage_projects]);
+
+    }
+
+
+    public function delete_manage_projectsAction($manage_project)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($manage_project);
+        $em->flush();
+        return $this->redirectToRoute('list_manage_projects');
+
+    }
+
+
 
 
 

@@ -1,7 +1,3 @@
-tasks:
-    path:     /readProject
-    defaults: { _controller: ProjectBundle:Project:readProject}
-
 create_task:
     path:     /projectCreate
     defaults: { _controller: ProjectBundle:Project:projectCreate }
@@ -10,12 +6,14 @@ list_projects:
     path:     /projects
     defaults: { _controller: ProjectBundle:Project:projects }
 
+list_manage_projects:
+    path:     /manage_projects
+    defaults: { _controller: ProjectBundle:Project:manage_projects }
 
+delete_manage_projects:
+    path:     /delete_manage_projects/{id}
+    defaults: { _controller: ProjectBundle:Project:delete_manage_projects }
 
-
-list_tasks:
-    path:     /projectsList
-    defaults: { _controller: ProjectBundle:Project:projectsList }
 
 
 
