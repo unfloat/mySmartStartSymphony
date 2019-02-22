@@ -2,6 +2,8 @@
 
 namespace ProjectBundle\Controller;
 
+use BidBundle\Entity\Bid;
+use BidBundle\Form\BidType;
 use ProjectBundle\Entity\Project;
 use ProjectBundle\Form\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -61,34 +63,54 @@ class ProjectController extends Controller
 
     }
 
+    public function projectsListAction()
+    {
+        $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
+        return $this->render('@Project/Freelancer/taskslist.html.twig',["projects" => $projects]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
-
-    public function detailsAction()
+    public function singleProjectAction(Request $request,Project $project)
     {
-        return $this->render('ProjectBundle:Freelancer:details.html.twig');
-        //, array(
-        //            // ...
-        //        ));
+        $em=$this->getDoctrine()->getManager();
+        $bid = new Bid();
+        $form=$this->createForm(BidType::class,$bid);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            $bid->setProject($project);
+            $em->persist($bid);
+            $em->flush();
+        }
+
+        return $this->render('@Project/Freelancer/singletask.html.twig',["project" => $project,"form"=>$form->createView()]);
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

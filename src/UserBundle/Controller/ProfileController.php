@@ -75,7 +75,7 @@ class ProfileController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        if (in_array("ROLE_FREELANCER", $user->getRoles()))
+        if (in_array("ROLE_EMPLOYER", $user->getRoles()))
         {
 
         }
@@ -83,14 +83,13 @@ class ProfileController extends BaseController
         {
             $form = $this->createForm(FreelancerType::class);
             $form->setData($user);
+            $em = $this->getDoctrine()->getManager();
 
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $event = new FormEvent($form, $request);
-
-                $this->userManager->updateUser($user);
-
+                $em->flush();
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_profile_show');
                     $response = new RedirectResponse($url);

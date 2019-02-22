@@ -11,4 +11,11 @@ place_bid:
     defaults: { _controller: BidBundle:Bid:placeBid }
 
 
+cancel_bid:
+    path:     /cancel
+    defaults: { _controller: BidBundle:Bid:canelBid }
 
+
+edit_bid:
+    path:     /edit
+    defaults: { _controller: BidBundle:Bid:editBid }

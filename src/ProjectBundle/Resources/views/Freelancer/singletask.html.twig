@@ -26,7 +26,7 @@
                         <div class="right-side">
                             <div class="salary-box">
                                 <div class="salary-type">Project Budget</div>
-                                <div class="salary-amount">$2,500 - $4,500</div>
+                                <div class="salary-amount">${{ project.minBudget }} - {{ project.maxBudget }}</div>
                             </div>
                         </div>
                     </div>
@@ -206,13 +206,14 @@
                         <div class="bidding-widget">
                             <div class="bidding-headline"><h3>Bid on this job!</h3></div>
                             <div class="bidding-inner">
+                                {{ form_start(form) }}
 
                                 <!-- Headline -->
                                 <span class="bidding-detail">Set your <strong>minimal rate</strong></span>
 
                                 <!-- Price Slider -->
                                 <div class="bidding-value">$<span id="biddingVal"></span></div>
-                                <input id="slide-range" class="bidding-slider" type="text" value="" data-slider-handle="custom" data-slider-currency="$" data-slider-min="2500" data-slider-max="4500" data-slider-value="auto" data-slider-step="50" data-slider-tooltip="hide" />
+                                {{ form_widget(form.minimalRate,{'attr':{'id':'slide-range','class':'bidding-slider','name':'qtyInput','data-slider-handle':'custom','data-slider-currency':'$','data-slider-min':project.minBudget ,'data-slider-max':project.maxBudget ,'data-slider-value':"auto" ,'data-slider-step':"1" ,'data-slider-tooltip':"hide" }}) }}
 
                                 <!-- Headline -->
                                 <span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
@@ -223,7 +224,7 @@
                                         <!-- Quantity Buttons -->
                                         <div class="qtyButtons">
                                             <div class="qtyDec"></div>
-                                            <input id="count-time" type="text" name="qtyInput" value="1">
+                                            {{ form_widget(form.deliveryTime,{'attr':{'id':'count-time','name':'qtyInput','value':'1'}}) }}
                                             <div class="qtyInc"></div>
                                         </div>
                                     </div>
@@ -237,6 +238,7 @@
 
                                 <!-- Button -->
                                 <button id="snackbar-place-bid placeBid" class="button ripple-effect move-on-hover full-width margin-top-30"><span>Place a Bid</span></button>
+                                {{ form_end(form) }}
 
                             </div>
                             <div class="bidding-signup">Don't have an account? <a href="#sign-in-dialog" class="register-tab sign-in popup-with-zoom-anim">Sign Up</a></div>
@@ -299,16 +301,11 @@
                     dataType:"json",
                     data:{"minimalRate":hourlyRate.val(),"deliveryTime":deliveryTime.val()},
 
-                    success:function() {
-                        Snackbar.show({
-                            text: 'Your bid has been placed!',
-                        });
-                    },
+                    success:function() {},
+
 
                     error: function (err) {
-                        Snackbar.show({
-                            text: 'Nope!',
-                        });
+
 
                     }
 

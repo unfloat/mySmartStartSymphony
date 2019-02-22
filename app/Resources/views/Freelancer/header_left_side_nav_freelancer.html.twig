@@ -10,14 +10,15 @@
     <nav id="navigation">
         <ul id="responsive">
 
-            <li><a href="{{ path('freelancer_home') }}">Home</a>
+            <li>
+                <a href="{{ path('freelancer_home') }}">Home</a>
             </li>
 
             <li><a href="{{ path('front_JobsList') }}">Find Work</a>
                 <ul class="dropdown-nav">
                     <li><a href="{{ path('front_JobsList') }}">Browse Jobs</a>
                     </li>
-                    <li><a href="{{ path('list_tasks') }}">Browse Tasks</a>
+                    <li><a href="{{ path('freelancer_projects') }}">Browse Tasks</a>
                     </li>
                     <li><a href="{{ path('front_browseCompanies') }}">Browse Companies</a></li>
                     <li><a href="{{ path('front_Job') }}">Job Page</a></li>

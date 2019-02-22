@@ -117,4 +117,3 @@ class Bid
         return $this->deliveryTime;
     }
 }
-

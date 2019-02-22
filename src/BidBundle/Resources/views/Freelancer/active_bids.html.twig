@@ -29,6 +29,8 @@
 
 			<div class="content">
 				<ul class="dashboard-box-list">
+
+					{% for bid in bids %}
 					<li>
 						<!-- Job Listing -->
 						<div class="job-listing width-adjustment">
@@ -38,102 +40,25 @@
 
 								<!-- Details -->
 								<div class="job-listing-description">
-									<h3 class="job-listing-title"><a href="#">WordPress Guru Needed</a></h3>
+									<h3 class="job-listing-title"><a href="#">{{ bid.project.projectName }}</a></h3>
 								</div>
 							</div>
 						</div>
 
 						<!-- Task Details -->
 						<ul class="dashboard-task-info">
-							<li><strong>$40</strong><span>Hourly Rate</span></li>
-							<li><strong>2 Days</strong><span>Delivery Time</span></li>
+							<li><strong>{{ bid.deliveryTime }}</strong><span>Delivery Time</span></li>
+							<li><strong>{{ bid.minimalRate }}</strong><span>Minimal Rate</span></li>
 						</ul>
 
 						<!-- Buttons -->
 						<div class="buttons-to-right always-visible">
-							<a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-							<a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-						</div>
-					</li>
-					<li>
-						<!-- Job Listing -->
-						<div class="job-listing width-adjustment">
-
-							<!-- Job Listing Details -->
-							<div class="job-listing-details">
-
-								<!-- Details -->
-								<div class="job-listing-description">
-									<h3 class="job-listing-title"><a href="#">Build me a website in Angular JS</a></h3>
-								</div>
-							</div>
-						</div>
-
-						<!-- Task Details -->
-						<ul class="dashboard-task-info">
-							<li><strong>$2,550</strong><span>Fixed price</span></li>
-							<li><strong>14 Days</strong><span>Delivery Time</span></li>
-						</ul>
-
-						<!-- Buttons -->
-						<div class="buttons-to-right always-visible">
-							<a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-							<a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-						</div>
-					</li>
-					<li>
-						<!-- Job Listing -->
-						<div class="job-listing width-adjustment">
-
-							<!-- Job Listing Details -->
-							<div class="job-listing-details">
-
-								<!-- Details -->
-								<div class="job-listing-description">
-									<h3 class="job-listing-title"><a href="#">Android and iOS React Appe</a></h3>
-								</div>
-							</div>
-						</div>
-
-						<!-- Task Details -->
-						<ul class="dashboard-task-info">
-							<li><strong>$3,000</strong><span>Fixed Price</span></li>
-							<li><strong>21 Days</strong><span>Delivery Time</span></li>
-						</ul>
-
-						<!-- Buttons -->
-						<div class="buttons-to-right always-visible">
-							<a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-							<a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-						</div>
-					</li>
-					<li>
-						<!-- Job Listing -->
-						<div class="job-listing width-adjustment">
-
-							<!-- Job Listing Details -->
-							<div class="job-listing-details">
-
-								<!-- Details -->
-								<div class="job-listing-description">
-									<h3 class="job-listing-title"><a href="#">Write Simple Python Script</a></h3>
-								</div>
-							</div>
-						</div>
-
-						<!-- Task Details -->
-						<ul class="dashboard-task-info">
-							<li><strong>$30</strong><span>Hourly Rate</span></li>
-							<li><strong>1 Day</strong><span>Delivery Time</span></li>
-						</ul>
-
-						<!-- Buttons -->
-						<div class="buttons-to-right always-visible">
-							<a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-							<a href="#" class="button red ripple-effect ico" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+							<a href="#small-dialog" data-id="{{ bid.id }}" class="edit-bid popup-with-zoom-anim button dark ripple-effect ico" title="Edit Bid" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+							<a href="" class="button red ripple-effect ico remove-bid" data-id="{{ bid.id }}" title="Cancel Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
 						</div>
 					</li>
 
+					{% endfor %}
 				</ul>
 			</div>
 		</div>
@@ -165,7 +90,7 @@
 
 						<!-- Price Slider -->
 						<div class="bidding-value">$<span id="biddingVal"></span></div>
-						<input class="bidding-slider" type="text" value="60" data-slider-handle="custom" data-slider-currency="$" data-slider-min="10" data-slider-max="60" data-slider-value="40" data-slider-step="1" data-slider-tooltip="hide" />
+						<input id="min" class="bidding-slider" type="text" value="60" data-slider-handle="custom" data-slider-currency="$" data-slider-min="10" data-slider-max="60" data-slider-value="40" data-slider-step="1" data-slider-tooltip="hide" />
 
 						<!-- Headline -->
 						<span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
@@ -176,7 +101,7 @@
 								<!-- Quantity Buttons -->
 								<div class="qtyButtons with-border">
 									<div class="qtyDec"></div>
-									<input type="text" name="qtyInput" value="">
+									<input id="delivery" type="number" name="qtyInput" value="">
 									<div class="qtyInc"></div>
 								</div>
 							</div>
@@ -188,9 +113,14 @@
 							</div>
 						</div>
 					</div>
+                        <div id="notif" class="notification notice closeable">
+                            <p id="message">All Fields Are Required.</p>
+                        </div>
+					<div>
+
 
 					<!-- Button -->
-					<button class="button full-width button-sliding-icon ripple-effect" type="submit">Save Changes <i class="icon-material-outline-arrow-right-alt"></i></button>
+					<button class="button full-width button-sliding-icon ripple-effect" id="saveChanges" type="submit">Save Changes <i class="icon-material-outline-arrow-right-alt"></i></button>
 
 				</div>
 
@@ -199,3 +129,79 @@
 	</div>
 	<!-- Edit Bid Popup / End -->
 {%  endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		function removeBid() {
+			$(document).ready(function () {
+				$(".remove-bid").on("click", function (event) {
+					event.preventDefault();
+					let bid = $(this);
+					let id = $(this).attr("data-id");
+					$.ajax({
+						type: "DELETE",
+						url: '{{ path('cancel_bid') }}',
+						dataType: "json",
+						data: {"id": id},
+						success: function (data) {
+							bid.closest("li").remove();
+						},
+						error: function (err) {
+						}
+
+					});
+				});
+			});
+		}
+		function editBid(){
+			$(document).ready(function(){
+			$(".edit-bid").on("click", function(event){
+
+			let id = $(this).attr("data-id");
+
+
+			$("#saveChanges").on("click", function(event){
+					let delivery=$('#delivery');
+					let min=$('#min');
+					let message=$('#message');
+					let notif=$('#notif');
+
+					event.preventDefault();
+					$.ajax({
+						url:'{{ path('edit_bid') }}',
+						dataType:"json",
+						data:{"min":min.val(),"delivery":delivery.val(),"id":id},
+
+						success: function(response) {
+							if (response.validate === true)
+								{
+									message.text(response.message);
+                        			notif.addClass("success").removeClass("notice");
+                        			window.location.href = response.redirect;
+								}
+							else
+								{
+									message.text(response.message);
+                        			notif.addClass("notice").removeClass("success");
+								}
+
+						},
+
+
+
+						error: function (err) {
+						console.log(err);
+
+						}
+
+					});
+				});
+			});
+	});
+		}
+
+		editBid();
+		removeBid();
+	</script>
+{% endblock %}

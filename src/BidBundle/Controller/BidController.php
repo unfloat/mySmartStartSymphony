@@ -16,9 +16,54 @@ class BidController extends Controller
      */
     public function bidsAction()
     {
-        //$this->denyAccessUnlessGranted('ROLE_EMPLOYER', null, 'Unable to access this page mthrfkn employer!');
-        return $this->render('BidBundle:Freelancer:active_bids.html.twig');
+        $bids= $this->getDoctrine()->getRepository(Bid::class)->findAll();
+
+
+        return $this->render('BidBundle:Freelancer:active_bids.html.twig',['bids'=>$bids]);
     }
+
+    public function canelBidAction(Request $request)
+    {
+
+        $id = $request->get("id");
+        $bid =  $this->getDoctrine()->getRepository(Bid::class)->find($id);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($bid);
+        $em->flush();
+
+        return new JsonResponse(["message" => 'Bid Deleted 🙂']);
+    }
+
+    public function editBidAction(Request $request)
+    {
+
+
+        $em = $this->getDoctrine();
+        $min = $request->get('min');
+        $deliveryTime = $request->get('delivery');
+        $id = $request->get("id");
+
+        if (intval($deliveryTime)<= 0){
+            return new JsonResponse(["message" => 'No', "validate" => false]);
+        }
+        else
+            {
+            $bid =  $this->getDoctrine()->getRepository(Bid::class)->find($id);
+            $bid->setDeliveryTime($deliveryTime);
+            $bid->setMinimalRate($min);
+
+            $em->getManager()->flush();
+
+            $url = $this->generateUrl('bids');
+            return new JsonResponse(["message" => 'Saved Successfully', "validate" => true, "redirect" => $url]);
+
+        }
+
+
+    }
+
 
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
@@ -39,27 +84,10 @@ class BidController extends Controller
     {
 
         //parameters from request
-        $minimalRate = $request->get('minimalRate');
-        $deliveryTime = $request->get('deliveryTime');
-        $id = $project->getId();
 
 
-        if ($request->isXmlHttpRequest()) {
-            //fields filled and request made
-            $bid = new Bid();
-            $bid->setMinimalRate($minimalRate);
-            $bid->setDeliveryTime($deliveryTime);
-            $bid->setProject($id);
-
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($bid);
-            $em->flush();
-
-            $url = $this->generateUrl('single_task');
-
-            return new JsonResponse(["message" => 'Bid placed :)', "validate" => true, "redirect" => $url]);
-        }
+            return new JsonResponse(["message" => 'Bid placed :)', "validate" => true]);
     }
+
 
 }

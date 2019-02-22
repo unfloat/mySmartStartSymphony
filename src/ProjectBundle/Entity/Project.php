@@ -70,6 +70,10 @@ class Project
      */
     private $projectDescription;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
+     */
+    private $bids;
 
     /**
      * Get id
@@ -248,5 +252,45 @@ class Project
     {
         return $this->projectDescription;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->bids = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add bid
+     *
+     * @param \BidBundle\Entity\Bid $bid
+     *
+     * @return Project
+     */
+    public function addBid(\BidBundle\Entity\Bid $bid)
+    {
+        $this->bids[] = $bid;
+
+        return $this;
+    }
+
+    /**
+     * Remove bid
+     *
+     * @param \BidBundle\Entity\Bid $bid
+     */
+    public function removeBid(\BidBundle\Entity\Bid $bid)
+    {
+        $this->bids->removeElement($bid);
+    }
+
+    /**
+     * Get bids
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBids()
+    {
+        return $this->bids;
+    }
+}
