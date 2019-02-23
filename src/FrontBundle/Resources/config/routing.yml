@@ -7,41 +7,15 @@ freelancer_home:
     path:     /welcome
     defaults: { _controller: FrontBundle:Pages:freelancerHome }
 
-front_browseCompanies:
-    path:     /companies
-    defaults: { _controller: FrontBundle:Pages:browse }
+find_freelancer:
+    path:     /search/freelancers
+    defaults: { _controller: FrontBundle:Pages:findFreelancer}
 
-front_Job:
-    path:     /job
-    defaults: { _controller: FrontBundle:Pages:job }
+find_employer:
+    path:     /search/companies
+    defaults: { _controller: FrontBundle:Pages:findCompany}
 
-front_Task:
-    path:     /task
-    defaults: { _controller: FrontBundle:Pages:task }
-
-front_Company:
-    path:     /company
-    defaults: { _controller: FrontBundle:Pages:company }
-
-front_TaskList:
-    path:     /tasks
-    defaults: { _controller: FrontBundle:Pages:taskList }
-
-front_JobsList:
-    path:     /jobs
-    defaults: { _controller: FrontBundle:Pages:jobList }
-
-
-
-
-
-front_FindFreelancer:
-    path:     /find
-    defaults: { _controller: FrontBundle:EmployerPages:findFreelancer }
-
-
-front_FreelancerProfile:
-    path:     /profile
-    defaults: { _controller: FrontBundle:Pages:freelancerProfile }
-
+company_profile:
+    path:     /search/companies/{id?}
+    defaults: { _controller: FrontBundle:Pages:companyProfile}
 

@@ -3,7 +3,7 @@ bids:
     defaults: { _controller: BidBundle:Bid:bids }
 
 bidders:
-    path:     /bidders
+    path:     /bidders/{id}
     defaults: { _controller: BidBundle:Bid:manageBidders }
 
 place_bid:

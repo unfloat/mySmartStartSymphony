@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <!--  find a way to add <body class="gray">-->
+
+
+    <div id="wrapper">
+
+        {% include 'Header/Freelancer/header_freelancer.html.twig' %}
+        <div class="clearfix"></div>
+
+        <div class="dashboard-container">
+
+            {% include 'Dashboard/Freelancer/sidebar.html.twig' %}
+            <div class="dashboard-content-container" data-simplebar>
+                <!-- Employer Content -->
+                <div class="dashboard-content-inner" >
+
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+                <!-- Row / End -->
+                {% include 'Dashboard/dashboard_footer.html.twig' %}
+
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+

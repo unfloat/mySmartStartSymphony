@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <!--  find a way to add <body class="gray">-->
+
+
+    <div id="wrapper">
+
+        {% include 'Header/Employer/header.html.twig' %}
+        <div class="clearfix"></div>
+
+        <div class="dashboard-container">
+
+
+            <div class="dashboard-content-container" data-simplebar>
+                <!-- Employer Content -->
+                <div class="dashboard-content-inner" >
+
+                    {% block homecontent %}
+
+                    {% endblock %}
+                </div>
+                <!-- Row / End -->
+                {% include 'Home/footer_home.html.twig' %}
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

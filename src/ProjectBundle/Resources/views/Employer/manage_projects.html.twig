@@ -1,12 +1,9 @@
-{% extends "layout.html.twig" %}
+{% extends "Dashboard/Employer/dashboard_layout.html.twig" %}
 
 {% block content %}
-<!-- Dashboard Content
-================================================== -->
-<div class="dashboard-content-container" data-simplebar>
-    <div class="dashboard-content-inner" >
+<!-- Employer Content-->
 
-        <!-- Dashboard Headline -->
+        <!-- Employer Headline -->
         <div class="dashboard-headline">
             <h3>Manage Tasks</h3>
 
@@ -23,7 +20,7 @@
         <!-- Row -->
         <div class="row">
 
-            <!-- Dashboard Box -->
+            <!-- Employer Box -->
             <div class="col-xl-12">
                 <div class="dashboard-box margin-top-0">
 
@@ -67,7 +64,7 @@
 
                                 <!-- Buttons -->
                                 <div class="buttons-to-right always-visible">
-                                    <a href="dashboard-manage-bidders.html" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">3</span></a>
+                                    <a href="{{ path('bidders',{'id':'1'}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">3</span></a>
                                     <a href="#" class="button gray ripple-effect ico" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
                                     <a href="#" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                                 </div>
@@ -102,8 +99,5 @@
         </div>
         <!-- Pagination / End -->
 
-    </div>
-</div>
-    </div>
 
 {% endblock %}

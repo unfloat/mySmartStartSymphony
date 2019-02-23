@@ -9,14 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/colors/blue.css') }}">
 </head>
 <body>
-<div>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-        <a href="{{ path('fos_user_security_logout') }}">
-            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-        </a>
-    {% endif %}
-</div>
+
 
 
 {% if app.request.hasPreviousSession %}
@@ -38,7 +31,7 @@
 
 {% endblock %}
 
-{% include 'footer/footer.html.twig' %}
+{% include 'footer/dashboard_footer.html.twig' %}
 
 </body>
 </html>

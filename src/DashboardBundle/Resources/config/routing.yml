@@ -8,6 +8,6 @@ employer_dashboard:
 
 new_note:
     path: /new/{note?}/{priority?}
-    defaults: { _controller: DashboardBundle:Dashboard:new }
+    defaults: { _controller: DashboardBundle:Employer:new }
 
 

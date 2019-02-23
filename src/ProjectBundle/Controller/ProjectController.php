@@ -34,17 +34,20 @@ class ProjectController extends Controller
 
     }
 
-    /**
-     * @Security("has_role('ROLE_EMPLOYER')")
-     */
 
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
     public function projectsAction()
     {
         $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
-        return $this->render('@Project/Employer/tasks.html.twig',["projects" => $projects]);
+        return $this->render('@Project/Freelancer/tasks.html.twig',["projects" => $projects]);
 
     }
 
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
 
     public function manage_projectsAction()
     {
@@ -53,6 +56,9 @@ class ProjectController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
 
     public function delete_manage_projectsAction($manage_project)
     {
@@ -63,6 +69,9 @@ class ProjectController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
     public function projectsListAction()
     {
         $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
@@ -71,11 +80,13 @@ class ProjectController extends Controller
     }
 
 
+
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
     public function singleProjectAction(Request $request,Project $project)
     {
+
         $em=$this->getDoctrine()->getManager();
         $bid = new Bid();
         $form=$this->createForm(BidType::class,$bid);
@@ -86,6 +97,7 @@ class ProjectController extends Controller
             $bid->setProject($project);
             $em->persist($bid);
             $em->flush();
+            return $this->redirectToRoute('freelancer_projects');
         }
 
         return $this->render('@Project/Freelancer/singletask.html.twig',["project" => $project,"form"=>$form->createView()]);

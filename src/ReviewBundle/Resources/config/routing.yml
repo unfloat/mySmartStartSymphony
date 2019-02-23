@@ -1,7 +1,39 @@
+review_homepage:
+    path:     /
+    defaults: { _controller: ReviewBundle:Default:index }
+
 rate_employer:
-    path:     /rate
+    path:     /rateEmployer
     defaults: { _controller: ReviewBundle:Review:rateEmployer }
 
 rate_freelancer:
-    path:     /rate
-    defaults: { _controller: ReviewBundle:Review:rateFreelancer }
+    path:     /rateFreelancer
+    defaults: { _controller: ReviewBundle:Review:afficheReview }
+
+add_Review:
+    path:     /afficheForm
+    defaults: { _controller: ReviewBundle:Review:addReview }
+
+affiche_Review:
+    path:     /afficheReview
+    defaults: { _controller: ReviewBundle:Review:afficheReview }
+
+update_Review:
+    path:     /updateReview/{id}
+    defaults: { _controller: ReviewBundle:Review:updateReview }
+
+delete_Review:
+    path:     /deleteReview/{id}
+    defaults: { _controller: ReviewBundle:Review:deleteReview }
+
+add_ReviewEmp:
+    path:     /afficheFormEmp
+    defaults: { _controller: ReviewBundle:Review:addReviewEmp }
+
+update_ReviewEmp:
+    path:     /updateReviewEmp/{id}
+    defaults: { _controller: ReviewBundle:Review:updateReviewEmp }
+
+delete_ReviewEmp:
+    path:     /deleteReviewEmp/{id}
+    defaults: { _controller: ReviewBundle:Review:deleteReviewEmp }

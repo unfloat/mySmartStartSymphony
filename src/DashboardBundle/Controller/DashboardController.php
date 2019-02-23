@@ -12,14 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 class DashboardController extends Controller
 
 {
-
-
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
     public function freelancerDashboardAction()
     {
-        return $this->render('DashboardBundle:Dashboard:freelancer_dashboard.html.twig');
+        return $this->render('DashboardBundle:Freelancer:dashboard.html.twig');
     }
 
     /**
@@ -27,7 +25,7 @@ class DashboardController extends Controller
      */
     public function employerDashboardAction()
     {
-        return $this->render('DashboardBundle:Dashboard:employer_dashboard.html.twig');
+        return $this->render('DashboardBundle:Employer:dashboard.html.twig');
     }
 
     /**

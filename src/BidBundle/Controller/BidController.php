@@ -22,6 +22,10 @@ class BidController extends Controller
         return $this->render('BidBundle:Freelancer:active_bids.html.twig',['bids'=>$bids]);
     }
 
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+
     public function canelBidAction(Request $request)
     {
 
@@ -35,6 +39,10 @@ class BidController extends Controller
 
         return new JsonResponse(["message" => 'Bid Deleted 🙂']);
     }
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
 
     public function editBidAction(Request $request)
     {
@@ -68,12 +76,9 @@ class BidController extends Controller
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
-    public function manageBiddersAction()
+    public function manageBiddersAction($id)
     {
         return $this->render('BidBundle:Employer:manage_bidders.html.twig');
-        //, array(
-        //            // ...
-        //        ));
     }
     /**
      * @Security("has_role('ROLE_FREELANCER')")

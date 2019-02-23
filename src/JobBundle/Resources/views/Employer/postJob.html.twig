@@ -1,7 +1,7 @@
-{% extends "layout.html.twig" %}
+{% extends "Dashboard/Employer/dashboard_layout.html.twig" %}
 
 {% block content %}
-<!-- Dashboard Headline -->
+<!-- Employer Headline -->
 <div class="dashboard-headline">
     <h3>Post a Job</h3>
 
@@ -18,7 +18,7 @@
 <!-- Row -->
 <div class="row">
 
-    <!-- Dashboard Box -->
+    <!-- Employer Box -->
     <div class="col-xl-12">
         <div class="dashboard-box margin-top-0">
 
@@ -29,6 +29,7 @@
 
             <div class="content with-padding padding-bottom-10">
                 <div class="row">
+                    {{ form_start (form)}}
 
                     <div class="col-xl-4">
                         <div class="submit-field">
@@ -127,6 +128,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form_group">
+                        <input type="submit"  value="post">
+                    </div>
+                    {{ form_end (form) }}
 
                 </div>
             </div>
