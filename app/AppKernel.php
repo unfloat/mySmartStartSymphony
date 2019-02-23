@@ -29,6 +29,8 @@ class AppKernel extends Kernel
             new BookmarkBundle\BookmarkBundle(),
             new DashboardBundle\DashboardBundle(),
             new BlogBundle\BlogBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

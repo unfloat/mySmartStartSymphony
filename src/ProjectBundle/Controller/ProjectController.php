@@ -74,17 +74,18 @@ class ProjectController extends Controller
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
-    public function projectsAction()
+    public function projectsAction(Request $request)
     {
         $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
-        return $this->render('@Project/Freelancer/tasks.html.twig',["projects" => $projects]);
+        $paginator= $this->get('knp_paginator');
+        $result=$paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 2)/*limit per page*/
+        );
+        return $this->render('@Project/Freelancer/tasks.html.twig',["projects" => $result]);
 
     }
-
-
-
-
-
 
 
 
