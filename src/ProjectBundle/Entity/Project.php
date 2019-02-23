@@ -66,7 +66,7 @@ class Project
     /**
      * @var string
      *
-     * @ORM\Column(name="projectDescription", type="string", length=255)
+     * @ORM\Column(name="projectDescription", type="text", length=255)
      */
     private $projectDescription;
 
@@ -74,6 +74,32 @@ class Project
      * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
      */
     private $bids;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="employerId", type="integer")
+     */
+    private $employerId;
+
+    /**
+     * @return int
+     */
+    public function getEmployerId()
+    {
+        return $this->employerId;
+    }
+
+    /**
+     * @param int $employerId
+     */
+    public function setEmployerId($employerId)
+    {
+        $this->employerId = $employerId;
+    }
+
+
+
 
     /**
      * Get id
