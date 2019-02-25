@@ -2,8 +2,13 @@
 
 namespace JobBundle\Controller;
 
+use JobBundle\Entity\Job;
+use JobBundle\Form\JobType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class JobController extends Controller
@@ -36,10 +41,10 @@ class JobController extends Controller
 
     public function postJobAction(Request $request)
     {
-        //$currentuser=$this->getUser();
-        //$id=$currentuser->getId();
+        $currentuser=$this->getUser();
+        $id=$currentuser->getId();
         $job = new Job();
-        // $job->setEmployerId($id);
+        $job->setEmployerId($id);
 
         $form = $this->createForm(JobType::class,$job);
         $form->handleRequest($request);
@@ -47,7 +52,7 @@ class JobController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($job);
             $em->flush();
-            return $this->redirectToRoute('manage_jobs');
+            return $this->redirectToRoute('manage');
         }
         return $this->render('@Job/Employer/postJob.html.twig', ['form' => $form->createView()]);
 
@@ -64,7 +69,7 @@ class JobController extends Controller
         $job=$em->getRepository(Job::class)->find($id);
         $em->remove($job);
         $em->flush();
-        return $this->redirectToRoute('manage_jobs');
+        return $this->redirectToRoute('manage');
     }
 
     /**
@@ -82,7 +87,7 @@ class JobController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($job);
             $em->flush();
-            return $this->redirect($this->generateUrl('manage_jobs'));
+            return $this->redirect($this->generateUrl('manage'));
         }
         return $this->render('@Job/Employer/postJob.html.twig',['form'=>$form->createView()]);
     }
@@ -92,7 +97,7 @@ class JobController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $job=$this->getDoctrine()->getRepository(job::class)->find($id);
-        return $this->redirectToRoute('manage_jobs');
+        return $this->redirectToRoute('manage');
 
     }
 
