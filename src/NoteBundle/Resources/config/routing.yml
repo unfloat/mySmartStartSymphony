@@ -2,3 +2,19 @@ note_homepage:
     path:     /
     defaults: { _controller: NoteBundle:Default:index }
 
+create_self_note:
+    path:     /create_self_note
+    defaults: { _controller: NoteBundle:Note:create_self_note }
+
+self_notes:
+    path:     /self_notes
+    defaults: { _controller: NoteBundle:Note:self_notes }
+
+delete_selfNote:
+    path:     /delete_selfNote/{id}
+    defaults: { _controller: NoteBundle:Note:delete_selfNote }
+
+update_self_note:
+    path:     /update_self_note/{id}
+    defaults: { _controller: NoteBundle:Note:update_self_note }
+
