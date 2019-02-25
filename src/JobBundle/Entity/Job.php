@@ -75,31 +75,16 @@ class Job
      *
      * @ORM\Column(name="tags", type="string", length=255)
      */
+
     private $tags;
 
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="job")
-     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer")
+     * @ORM\JoinColumn(name="employer_id",referencedColumnName="id")
      */
-    private $employer;
-
-    /**
-     * @return mixed
-     */
-    public function getEmployer()
-    {
-        return $this->employer;
-    }
-
-    /**
-     * @param mixed $employer
-     */
-    public function setEmployer($employer)
-    {
-        $this->employer = $employer;
-    }
+    private $employer_id;
 
 
     /**
@@ -303,5 +288,22 @@ class Job
     {
         return $this->tags;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEmployerId()
+    {
+        return $this->employer_id;
+    }
+
+    /**
+     * @param mixed $employer_id
+     */
+    public function setEmployerId($employer_id)
+    {
+        $this->employer_id = $employer_id;
+    }
+
 }
 

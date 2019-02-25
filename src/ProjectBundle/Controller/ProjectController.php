@@ -36,16 +36,6 @@ class ProjectController extends Controller
 
 
     /**
-     * @Security("has_role('ROLE_FREELANCER')")
-     */
-    public function projectsAction()
-    {
-        $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
-        return $this->render('@Project/Freelancer/tasks.html.twig',["projects" => $projects]);
-
-    }
-
-    /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
 
@@ -70,6 +60,53 @@ class ProjectController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+
+    public function update_manage_projectsAction(Request $request,Project $manage_project)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $form=$this->createForm(ProjectType::class,$manage_project);
+        $form=$form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('list_manage_projects');
+        }
+        return $this->render('@Project/Employer/post_project.html.twig', ["form" => $form->createView()]);
+
+
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function projectAction()
+    {
+        return $this->render('@Project/Freelancer/singletask.html.twig');
+
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function projectsAction(Request $request)
+    {
+        $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
+        $paginator= $this->get('knp_paginator');
+        $result=$paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 2)/*limit per page*/
+        );
+        return $this->render('@Project/Freelancer/tasks.html.twig',["projects" => $result]);
+
+    }
+
+
+
+    /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
     public function projectsListAction()
@@ -78,7 +115,6 @@ class ProjectController extends Controller
         return $this->render('@Project/Freelancer/taskslist.html.twig',["projects" => $projects]);
 
     }
-
 
 
     /**
@@ -103,6 +139,9 @@ class ProjectController extends Controller
         return $this->render('@Project/Freelancer/singletask.html.twig',["project" => $project,"form"=>$form->createView()]);
 
     }
+
+
+
 
 
 

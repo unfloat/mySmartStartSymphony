@@ -50,16 +50,14 @@ class Review
     private $comment;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="projectId", type="integer")
+     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Project")
+     * @ORM\JoinColumn(name="projectId",referencedColumnName="id")
      */
     private $projectId;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="freelancerId", type="integer")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Freelancer")
+     * @ORM\JoinColumn(name="freelancerId",referencedColumnName="id")
      */
     private $freelancerId;
 

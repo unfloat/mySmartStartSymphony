@@ -13,10 +13,10 @@ class JobType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('type')->add('category')->add('location')->add('minSalary')->add('maxSalary')->add('description')->add('tags');
+        $builder->add('title')->add('type')->add('category')->add('location')->add('minSalary')->add('maxSalary')->add('description')->add('tags')->add('employer_id');
     }/**
- * {@inheritdoc}
- */
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
