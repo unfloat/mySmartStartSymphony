@@ -80,19 +80,4 @@ class BidController extends Controller
     {
         return $this->render('BidBundle:Employer:manage_bidders.html.twig');
     }
-    /**
-     * @Security("has_role('ROLE_FREELANCER')")
-     */
-
-
-    public function placeBidAction(Request $request,Project $project)
-    {
-
-        //parameters from request
-
-
-            return new JsonResponse(["message" => 'Bid placed :)', "validate" => true]);
-    }
-
-
 }

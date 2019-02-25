@@ -78,6 +78,30 @@ class Job
     private $tags;
 
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="job")
+     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
+     */
+    private $employer;
+
+    /**
+     * @return mixed
+     */
+    public function getEmployer()
+    {
+        return $this->employer;
+    }
+
+    /**
+     * @param mixed $employer
+     */
+    public function setEmployer($employer)
+    {
+        $this->employer = $employer;
+    }
+
+
     /**
      * Get id
      *

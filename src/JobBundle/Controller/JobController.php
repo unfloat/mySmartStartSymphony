@@ -2,8 +2,11 @@
 
 namespace JobBundle\Controller;
 
+use JobBundle\Entity\Job;
+use JobBundle\Form\JobType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class JobController extends Controller
@@ -25,7 +28,7 @@ class JobController extends Controller
 
     public function manageJobsAction()
     {
-        $job=$this->getDoctrine()->getRepository(job::class)->findAll();
+        $job=$this->getDoctrine()->getRepository(Job::class)->findAll();
         return $this->render('@Job/Employer/showJob.html.twig',array('job'=>$job));
     }
 
@@ -36,10 +39,9 @@ class JobController extends Controller
 
     public function postJobAction(Request $request)
     {
-        //$currentuser=$this->getUser();
-        //$id=$currentuser->getId();
+        $currentuser=$this->getUser();
         $job = new Job();
-        // $job->setEmployerId($id);
+        $job->setEmployer($currentuser);
 
         $form = $this->createForm(JobType::class,$job);
         $form->handleRequest($request);
@@ -91,9 +93,30 @@ class JobController extends Controller
     public function displayJobAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $job=$this->getDoctrine()->getRepository(job::class)->find($id);
+        $job=$this->getDoctrine()->getRepository(Job::class)->find($id);
         return $this->redirectToRoute('manage_jobs');
 
+    }
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+
+    public function jobListAction()
+    {
+        $jobs = $this->getDoctrine()->getRepository(Job::class)->findAll();
+        return $this->render('@Job/Freelancer/jobsList.html.twig',['jobs'=>$jobs]);
+    }
+
+    /**
+     * @Security("has_role('FROLE_FREELANCER')")
+     * @param Job $job
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function jobPageAction(Job $job)
+    {
+        return $this->render('@Job/Freelancer/jobPage.html.twig',['job'=>$job]);
     }
 
 

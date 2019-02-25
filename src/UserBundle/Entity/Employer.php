@@ -41,6 +41,19 @@ class Employer extends User
 
 
     /**
+     * @ORM\OneToMany(targetEntity="BookmarkBundle\Entity\EmployersBookmark", mappedBy="bookmarkingEmployer")
+     */
+    private $bookmarks;
+
+
+
+
+
+
+
+
+
+    /**
      * Get id
      *
      * @return int

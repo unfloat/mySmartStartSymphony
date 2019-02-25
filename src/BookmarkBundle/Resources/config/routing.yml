@@ -1,11 +1,7 @@
-bookmark_homepage:
-    path:     /
-    defaults: { _controller: BookmarkBundle:Default:index }
-
 freelancer_bookmarks:
-    path:     /freelancerBookmarks
+    path:     /bookmarks
     defaults: { _controller: BookmarkBundle:Bookmark:freelancerBookmarks }
 
 employer_bookmarks:
-    path:     /employerBookmarks
+    path:     /bookmarked
     defaults: { _controller: BookmarkBundle:Bookmark:employerBookmarks }

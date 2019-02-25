@@ -3,11 +3,26 @@ manage_jobs:
     defaults: { _controller: JobBundle:Job:manageJobs }
 
 manage_candidates:
-    path:     /candidates
-    defaults: { _controller: JobBundle:Job:managecandidates }
+        path:     /candidates
+        defaults: { _controller: JobBundle:Job:managecandidates }
 
 post_job:
     path:     /post
-    defaults: { _controller: JobBundle:Job:managecandidates }
+    defaults: { _controller: JobBundle:Job:postJob }
 
 
+edit_job:
+    path:     /editJob/{id}
+    defaults: { _controller: JobBundle:Job:editJob }
+
+delete_job:
+    path:     /deleteJob/{id}
+    defaults: { _controller: JobBundle:Job:deleteJob }
+
+job_list:
+    path:     /list
+    defaults: { _controller: JobBundle:Job:jobList }
+
+job_page:
+    path:     /{id}
+    defaults: { _controller: JobBundle:Job:jobPage }

@@ -61,6 +61,11 @@ class Freelancer extends User
      */
     private $intro;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BookmarkBundle\Entity\FreelancersBookmark", mappedBy="bookmarkingFreelancer")
+     */
+    private $bookmarks;
+
 
     /**
      * Get id
