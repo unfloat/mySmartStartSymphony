@@ -36,6 +36,16 @@ class ProjectController extends Controller
 
 
     /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function projectsAction()
+    {
+        $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
+        return $this->render('@Project/Freelancer/tasks.html.twig',["projects" => $projects]);
+
+    }
+
+    /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
 
@@ -59,15 +69,13 @@ class ProjectController extends Controller
 
     }
 
-
-
     /**
      * @Security("has_role('ROLE_FREELANCER')")
      */
     public function projectsListAction()
     {
         $projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
-        return $this->render('@Project/Freelancer/taskslist.htmll.twig',["projects" => $projects]);
+        return $this->render('@Project/Freelancer/taskslist.html.twig',["projects" => $projects]);
 
     }
 
