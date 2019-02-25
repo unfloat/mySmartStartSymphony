@@ -6,13 +6,24 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Employer
- *
- * @ORM\Table(name="employer")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\EmployerRepository")
  */
 class Employer extends User
 {
+    public function __construct()
+    {
+        parent::__construct();
 
+    }
+
+    function loadFromParentObj( $parentObj )
+    {
+        $objValues = get_object_vars($parentObj); // return array of object values
+        foreach($objValues AS $key=>$value)
+        {
+            $this->$key = $value;
+        }
+    }
 
     /**
      * @var string

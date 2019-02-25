@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr" ,type="text")
+ * @ORM\DiscriminatorColumn(name="type" ,type="text")
  * @ORM\DiscriminatorMap({"user" = "User", "freelancer" = "Freelancer","employer" = "Employer"})
  * @ORM\Table(name="fos_user")
  */
@@ -23,10 +23,9 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        // your own logic
     }
 
-    private $type;
+    protected $type;
 
     /**
      * @return mixed

@@ -8,3 +8,8 @@ login:
 profile:
     path:     /profile/edit
     defaults: { _controller: UserBundle:Profile:edit }
+
+
+
+
+

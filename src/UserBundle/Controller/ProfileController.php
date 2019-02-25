@@ -6,12 +6,15 @@ use FOS\UserBundle\Controller\ProfileController as BaseController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use UserBundle\Entity\Freelancer;
 use UserBundle\Form\FreelancerType;
 use FOS\UserBundle\Model\UserManagerInterface;
 
@@ -19,8 +22,17 @@ use FOS\UserBundle\Model\UserManagerInterface;
 
 class ProfileController extends BaseController
 {
+
+    private $eventDispatcher;
+    private $formFactory;
     private $userManager;
 
+    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager)
+    {
+
+        parent::__construct($eventDispatcher,$formFactory,$userManager);
+
+    }
 
     /**
      * @Security("has_role('ROLE_FREELANCER')")
@@ -71,6 +83,7 @@ class ProfileController extends BaseController
     public function editAction(Request $request)
     {
         $user = $this->getUser();
+
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -81,7 +94,7 @@ class ProfileController extends BaseController
         }
         elseif ((in_array("ROLE_FREELANCER", $user->getRoles())))
         {
-            $form = $this->createForm(FreelancerType::class);
+            $form = $this->formFactory->createForm();
             $form->setData($user);
             $em = $this->getDoctrine()->getManager();
 
@@ -101,7 +114,7 @@ class ProfileController extends BaseController
             }
 
 
-            return $this->render('@User/Profile/edit.html.twig', array(
+            return $this->render('@User/Profile/Freelancer/edit_freelancer.html.twig', array(
                 'form' => $form->createView(),
             ));
 

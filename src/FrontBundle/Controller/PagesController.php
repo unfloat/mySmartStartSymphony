@@ -4,6 +4,8 @@ namespace FrontBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use UserBundle\Entity\Freelancer;
+use UserBundle\Entity\User;
 
 
 class PagesController extends Controller
@@ -25,13 +27,23 @@ class PagesController extends Controller
     }
 
 
+
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+    public function findFreelancerAction()
+    {
+        $freelancers = $this->getDoctrine()->getRepository(Freelancer::class)->findAll();
+        return $this->render('@Front/Employer/findFreelancer.html.twig', array("freelancers"=>$freelancers));
+    }
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
 
-    public function findFreelancerAction()
+    public function freelancerProfileAction(Freelancer $freelancer)
     {
-        return $this->render('@Front/Employer/findFreelancer.html.twig');
+
+        return $this->render('@Front/Employer/freelancerProfile.html.twig', array("freelancer"=>$freelancer));
     }
 
 
@@ -40,6 +52,7 @@ class PagesController extends Controller
      */
     public function findCompanyAction()
     {
+
         return $this->render('@Front/Freelancer/browseCompanies.html.twig');
     }
 
@@ -53,6 +66,15 @@ class PagesController extends Controller
         return $this->render('@Front/Freelancer/companyProfile.html.twig');
     }
 
+    public function jobListAction()
+    {
+        return $this->render('@Front/Freelancer/jobList.html.twig');
+    }
+
+    public function jobPageAction()
+    {
+        return $this->render('@Front/Freelancer/jobPage.html.twig');
+    }
 
 
 

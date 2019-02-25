@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new UserBundle\UserBundle(),
             new ProjectBundle\ProjectBundle(),
             new ReviewBundle\ReviewBundle(),
-            new OfferBundle\OfferBundle(),
             new BidBundle\BidBundle(),
             new NoteBundle\NoteBundle(),
             new JobBundle\JobBundle(),

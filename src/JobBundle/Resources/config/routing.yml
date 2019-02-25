@@ -10,10 +10,4 @@ post_job:
     path:     /post
     defaults: { _controller: JobBundle:Job:managecandidates }
 
-job_list:
-    path:     /list
-    defaults: { _controller: JobBundle:Job:jobList }
 
-job_page:
-    path:     /{id?}
-    defaults: { _controller: JobBundle:Job:job }

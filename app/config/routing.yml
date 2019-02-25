@@ -22,10 +22,6 @@ bid:
     resource: "@BidBundle/Resources/config/routing.yml"
     prefix:   /bid
 
-offer:
-    resource: "@OfferBundle/Resources/config/routing.yml"
-    prefix:   /offer
-
 review:
     resource: "@ReviewBundle/Resources/config/routing.yml"
     prefix:   /review

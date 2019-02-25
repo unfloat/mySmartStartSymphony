@@ -75,28 +75,7 @@ class Project
      */
     private $bids;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="employerId", type="integer")
-     */
-    private $employerId;
 
-    /**
-     * @return int
-     */
-    public function getEmployerId()
-    {
-        return $this->employerId;
-    }
-
-    /**
-     * @param int $employerId
-     */
-    public function setEmployerId($employerId)
-    {
-        $this->employerId = $employerId;
-    }
 
 
 

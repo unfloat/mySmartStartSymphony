@@ -6,7 +6,6 @@ imports:
     - { resource: "@UserBundle/Resources/config/services.yml" }
     - { resource: "@ProjectBundle/Resources/config/services.yml" }
     - { resource: "@ReviewBundle/Resources/config/services.yml" }
-    - { resource: "@OfferBundle/Resources/config/services.yml" }
     - { resource: "@BidBundle/Resources/config/services.yml" }
     - { resource: "@NoteBundle/Resources/config/services.yml" }
     - { resource: "@JobBundle/Resources/config/services.yml" }

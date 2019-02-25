@@ -3,23 +3,28 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * Freelancer
- *
- * @ORM\Table(name="freelancer")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\FreelancerRepository")
  */
-class Freelancer
+class Freelancer extends User
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    function loadFromParentObj( $parentObj )
+    {
+        $objValues = get_object_vars($parentObj);
+        foreach($objValues AS $key=>$value)
+        {
+            $this->$key = $value;
+        }
+    }
+
 
     /**
      * @var string

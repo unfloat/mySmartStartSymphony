@@ -4,7 +4,7 @@ create_task:
 
 list_projects:
     path:     /projects
-    defaults: { _controller: ProjectBundle:Project:projects }
+    defaults: { _controller: ProjectBundle:Project:projectsList }
 
 list_manage_projects:
     path:     /manage_projects

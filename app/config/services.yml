@@ -34,20 +34,19 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
-    user.registration_listener:
-        class: UserBundle\EventListener\RegistrationListener
-        arguments: []
-        tags:
-            - { name: kernel.event_subscriber }
-
-    user.registration_completed_listener:
-        class: UserBundle\EventListener\RegistrationCompletedListener
-        arguments:
-            - "@router"
-        tags:
-            - { name: kernel.event_subscriber }
-
     user.form.profile:
         class: UserBundle\Form\FreelancerType
         tags:
             - { name: form.type, alias: userbundle_freelancer }
+
+
+    user.registration_completed:
+        class: UserBundle\EventListener\RegistrationCompletedListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    user.registration_success:
+        class: UserBundle\EventListener\RegistrationListener
+        tags:
+            - { name: kernel.event_subscriber }

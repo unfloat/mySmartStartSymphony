@@ -1,3 +1,0 @@
-offer_homepage:
-    path:     /
-    defaults: { _controller: OfferBundle:Default:index }
