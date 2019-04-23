@@ -8,7 +8,7 @@ bidders:
 
 place_bid:
     path:     /place/{deliveryTime?}/{hourlyRate?}
-    defaults: { _controller: BidBundle:Bid:placeBid }
+    defaults: { _controller: pl }
 
 
 cancel_bid:
@@ -19,3 +19,7 @@ cancel_bid:
 edit_bid:
     path:     /edit
     defaults: { _controller: BidBundle:Bid:editBid }
+
+accept_offer:
+    path:     /accept/{id}/{projectid}
+    defaults: { _controller: BidBundle:Bid:acceptBid }

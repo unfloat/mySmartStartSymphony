@@ -32,7 +32,7 @@
                     <div class="content">
                         <ul class="dashboard-box-list">
                             <li>
-                                {% for mp in manage_projects %}
+                                {% for project in projects %}
                                 <!-- Job Listing -->
                                 <div class="job-listing width-adjustment">
 
@@ -42,7 +42,7 @@
 
                                         <!-- Details -->
                                         <div class="job-listing-description">
-                                            <h3 class="job-listing-title"><a href="#">{{ mp.projectName }}</a> <span class="dashboard-status-button yellow">Expiring</span></h3>
+                                            <h3 class="job-listing-title"><a href="{{ path('update_project',{'id':project.id   }) }}">{{ project.projectName }}</a> <span class="dashboard-status-button yellow">Expiring</span></h3>
 
                                             <!-- Job Listing Footer -->
                                             <div class="job-listing-footer">
@@ -54,19 +54,20 @@
                                     </div>
 
                                 </div>
-/home/olfa/lampstack-7.1.24-0/apache2/htdocs/FooBar
                                 <!-- Task Details -->
                                 <ul class="dashboard-task-info">
-                                    <li><strong>3</strong><span>Bids</span></li>
-                                    <li><strong>$22</strong><span>Avg. Bid</span></li>
-                                    <li><strong>$15 - $30</strong><span>Hourly Rate</span></li>
+                                    <li><strong>{{ count[project.id]['numberOfBids'] }}</strong><span>Bids</span></li>
+                                    <li><strong>${{ count[project.id]['average'] }}</strong><span>Avg. Bid</span></li>
+                                    <li><strong>{{ count[project.id]['minDeliveryTime'] }}</strong><span>Delivery Time</span></li>
                                 </ul>
 
                                 <!-- Buttons -->
                                 <div class="buttons-to-right always-visible">
-                                    <a href="{{ path('bidders',{'id':'1'}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">3</span></a>
-                                    <a href="{{ path('update_manage_projects', {'id': mp.id}) }}" class="button gray ripple-effect ico" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                    <a href="{{ path('delete_manage_projects', {'id': mp.id}) }}" class="button gray ripple-effect ico" data-tippy-placement="top" title="Remove Project"><i class="icon-feather-trash-2"></i></a>
+                                    {% if count[project.id]['numberOfBids'] > 0 %}
+                                        <a href="{{ path('bidders',{'id': project.id}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">{{ count[project.id]['numberOfBids'] }}</span></a>
+                                    {% endif %}
+                                    <a href="{{ path('update_project', {'id': project.id}) }}" class="button gray ripple-effect ico" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                    <a href="{{ path('delete_project', {'id': project.id}) }}" class="button gray ripple-effect ico" data-tippy-placement="top" title="Remove Project"><i class="icon-feather-trash-2"></i></a>
                                 </div>
                                 {% endfor %}
                             </li>

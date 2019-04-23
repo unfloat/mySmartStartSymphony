@@ -1,0 +1,89 @@
+{% extends "Home/Employer/home_layout.html.twig" %}
+{% block homecontent %}
+
+    <div class="single-page-header freelancer-header" data-background-image="{{ asset('images/single-freelancer.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-page-header-inner">
+                        <div class="left-side">
+                            <div class="header-image freelancer-avatar"><img src="{{ asset('images/user-avatar-big-02.jpg') }}" alt=""></div>
+                            <div class="header-details">
+                                <h3>David Peterson <span>iOS Expert + Node Dev</span></h3>
+                                <ul>
+                                    <li><div class="star-rating" data-rating="5.0"></div></li>
+                                    <li><img class="flag" src="{{ asset('images/flags/de.svg') }}" alt=""> Germany</li>
+                                    <li><div class="verified-badge-with-title">{{ offer.status }}</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Content
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="col-xl-8 col-lg-8 content-right-offset">
+
+                <!-- Description -->
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">Offer Description</h3>
+                    <p>{{ offer.description }}</p>
+                </div>
+
+                <!-- Atachments -->
+                <div class="single-page-section">
+                    <h3>Type</h3>
+                    <div class="attachments-container">
+                        <p>{{ offer.type }}</p>
+                    </div>
+                </div>
+                <!-- Salary -->
+                <div class="single-page-section">
+                    <h3>Salary</h3>
+                    <div class="salary-box">
+                        <div class="salary-amount">{{ offer.priceMin }}$ - {{ offer.priceMax }}$</div>
+                    </div>
+                </div>
+
+
+                <!-- Skills -->
+
+                <div class="single-page-section">
+                    <h3>Skills Required</h3>
+                    {% for s in skills %}
+                    <div class="task-tags">
+                        <span>{{ s.name }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="clearfix"></div>
+
+
+                <div class="clearfix"></div>
+
+                <!-- Freelancers Bidding -->
+
+
+            </div>
+
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-lg-4">
+                <div class="sidebar-container">
+
+                    <div class="countdown green margin-bottom-35">{% if (offer.dateCreation) %}{{ offer.dateCreation|date("m/d/Y") }} {% endif %}</div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

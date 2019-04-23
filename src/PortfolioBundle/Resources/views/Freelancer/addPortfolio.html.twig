@@ -1,0 +1,30 @@
+{% extends "Dashboard/Freelancer/dashboard_layout.html.twig" %}
+
+{% block content %}
+
+    <h3><i class="icon-feather-folder-plus"></i> Portfolio Form</h3>
+    <br>
+    <br>
+
+    {{ form_start (form)}}
+    {{ form_label(form.description, 'Description:') }}
+    {{ form_widget(form.description) }}
+    <br>
+    {{ form_label(form.previousExperiences, 'Previous Experiences:') }}
+    {{ form_widget(form.previousExperiences) }}
+    <br>
+    {{ form_label(form.skills, 'Skills:') }}
+    {{ form_widget(form.skills) }}
+    <br>
+    {{ form_label(form.devisFile, 'Attachement File:') }}
+    {{ form_widget(form.devisFile) }}
+    <br>
+
+    <div class="form_group">
+        <input type="submit"  value="post">
+    </div>
+    {{ form_end (form) }}
+
+
+
+{% endblock %}

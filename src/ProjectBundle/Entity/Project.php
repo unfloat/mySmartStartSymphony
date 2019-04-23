@@ -3,14 +3,18 @@
 namespace ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mgilet\NotificationBundle\Annotation\Notifiable;
+use Mgilet\NotificationBundle\NotifiableInterface;
 
 /**
  * Project
  *
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="ProjectBundle\Repository\ProjectRepository")
+ * @Notifiable(name="project")
+
  */
-class Project
+class Project implements NotifiableInterface
 {
     /**
      * @var int
@@ -22,18 +26,14 @@ class Project
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="projectName", type="string", length=255)
-     */
+ * @var string
+ *
+ * @ORM\Column(name="projectName", type="string", length=255)
+ */
+
+
     private $projectName;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="projectCategory", type="string", length=255)
-     */
-    private $projectCategory;
 
     /**
      * @var string
@@ -56,12 +56,6 @@ class Project
      */
     private $maxBudget;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="projectSkill", type="string", length=255)
-     */
-    private $projectSkill;
 
     /**
      * @var string
@@ -73,13 +67,68 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
      */
-    private $bids;
+    private $projectBids;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BookmarkBundle\Entity\Bookmark", mappedBy="project")
+     */
+    private $projectBookmarks;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer")
+     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
+     */
+    private $employer;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publishingDate", type="date")
+     */
+
+    private $publishingDate;
+
+    /**
+     * @return string
+     */
+    public function getPublishingDate()
+    {
+        return $this->publishingDate;
+    }
+
+    /**
+     * @param string $publishingDate
+     */
+    public function setPublishingDate($publishingDate)
+    {
+        $this->publishingDate = $publishingDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValidityPeriod()
+    {
+        return $this->validityPeriod;
+    }
+
+    /**
+     * @param string $validityPeriod
+     */
+    public function setValidityPeriod($validityPeriod)
+    {
+        $this->validityPeriod = $validityPeriod;
+    }
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="validityPeriod", type="date")
+     */
 
-
+    private $validityPeriod;
     /**
      * Get id
      *
@@ -114,29 +163,6 @@ class Project
         return $this->projectName;
     }
 
-    /**
-     * Set projectCategory
-     *
-     * @param string $projectCategory
-     *
-     * @return Project
-     */
-    public function setProjectCategory($projectCategory)
-    {
-        $this->projectCategory = $projectCategory;
-
-        return $this;
-    }
-
-    /**
-     * Get projectCategory
-     *
-     * @return string
-     */
-    public function getProjectCategory()
-    {
-        return $this->projectCategory;
-    }
 
     /**
      * Set projectLocation
@@ -210,29 +236,8 @@ class Project
         return $this->maxBudget;
     }
 
-    /**
-     * Set projectSkill
-     *
-     * @param string $projectSkill
-     *
-     * @return Project
-     */
-    public function setProjectSkill($projectSkill)
-    {
-        $this->projectSkill = $projectSkill;
 
-        return $this;
-    }
 
-    /**
-     * Get projectSkill
-     *
-     * @return string
-     */
-    public function getProjectSkill()
-    {
-        return $this->projectSkill;
-    }
 
     /**
      * Set projectDescription
@@ -257,45 +262,104 @@ class Project
     {
         return $this->projectDescription;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->bids = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
-     * Add bid
+     * Set employer
      *
-     * @param \BidBundle\Entity\Bid $bid
+     * @param \UserBundle\Entity\Employer $employer
      *
      * @return Project
      */
-    public function addBid(\BidBundle\Entity\Bid $bid)
+    public function setEmployer(\UserBundle\Entity\Employer $employer = null)
     {
-        $this->bids[] = $bid;
+        $this->employer = $employer;
 
         return $this;
     }
 
     /**
-     * Remove bid
+     * Get employer
      *
-     * @param \BidBundle\Entity\Bid $bid
+     * @return \UserBundle\Entity\Employer
      */
-    public function removeBid(\BidBundle\Entity\Bid $bid)
+    public function getEmployer()
     {
-        $this->bids->removeElement($bid);
+        return $this->employer;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->projectBids = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get bids
+     * Add projectBid
+     *
+     * @param \BidBundle\Entity\Bid $projectBid
+     *
+     * @return Project
+     */
+    public function addProjectBid(\BidBundle\Entity\Bid $projectBid)
+    {
+        $this->projectBids[] = $projectBid;
+
+        return $this;
+    }
+
+    /**
+     * Remove projectBid
+     *
+     * @param \BidBundle\Entity\Bid $projectBid
+     */
+    public function removeProjectBid(\BidBundle\Entity\Bid $projectBid)
+    {
+        $this->projectBids->removeElement($projectBid);
+    }
+
+    /**
+     * Get projectBids
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBids()
+    public function getProjectBids()
     {
-        return $this->bids;
+        return $this->projectBids;
+    }
+
+    /**
+     * Add projectBookmark
+     *
+     * @param \BookmarkBundle\Entity\Bookmark $projectBookmark
+     *
+     * @return Project
+     */
+    public function addProjectBookmark(\BookmarkBundle\Entity\Bookmark $projectBookmark)
+    {
+        $this->projectBookmarks[] = $projectBookmark;
+
+        return $this;
+    }
+
+    /**
+     * Remove projectBookmark
+     *
+     * @param \BookmarkBundle\Entity\Bookmark $projectBookmark
+     */
+    public function removeProjectBookmark(\BookmarkBundle\Entity\Bookmark $projectBookmark)
+    {
+        $this->projectBookmarks->removeElement($projectBookmark);
+    }
+
+    /**
+     * Get projectBookmarks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProjectBookmarks()
+    {
+        return $this->projectBookmarks;
     }
 }

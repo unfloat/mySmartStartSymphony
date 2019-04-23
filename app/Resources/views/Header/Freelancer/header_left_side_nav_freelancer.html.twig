@@ -8,33 +8,13 @@
 
     <!-- Main Navigation -->
     <nav id="navigation">
-        <ul id="responsive">
-
-            <li>
-                <a href="{{ path('freelancer_home') }}">Home</a>
-            </li>
-
-            <li><a href="{{ path('freelancer_projects') }}">Find Work</a>
-                <ul class="dropdown-nav">
-                    <li><a href="{{ path('job_list') }}">Browse Jobs</a></li>
-                    <li><a href="{{ path('list_projects') }}">Browse Tasks</a></li>
+        <ul>
+                    <li><a href="{{ path('job_search') }}">Browse Jobs</a></li>
+                    <li><a href="{{ path('listprojects') }}">Browse Projects</a></li>
                     <li><a href="{{ path('find_employer') }}">Browse Companies</a></li>
-                </ul>
-            </li>
 
 
-            <li><a href="#" class="current">Dashboard</a>
-                <ul class="dropdown-nav">
-                    <li><a href="{{ path('freelancer_dashboard') }}">Dashboard</a></li>
-                    <li><a href="dashboard-messages.html">Messages</a></li>
-                    <li><a href="{{ path('freelancer_bookmarks') }}">Bookmarks</a></li>
-                    <li><a href="{{ path('rate_employer') }}">Reviews</a></li>
-
-                    <li><a href="{{ path('bids') }}">Bids</a>
-                    <li><a href="{{ path('bids') }}">My Active Bids</a></li>
-                    <li><a href="dashboard-settings.html">Settings</a></li>
-                </ul>
-            </li>
+            <li><a href="{{ path('freelancer_dashboard') }}" class="current">Dashboard</a></li>
 
 
         </ul>

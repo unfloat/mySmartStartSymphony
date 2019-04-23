@@ -1,0 +1,17 @@
+<form method="get" action="{{ action }}" enctype="application/x-www-form-urlencoded">
+    {% for field, label in fields %}
+    <select style="display: none;" name="{{ filterFieldName }}">
+
+            <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
+
+    </select>
+
+
+    <input style="display: none;"  type="text" class="hidden" value="{% if label == "Accepted Offers" %}accepted{% else %}rejected{% endif %}"
+           name="{{ filterValueName }}" />
+
+    <button class="btn btn-primary">
+       {{ label }}
+    </button>
+    {% endfor %}
+</form>

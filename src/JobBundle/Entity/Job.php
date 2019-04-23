@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="job")
  * @ORM\Entity(repositoryClass="JobBundle\Repository\JobRepository")
+
  */
 class Job
 {
@@ -31,16 +32,10 @@ class Job
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(name="type", type="string", columnDefinition="enum('FullTime', 'PartTime', 'Internship', 'Temporary')")
      */
     private $type;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=255)
-     */
-    private $category;
 
     /**
      * @var string
@@ -75,16 +70,44 @@ class Job
      *
      * @ORM\Column(name="tags", type="string", length=255)
      */
-
     private $tags;
 
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer")
-     * @ORM\JoinColumn(name="employer_id",referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="job")
+     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
      */
-    private $employer_id;
+    private $employer;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="OfferBundle\Entity\Category", inversedBy="job")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+
+
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getEmployer()
+    {
+        return $this->employer;
+    }
+
+    /**
+     * @param mixed $employer
+     */
+    public function setEmployer($employer)
+    {
+        $this->employer = $employer;
+    }
 
 
     /**
@@ -122,22 +145,6 @@ class Job
     }
 
     /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Job
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
      * @return string
      */
     public function getType()
@@ -146,28 +153,30 @@ class Job
     }
 
     /**
-     * Set category
-     *
-     * @param string $category
-     *
-     * @return Job
+     * @param string $type
      */
-    public function setCategory($category)
+    public function setType($type)
     {
-        $this->category = $category;
-
-        return $this;
+        $this->type = $type;
     }
 
     /**
-     * Get category
-     *
-     * @return string
+     * @return mixed
      */
     public function getCategory()
     {
         return $this->category;
     }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+
 
     /**
      * Set location
@@ -288,22 +297,5 @@ class Job
     {
         return $this->tags;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getEmployerId()
-    {
-        return $this->employer_id;
-    }
-
-    /**
-     * @param mixed $employer_id
-     */
-    public function setEmployerId($employer_id)
-    {
-        $this->employer_id = $employer_id;
-    }
-
 }
 

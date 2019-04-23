@@ -1,0 +1,7 @@
+<a {% for attr, value in options %}
+{% if attr == "class" %}
+{{ attr }}="dropdown-item"
+{% else %}
+{{ attr }}="{{ value }}"
+{% endif %}
+{% endfor %}>{{ title }}</a>

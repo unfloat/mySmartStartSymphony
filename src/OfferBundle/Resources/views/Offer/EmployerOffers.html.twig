@@ -1,0 +1,128 @@
+{% extends "Home/Employer/home_layout.html.twig" %}
+{% block homecontent %}
+
+
+
+    <!-- Spacer -->
+    <div class="margin-top-90"></div>
+    <!-- Spacer / End-->
+    <!-- Page Content
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-xl-9 col-lg-8 content-left-offset">
+
+
+                <div class="alert alert-danger" role="alert">
+                    Hey! you have <a href="#" class="alert-link">{{ waitingOffers }}  Offers</a> waiting...
+                </div>
+
+
+
+                <h3 class="page-title">Search Results</h3>
+
+                <div class="notify-box margin-top-15">
+                    <div class="switch-container">
+                        <nav class="navbar navbar-light bg-light">
+                            <form class="form-inline" method="POST">
+                                <input class="form-control mr-sm-2" name="SearchName" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </nav>
+                    </div>
+                    <a href="{{ path('offer_History') }}" class="btn btn-outline-warning"><i class="icon-material-outline-supervisor-account"></i> History </a>
+
+
+                    <div class="sort-by">
+
+
+                    </div>
+                    <div class="sort-by">
+                        <div class="dropdown show">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" >
+                                Sort By :
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                {{ knp_pagination_sortable(offers,'Newest','o.dateCreation') }}
+                                {{ knp_pagination_sortable(offers,'Minimum Salary','o.priceMin') }}
+                                {{ knp_pagination_sortable(offers,'Maximum Salary','o.priceMax') }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Freelancers List Container -->
+                <!-- Row -->
+                <div class="row">
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-business-center"></i> My Offers</h3>
+
+                            </div>
+
+                            <div class="content">
+                                <ul class="dashboard-box-list">
+                                    {% for lo in offers %}
+
+                                        <li>
+                                            <!-- Job Listing -->
+                                            <div class="job-listing">
+
+                                                <!-- Job Listing Details -->
+                                                <div class="job-listing-details">
+
+                                                    <!-- Details -->
+                                                    <div class="job-listing-description">
+                                                        <h3 class="job-listing-title"><a href="#">{{ lo.name }}</a> <span class="dashboard-status-button yellow"></span></h3>
+                                                        <h3 class="job-listing-title"><a href="#">{{ lo.type }}</a> <span class="dashboard-status-button yellow"></span></h3>
+
+                                                        <!-- Job Listing Footer -->
+                                                        <div class="job-listing-footer">
+                                                            <ul>
+
+                                                                <li><i class="price">{{ lo.priceMin }}</i>$ </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Buttons -->
+                                            <div class="buttons-to-right always-visible">
+                                                <a href="{{ path('offer_readOne',{'id': lo.id}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Consult Offer </a>
+                                                <a href="{{ path('offer_delete',{'id':lo.id}) }}" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                            </div>
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Row / End -->
+                <!-- Freelancers Container / End -->
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <center>{{ knp_pagination_render(offers) }}</center>
+                </div>
+                <!-- Pagination / End -->
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

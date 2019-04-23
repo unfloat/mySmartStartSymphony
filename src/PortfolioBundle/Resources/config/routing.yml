@@ -1,0 +1,17 @@
+portfolio_homepage:
+    path:     /
+    defaults: { _controller: PortfolioBundle:Default:index }
+
+
+
+add_portfolio:
+    path:     /add
+    defaults: { _controller: DashboardBundle:Dashboard:freelancerDashboard }
+
+
+
+edit_portfolio:
+    path:     /edit/{id}
+    defaults: { _controller: PortfolioBundle:Portfolio:editPortfolio }
+
+

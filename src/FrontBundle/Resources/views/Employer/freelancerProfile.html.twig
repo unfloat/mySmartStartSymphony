@@ -10,7 +10,7 @@
                     <div class="left-side">
                         <div class="header-image freelancer-avatar"><img src="{{ asset('images/user-avatar-big-02.jpg') }}" alt=""></div>
                         <div class="header-details">
-                            <h3>David Peterson <span>iOS Expert + Node Dev</span></h3>
+                            <h3>{{ freelancer.username }} <span>iOS Expert + Node Dev</span></h3>
                             <ul>
                                 <li><div class="star-rating" data-rating="5.0"></div></li>
                                 <li><img class="flag" src="{{ asset('images/flags/de.svg') }}" alt=""> Germany</li>
@@ -175,6 +175,65 @@
 
         </div>
 
+        <!-- Boxed List -->
+        <div class="boxed-list margin-bottom-60">
+            <div class="boxed-list-headline">
+                <h3><i class="icon-material-outline-thumb-up"></i> Work History and Feedback</h3>
+            </div>
+            <ul class="boxed-list-ul">
+                {% for r in review %}
+
+                    <li>
+                        <div>
+                            <div class="boxed-list-item">
+                                <!-- Content -->
+                                <div class="item-content">
+                                    <h4> {{ r.projectId.projectName }}</h4>
+                                    <div> Reviewed By:   {{ r.employerReviewerId.companyName }}</div>
+                                    <div class="item-details margin-top-10">
+                                        <div class="star-rating" data-rating="{{ r.rating }}">  </div>
+
+                                    </div>
+                                    <div> {{ r.comment|raw }} </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </li>
+
+                {% endfor %}
+            </ul>
+
+
+        </div>
+        <!-- Boxed List / End -->
+
+        <!-- Boxed List -->
+        <div class="boxed-list margin-bottom-60">
+            <div class="boxed-list-headline">
+                <h3><i class="icon-material-outline-business"></i> Employment History</h3>
+            </div>
+            <ul class="boxed-list-ul">
+                {% for r in review %}
+                    <li>
+                        <div class="boxed-list-item">
+                            <!-- Avatar -->
+
+                            <!-- Content -->
+                            <div class="item-content">
+                                <h4>{{ r.projectId.projectName }}</h4>
+                                <div class="item-details margin-top-7">
+                                    <div class="detail-item"><a href="#"><i class="icon-material-outline-business"></i>  {{ r.employerReviewerId.companyName }}</a></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Boxed List / End -->
+
 
         <!-- Sidebar -->
         <div class="col-xl-4 col-lg-4">
@@ -261,13 +320,118 @@
                         <a href="#" class="attachment-box ripple-effect"><span>Contract</span><i>DOCX</i></a>
                     </div>
                 </div>
+                <!-- Portfolio Box -->
+                <div class="dashboard-box main-box-in-row">
+                    <div class="headline">
+                        <h3><i class="icon-feather-file-text"> </i> Portfolio</h3>
 
+                    </div>
+                    <br>
+                    <div class="content">
+                        <!-- Chart -->
+                        <!-- Accordion -->
+                        <div class="accordion js-accordion col-xl-auto">
+
+                            <!-- Accordion Item -->
+                            <div class="accordion__item js-accordion-item">
+                                <div class="accordion-header js-accordion-header"> About Me </div>
+
+                                <!-- Accordtion Body -->
+                                <div class="accordion-body js-accordion-body" style="display: none;">
+
+                                    <!-- Accordion Content -->
+                                    <div class="accordion-body__contents">
+                                        {{ portfolio.description }}
+                                    </div>
+
+                                </div>
+                                <!-- Accordion Body / End -->
+                            </div>
+                            <!-- Accordion Item / End -->
+
+                            <!-- Accordion Item -->
+                            <div class="accordion__item js-accordion-item">
+                                <div class="accordion-header js-accordion-header">Experience And Skills</div>
+
+                                <!-- Accordtion Body -->
+                                <div class="accordion-body js-accordion-body" style="display: none;">
+
+
+                                    <!-- Sub Accordion Container -->
+                                    <div class="accordion js-accordion">
+
+                                        <!-- Sub Accordion -->
+                                        <div class="accordion__item js-accordion-item">
+                                            <div class="accordion-header js-accordion-header">Previous Experiences</div>
+                                            <div class="accordion-body js-accordion-body" style="display: none;">
+                                                <div class="accordion-body__contents">
+                                                    {{ portfolio.previousExperiences }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Sub Accordion -->
+                                        <div class="accordion__item js-accordion-item">
+                                            <div class="accordion-header js-accordion-header dark">My Skills List</div>
+                                            <div class="accordion-body js-accordion-body">
+                                                <div class="accordion-body__contents">
+                                                    {{ portfolio.skills }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- Sub Accordion / End -->
+                                </div>
+                                <!-- Accordion Body / End -->
+                            </div>
+
+                            <br>
+                            <!-- Accordion Item / End -->
+                            <div class="submit-field">
+                                <h5><i> Attachments </i></h5>
+
+
+                                <!-- Attachments -->
+                                <div class="attachments-container margin-top-0 margin-bottom-0">
+                                    <div class="attachment-box ripple-effect">
+                                        <span>{{ portfolio.devisName }}</span>
+                                    </div>
+                                    <a style="height: 10%" class="button dark " href=" /FooBar/web/devis/5c785a952e82a.docx">download</a>
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+                        <!-- Accordion / End -->
+
+
+
+
+
+
+
+                    </div>
+                </div>
                 <!-- Sidebar Widget -->
                 <div class="sidebar-widget">
                     <h3>Bookmark or Share</h3>
 
                     <!-- Bookmark Button -->
-                    <button class="bookmark-button margin-bottom-25">
+                    <button id="bookmark" class="bookmark-button margin-bottom-25">
                         <span class="bookmark-icon"></span>
                         <span class="bookmark-text">Bookmark</span>
                         <span class="bookmarked-text">Bookmarked</span>
@@ -292,6 +456,16 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+
+                <!-- Report Buttons -->
+                <div><a href="{{ path('add_Report') }}" class="button dark ripple-effect button-sliding-icon">
+
+                        Report
+                        <i class="icon-material-baseline-mail-outline">
+                        </i>
+
+                    </a>
                 </div>
 
             </div>
@@ -392,4 +566,30 @@
         </div>
     </div>
     <!-- Make an Offer Popup / End -->
+
+{% block scripts %}
+    <script type="javascript">
+        $(document).ready(function(){
+            $("#bookmark").on("click", function(event){
+                let taskID=$('#slide-range');
+
+                event.preventDefault();
+                $.ajax({
+                    url:'{{ path('bookmark_task') }}',
+                    dataType:"json",
+                    data:{"minimalRate":hourlyRate.val(),"deliveryTime":deliveryTime.val()},
+
+                    success:function() {},
+
+
+                    error: function (err) {
+
+
+                    }
+
+                });
+            });
+        });
+    </script>
+{% endblock %}
 {% endblock %}

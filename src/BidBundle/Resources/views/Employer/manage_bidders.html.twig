@@ -5,7 +5,7 @@
     <!-- Dashboard Headline -->
     <div class="dashboard-headline">
         <h3>Manage Bidders</h3>
-        <span class="margin-top-7">Bids for <a href="#">Food Delivery Mobile Application</a></span>
+        <span class="margin-top-7">Bids for <a href="#">{{ project.projectName }}</a></span>
 
         <!-- Breadcrumbs -->
         <nav id="breadcrumbs" class="dark">
@@ -26,7 +26,7 @@
 
                 <!-- Headline -->
                 <div class="headline">
-                    <h3><i class="icon-material-outline-supervisor-account"></i> 3 Bidders</h3>
+                    <h3><i class="icon-material-outline-supervisor-account"></i> {{ numberOfBids }} Bidders</h3>
                     <div class="sort-by">
                         <select class="selectpicker hide-tick">
                             <option>Highest First</option>
@@ -38,6 +38,7 @@
 
                 <div class="content">
                     <ul class="dashboard-box-list">
+                        {% for bid in bids %}
                         <li>
                             <!-- Overview -->
                             <div class="freelancer-overview manage-candidates">
@@ -51,7 +52,7 @@
 
                                     <!-- Name -->
                                     <div class="freelancer-name">
-                                        <h4><a href="#">David Peterson <img class="flag" src="images/flags/de.svg" alt="" title="Germany" data-tippy-placement="top"></a></h4>
+                                        <h4><a href="#">{{ bid.freelancer.username }}</a></h4>
 
                                         <!-- Details -->
                                         <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i> <span class="__cf_email__" data-cfemail="e38782958a87a3869b828e938f86cd808c8e">[email&#160;protected]</span></a></span>
@@ -63,20 +64,20 @@
 
                                         <!-- Bid Details -->
                                         <ul class="dashboard-task-info bid-info">
-                                            <li><strong>$3,200</strong><span>Fixed Price</span></li>
-                                            <li><strong>14 Days</strong><span>Delivery Time</span></li>
+                                            <li><strong>${{ bid.minimalRate }}</strong><span>Fixed Price</span></li>
+                                            <li><strong>{{ bid.deliveryTime }} Days</strong><span>Delivery Time</span></li>
                                         </ul>
 
                                         <!-- Buttons -->
                                         <div class="buttons-to-right always-visible margin-top-25 margin-bottom-0">
-                                            <a href="#small-dialog-1"  class="popup-with-zoom-anim button ripple-effect"><i class="icon-material-outline-check"></i> Accept Offer</a>
-                                            <a href="#small-dialog-2" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-mail"></i> Send Message</a>
+                                            <a href="{{ path('accept_offer',{'id': bid.freelancer.id, 'projectid': project.id}) }}"  class="button ripple-effect"><i class="icon-material-outline-check"></i> Accept Offer</a>
                                             <a href="#" class="button gray ripple-effect ico" title="Remove Bid" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </li>
+                        {% endfor %}
 
                     </ul>
                 </div>
@@ -86,86 +87,5 @@
     </div>
     <!-- Row / End -->
 
-
-
-
-    <!-- Bid Acceptance Popup
-================================================== -->
-    <div id="small-dialog-1" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
-
-        <!--Tabs -->
-        <div class="sign-in-form">
-
-            <ul class="popup-tabs-nav">
-                <li><a href="#tab1">Accept Offer</a></li>
-            </ul>
-
-            <div class="popup-tabs-container">
-
-                <!-- Tab -->
-                <div class="popup-tab-content" id="tab">
-
-                    <!-- Welcome Text -->
-                    <div class="welcome-text">
-                        <h3>Accept Offer From David</h3>
-                        <div class="bid-acceptance margin-top-15">
-                            $3200
-                        </div>
-
-                    </div>
-
-                    <form id="terms">
-                        <div class="radio">
-                            <input id="radio-1" name="radio" type="radio" required>
-                            <label for="radio-1"><span class="radio-label"></span>  I have read and agree to the Terms and Conditions</label>
-                        </div>
-                    </form>
-
-                    <!-- Button -->
-                    <button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" form="terms">Accept <i class="icon-material-outline-arrow-right-alt"></i></button>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!-- Bid Acceptance Popup / End -->
-
-
-    <!-- Send Direct Message Popup
-    ================================================== -->
-    <div id="small-dialog-2" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
-
-        <!--Tabs -->
-        <div class="sign-in-form">
-
-            <ul class="popup-tabs-nav">
-                <li><a href="#tab2">Send Message</a></li>
-            </ul>
-
-            <div class="popup-tabs-container">
-
-                <!-- Tab -->
-                <div class="popup-tab-content" id="tab2">
-
-                    <!-- Welcome Text -->
-                    <div class="welcome-text">
-                        <h3>Direct Message To David</h3>
-                    </div>
-
-                    <!-- Form -->
-                    <form method="post" id="send-pm">
-                        <textarea name="textarea" cols="10" placeholder="Message" class="with-border" required></textarea>
-                    </form>
-
-                    <!-- Button -->
-                    <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="send-pm">Send <i class="icon-material-outline-arrow-right-alt"></i></button>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <!-- Send Direct Message Popup / End -->
 {% endblock %}
 

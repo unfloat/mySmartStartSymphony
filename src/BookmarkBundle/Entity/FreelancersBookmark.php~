@@ -1,0 +1,132 @@
+<?php
+
+namespace BookmarkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * FreelancersBookmark
+ *
+ * @ORM\Table(name="freelancers_bookmark")
+ * @ORM\Entity(repositoryClass="BookmarkBundle\Repository\FreelancersBookmarkRepository")
+ */
+class FreelancersBookmark
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Freelancer", inversedBy="bookmarks")
+     * @ORM\JoinColumn(name="freelancer_id", referencedColumnName="id")
+     */
+
+    private $bookmarkingFreelancer;
+
+    /**
+     * One Freelancers bookmark has One Employer Bookmarked.
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\Employer")
+     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
+     */
+    private $bookmarkedEmployer;
+
+    /**
+     * One Freelancers bookmark has One Job Bookmarked.
+     * @ORM\OneToOne(targetEntity="JobBundle\Entity\Job")
+     * @ORM\JoinColumn(name="job_id", referencedColumnName="id")
+     */
+    private $bookmarkedJob;
+
+    /**
+     * One Freelancers bookmark has One Project Bookmarked.
+     * @ORM\OneToOne(targetEntity="ProjectBundle\Entity\Project")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     */
+    private $bookmarkedProject;
+
+    /**
+     * @return mixed
+     */
+    public function getBookmarkedProject()
+    {
+        return $this->bookmarkedProject;
+    }
+
+    /**
+     * @param mixed $bookmarkedProject
+     */
+    public function setBookmarkedProject($bookmarkedProject)
+    {
+        $this->bookmarkedProject = $bookmarkedProject;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBookmarkedJob()
+    {
+        return $this->bookmarkedJob;
+    }
+
+    /**
+     * @param mixed $bookmarkedJob
+     */
+    public function setBookmarkedJob($bookmarkedJob)
+    {
+        $this->bookmarkedJob = $bookmarkedJob;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getBookmarkedEmployer()
+    {
+        return $this->bookmarkedEmployer;
+    }
+
+    /**
+     * @param mixed $bookmarkedEmployer
+     */
+    public function setBookmarkedEmployer($bookmarkedEmployer)
+    {
+        $this->bookmarkedEmployer = $bookmarkedEmployer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBookmarkingFreelancer()
+    {
+        return $this->bookmarkingFreelancer;
+    }
+
+    /**
+     * @param mixed $bookmarkingFreelancer
+     */
+    public function setBookmarkingFreelancer($bookmarkingFreelancer)
+    {
+        $this->bookmarkingFreelancer = $bookmarkingFreelancer;
+    }
+
+
+}
+

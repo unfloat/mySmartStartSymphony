@@ -29,29 +29,26 @@
 
             <div class="content">
                 <ul class="dashboard-box-list">
+
+
+                    {% for bookmark in bookmarks %}
                     <li>
                         <!-- Job Listing -->
                         <div class="job-listing">
 
                             <!-- Job Listing Details -->
                             <div class="job-listing-details">
-
-                                <!-- Logo -->
-                                <a href="#" class="job-listing-company-logo">
-                                    <img src="images/company-logo-02.png" alt="">
-                                </a>
-
                                 <!-- Details -->
                                 <div class="job-listing-description">
-                                    <h3 class="job-listing-title"><a href="#">Barista and Cashier</a></h3>
+                                    <h3 class="job-listing-title"><a href="#">{{ bookmark.project.projectName }}</a></h3>
 
                                     <!-- Job Listing Footer -->
                                     <div class="job-listing-footer">
                                         <ul>
-                                            <li><i class="icon-material-outline-business"></i> Coffee</li>
-                                            <li><i class="icon-material-outline-location-on"></i> San Francisco</li>
-                                            <li><i class="icon-material-outline-business-center"></i> Full Time</li>
-                                            <li><i class="icon-material-outline-access-time"></i> 2 days ago</li>
+                                            <li><i class="icon-material-outline-money"></i> {{ bookmark.project.minBudget }}</li>
+                                            <li><i class="icon-material-outline-location-on"></i> {{ bookmark.project.projectLocation }}</li>
+                                            <li><i class="icon-material-outline-date-range"></i> {{ bookmark.project.validityPeriod|date }}</li>
+                                            <li><i class="icon-material-outline-access-time"></i> {{ bookmark.project.publishingDate|date }} </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -59,9 +56,10 @@
                         </div>
                         <!-- Buttons -->
                         <div class="buttons-to-right">
-                            <a href="#" class="button red ripple-effect ico" title="Remove" data-tippy-placement="left"><i class="icon-feather-trash-2"></i></a>
+                            <a href="{{ path('bookmark_project',{'id':bookmark.project.id}) }}" class="button red ripple-effect ico" title="Remove" data-tippy-placement="left"><i class="icon-feather-trash-2"></i></a>
                         </div>
                     </li>
+                    {% endfor %}
 
                 </ul>
             </div>

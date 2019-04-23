@@ -8,10 +8,44 @@
 
     {{ form_start (form)}}
 
-    <div class="form_group">
-        <input type="submit"  value="post">
-    </div>
+    {{ form_label(form.title, 'Job Title:') }}
+    {{ form_widget(form.title) }}
+    <br>
+    {{ form_label(form.type, 'Job Type:') }}
+    {{ form_widget(form.type) }}
+    <br>
+
+    {{ form_label(form.location, 'Job Location:') }}
+    {{ form_widget(form.location) }}
+    <br>
+
+    {{ form_label(form.minSalary, 'Job Min Salary:') }}
+    {{ form_widget(form.minSalary) }}
+    <br>
+
+    {{ form_label(form.maxSalary, 'Job Max Salary:') }}
+    {{ form_widget(form.maxSalary) }}
+    <br>
+
+    {{ form_label(form.description, 'Job Description:') }}
+    {{ form_widget(form.description) }}
+    <br>
+
+    {{ form_label(form.tags, 'Job Tags:') }}
+    {{ form_widget(form.tags) }}
+    <br>
+
+    {{ form_label(form.category, 'Job Category:') }}
+    {{ form_widget(form.category) }}
+    <br>
+
+
+    <input type="submit" value="Save" class="button dark ripple-effect button-sliding-icon col-xl-12 ">
     {{ form_end (form) }}
+
+
+
+
 
 
 

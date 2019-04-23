@@ -3,14 +3,18 @@
 namespace BidBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mgilet\NotificationBundle\Annotation\Notifiable;
+use Mgilet\NotificationBundle\NotifiableInterface;
 
 /**
  * Bid
  *
- * @ORM\Table(name="bid")
  * @ORM\Entity(repositoryClass="BidBundle\Repository\BidRepository")
+ * @ORM\Table(name="bid")
+ * @Notifiable(name="bid")
  */
-class Bid
+
+class Bid implements NotifiableInterface
 {
     /**
      * @var int
@@ -37,27 +41,16 @@ class Bid
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Project", inversedBy="bids")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Freelancer", inversedBy="bids")
+     * @ORM\JoinColumn(name="freelancer_id", referencedColumnName="id")
+     */
+    private $freelancer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Project", inversedBy="projectBids")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
     private $project;
-
-    /**
-     * @return mixed
-     */
-    public function getProject()
-    {
-        return $this->project;
-    }
-
-    /**
-     * @param mixed $project
-     */
-    public function setProject($project)
-    {
-        $this->project = $project;
-    }
-
 
     /**
      * Get id
@@ -115,5 +108,54 @@ class Bid
     public function getDeliveryTime()
     {
         return $this->deliveryTime;
+    }
+
+
+    /**
+     * Set freelancer
+     *
+     * @param \UserBundle\Entity\Freelancer $freelancer
+     *
+     * @return Bid
+     */
+    public function setFreelancer(\UserBundle\Entity\Freelancer $freelancer = null)
+    {
+        $this->freelancer = $freelancer;
+
+        return $this;
+    }
+
+    /**
+     * Get freelancer
+     *
+     * @return \UserBundle\Entity\Freelancer
+     */
+    public function getFreelancer()
+    {
+        return $this->freelancer;
+    }
+
+    /**
+     * Set project
+     *
+     * @param \ProjectBundle\Entity\Project $project
+     *
+     * @return Bid
+     */
+    public function setProject(\ProjectBundle\Entity\Project $project = null)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \ProjectBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 }

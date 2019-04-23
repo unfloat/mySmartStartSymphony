@@ -1,0 +1,7 @@
+report_homepage:
+    path:     /
+    defaults: { _controller: ReportBundle:Default:index }
+
+add_Report:
+    path:     /ReportForm
+    defaults: { _controller: ReportBundle:Report:addReport }

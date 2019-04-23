@@ -62,5 +62,7 @@ security:
                 #After adding a remember_me firewall entry, you may hit an error when logging in that says:
                 #"No session available, it either timed out or cookies are not enabled"
 
-            logout:       true
+            logout:
+                path:   /logout
+                target: /login
             anonymous:    true

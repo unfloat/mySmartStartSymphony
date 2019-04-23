@@ -23,7 +23,7 @@ class EmployersBookmark
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="bookmarks")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="employerbookmarks")
      * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
      */
 

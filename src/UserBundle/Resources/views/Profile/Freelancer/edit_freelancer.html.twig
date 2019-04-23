@@ -1,5 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
-{% extends ":Dashboard/Freelancer:dashboard_layout.html.twig" %}
+{% extends "Dashboard/Freelancer/dashboard_layout.html.twig" %}
+{% block content %}
 <h1> Freelancer </h1>
     {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
     {{ form_widget(form) }}
@@ -7,3 +8,4 @@
         <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
     </div>
     {{ form_end(form) }}
+{% endblock %}

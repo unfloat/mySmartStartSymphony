@@ -12,6 +12,8 @@ imports:
     - { resource: "@BookmarkBundle/Resources/config/services.yml" }
     - { resource: "@DashboardBundle/Resources/config/services.yml" }
     - { resource: "@BlogBundle/Resources/config/services.yml" }
+    - { resource: "@BidApiBundle/Resources/config/services.yml" }
+
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -108,6 +110,17 @@ knp_paginator:
         filter_field_name: filterField  # filter field query parameter name
         filter_value_name: filterValue  # filter value query parameter name
     template:
-        pagination: '@KnpPaginator/Pagination/semantic_ui_pagination.html.twig' # sliding pagination controls template
-        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
-        filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+        pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig' # sliding pagination controls template
+        sortable: 'sortable_link.html.twig' # sort link template
+        filtration: 'filtration.html.twig'  # filters template
+
+cmen_google_charts:
+    version: "current"
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        devis:
+            uri_prefix: /devis/
+            upload_destination: '%kernel.root_dir%/../web/devis/'
+            namer: vich_uploader.namer_uniqid

@@ -1,0 +1,142 @@
+{% extends "Home/Employer/home_layout.html.twig" %}
+{% block homecontent %}
+
+    <div class="single-page-header" data-background-image="{{ asset('images/single-task.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-page-header-inner">
+                        <div class="left-side">
+                            <div class="header-image"><a href=""><img src="{{ asset('images/browse-companies-02.png') }}" alt=""></a></div>
+                            <div class="header-details">
+                                <h3>{{ offer.name }}</h3>
+                                <ul>
+                                    <li><a href=""><i class="icon-material-outline-business"></i> Acue</a></li>
+                                    <li><div class="star-rating" data-rating="5.0"></div></li>
+                                    <li> {{ offer.location }}</li>
+                                    <li><div class="verified-badge-with-title">{{ offer.status }}</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="right-side">
+                            <div class="salary-box">
+                                <div class="salary-type">Project Budget</div>
+                                <div class="salary-amount">{{ offer.priceMin }}$ - {{ offer.priceMax }}$</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Content
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="col-xl-8 col-lg-8 content-right-offset">
+                <!-- Category -->
+
+
+                <!-- Description -->
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">Offer Description</h3>
+                    <p>{{ offer.description }}</p>
+                </div>
+
+                <!-- Type -->
+                <div class="single-page-section">
+                    <h3>Type</h3>
+                    <div class="attachments-container">
+                       <p>{{ offer.type }}</p>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Skills -->
+                <div class="single-page-section">
+                    <h3>Skills Required</h3>
+                    {% for s in skills %}
+                        <div class="task-tags">
+                            <span>{{ s.name }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <a class="btn btn-primary" href="{{ path('offer_accept',{'id':offer.id}) }}" role="button">accept</a>
+                <a class="btn btn-danger" href="{{ path('offer_reject',{'id':offer.id}) }}" role="button">reject</a>
+
+                <div class="clearfix"></div>
+
+                <!-- Freelancers Bidding -->
+                <div class="boxed-list margin-bottom-60">
+                    <div class="boxed-list-headline">
+                        <h3><i class="icon-material-outline-group"></i> related Offers</h3>
+                    </div>
+                    <ul class="dashboard-box-list">
+                        {% for lo in relatedOffers %}
+
+                            <li>
+                                <!-- Job Listing -->
+                                <div class="job-listing">
+
+                                    <!-- Job Listing Details -->
+                                    <div class="job-listing-details">
+
+                                        <!-- Details -->
+                                        <div class="job-listing-description">
+                                            <h3 class="job-listing-title"><a href="#">{{ lo.name }}</a> <span class="dashboard-status-button yellow"></span></h3>
+                                            <h3 class="job-listing-title"><a href="#">{{ lo.type }}</a> <span class="dashboard-status-button yellow"></span></h3>
+
+                                            <!-- Job Listing Footer -->
+                                            <div class="job-listing-footer">
+                                                <ul>
+
+                                                    <li><i class="price">{{ lo.priceMin }}</i>$ </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="buttons-to-right always-visible">
+                                    <a href="{{ path('offer_readOne',{'id': lo.id}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Offer <span class="button-info">3</span></a>
+
+                                    <a href="{{ path('offer_delete',{'id':lo.id}) }}" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                </div>
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-lg-4">
+                <div class="sidebar-container">
+
+                    <div class="countdown green margin-bottom-35">{% if (offer.dateCreation) %}{{ offer.dateCreation|date("m/d/Y") }} {% endif %}</div>
+
+
+
+                    <!-- Sidebar Widget -->
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+
+        {% for item in notificationList %}
+            <li style="margin: 10px 5px;">
+                <a href="{{ item.notification.link }}">
+                <b><span class="notification-text">{{ item.notification }}</span></b>
+                </a>
+                <br>
+                {%  if item.seen %}
+                    <form action="{{ mgilet_notification_generate_path('notification_mark_as_unseen', item.notifiableEntity, item.notification) }}"
+                          method="post">
+                        <button class="buttons-to-right single-right-button" type="submit" title="Mark as unread" data-tippy-placement="left">
+                            <i class="icon-feather-check-square"></i>
+                        </button>
+                    </form>
+                {%  else  %}
+                    <form action="{{ mgilet_notification_generate_path('notification_mark_as_seen', item.notifiableEntity, item.notification) }}"
+                          method="post">
+                        <button class="buttons-to-right single-right-button" type="submit" title="Mark as read" data-tippy-placement="left">
+                            <i class="icon-feather-check-circle"></i>
+                        </button>
+                    </form>
+                {% endif %}
+            </li>
+
+        {% endfor %}

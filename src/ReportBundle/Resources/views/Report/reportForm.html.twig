@@ -1,0 +1,35 @@
+{% extends "Dashboard/Employer/dashboard_layout.html.twig" %}
+
+{% block content %}
+    <!-- Leave a Review for Freelancer Popup
+    ================================================== -->
+
+    <h3>Report This Profile</h3>
+
+    <div>Help Us Understand What's Wrong With This User</div>
+
+    {{ form_start (form) }}
+
+    <br>
+    {{ form_label(form.createdAt, 'Todays Date:') }}
+    {{ form_widget(form.createdAt) }}
+    <br>
+    <br>
+
+    {{ form_label(form.text, 'text:') }}
+    {{ form_widget(form.text) }}
+    <br>
+    <br>
+
+    {{ form_label(form.freelancerReportedId, 'Freelancer First Name') }}
+    {{ form_widget(form.freelancerReportedId) }}
+    <br>
+    <br>
+
+    <input type="submit" value="Send Report">
+    {{ form_end (form) }}
+
+
+
+
+{% endblock %}

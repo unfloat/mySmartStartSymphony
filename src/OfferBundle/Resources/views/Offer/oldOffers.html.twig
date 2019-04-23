@@ -1,0 +1,80 @@
+{% extends "Home/Freelancer/home_layout.html.twig" %}
+{% block homecontent %}
+
+    <div class="single-page-header" data-background-image="{{ asset('images/single-task.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-page-header-inner">
+                        <div class="left-side">
+                            <div class="header-image"><a href=""><img src="{{ asset('images/browse-companies-02.png') }}" alt=""></a></div>
+                            <div class="header-details">
+                                <h3>{{ offer.name }}</h3>
+                                <h5>About the Employer</h5>
+                                <ul>
+                                    <li><a href=""><i class="icon-material-outline-business"></i> Acue</a></li>
+                                    <li><div class="star-rating" data-rating="5.0"></div></li>
+                                    <li> {{ offer.location }}</li>
+                                    <li><div class="verified-badge-with-title">{{ offer.status }}</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="right-side">
+                            <div class="salary-box">
+                                <div class="salary-type">Project Budget</div>
+                                <div class="salary-amount">{{ offer.priceMin }}$ - {{ offer.priceMax }}$</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Content
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="col-xl-8 col-lg-8 content-right-offset">
+
+                <!-- Description -->
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">Offer Description</h3>
+                    <p>{{ offer.description }}</p>
+                </div>
+
+                <!-- Atachments -->
+                <div class="single-page-section">
+                    <h3>Type</h3>
+                    <div class="attachments-container">
+                        <p>{{ offer.type }}</p>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+
+
+                <div class="clearfix"></div>
+
+
+
+
+            </div>
+
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-lg-4">
+                <div class="sidebar-container">
+
+                    <div class="countdown green margin-bottom-35">{% if (offer.dateCreation) %}{{ offer.dateCreation|date("m/d/Y") }} {% endif %}</div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

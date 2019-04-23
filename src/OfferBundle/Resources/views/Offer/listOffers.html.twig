@@ -1,10 +1,19 @@
 {% extends "Home/Freelancer/home_layout.html.twig" %}
-
 {% block homecontent %}
+
+
+
+    <!-- Spacer -->
+    <div class="margin-top-90"></div>
+    <!-- Spacer / End-->
     <!-- Page Content
     ================================================== -->
     <div class="container">
         <div class="row">
+
+
+
+
             <div class="col-xl-3 col-lg-4">
                 <div class="sidebar-container">
 
@@ -13,7 +22,7 @@
                         <h3>Location</h3>
                         <div class="input-with-icon">
                             <div id="autocomplete-container">
-                                <input id="autocomplete-input" type="text" placeholder="Location">
+                                <input id="autocomplete-input" type="text" placeholder="Location" >
                             </div>
                             <i class="icon-material-outline-location-on"></i>
                         </div>
@@ -49,23 +58,6 @@
                         </div>
                     </div>
 
-                    <!-- Budget -->
-                    <div class="sidebar-widget">
-                        <h3>Fixed Price</h3>
-                        <div class="margin-top-55"></div>
-
-                        <!-- Range Slider -->
-                        <input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="10" data-slider-max="2500" data-slider-step="25" data-slider-value="[10,2500]"/>
-                    </div>
-
-                    <!-- Hourly Rate -->
-                    <div class="sidebar-widget">
-                        <h3>Hourly Rate</h3>
-                        <div class="margin-top-55"></div>
-
-                        <!-- Range Slider -->
-                        <input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="10" data-slider-max="150" data-slider-step="5" data-slider-value="[10,200]"/>
-                    </div>
 
                     <!-- Tags -->
                     <div class="sidebar-widget">
@@ -117,90 +109,123 @@
 
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
             <div class="col-xl-9 col-lg-8 content-left-offset">
+
+
+            <div class="alert alert-danger" role="alert">
+               Hey! you have <a href="#" class="alert-link">{{ waitingOffers }}  Offers</a> waiting...
+            </div>
+
+
 
                 <h3 class="page-title">Search Results</h3>
 
                 <div class="notify-box margin-top-15">
                     <div class="switch-container">
-                        <label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
+                        <nav class="navbar navbar-light bg-light">
+                            <form class="form-inline" method="POST">
+                                <input class="form-control mr-sm-2" name="SearchName" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </nav>
                     </div>
+                    <a href="{{ path('offer_History') }}" class="btn btn-outline-warning"><i class="icon-material-outline-supervisor-account"></i> History </a>
+
+                    <a href="{{ path('offer_stat') }}" class="btn btn-outline-primary"><i class="icon-material-outline-supervisor-account"></i> Statistics </a>
+
 
                     <div class="sort-by">
-                        <span>Sort by:</span>
-                        <select class="selectpicker hide-tick">
-                            <option>Relevance</option>
-                            <option>Newest</option>
-                            <option>Oldest</option>
-                            <option>Random</option>
-                        </select>
-                    </div>
+
+
                 </div>
-
-                <!-- Tasks Container -->
-                <div class="tasks-list-container compact-list margin-top-35">
-
-                    <!-- Task -->
-                    {% for project in projects %}
-
-                        <a href="{{ path('freelancer_project',{'id':'1'}) }}" class="task-listing">  <!-- j'ajoute id -->
-
-                            <!-- Job Listing Details -->
-                            <div class="task-listing-details">
-
-                                <!-- Details -->
-                                <div class="task-listing-description">
-                                    <h3 class="task-listing-title">{{ project.projectName }}</h3>
-                                    <ul class="task-icons">
-                                        <li><i class="icon-material-outline-location-on"></i>{{ project.projectLocation }}</li>
-                                        <li><i class="icon-material-outline-access-time"></i> 2 minutes ago</li>
-                                    </ul>
-                                    <p class="task-listing-text">{{ project.projectDescription }}</p>
-                                    <div class="task-tags">
-                                        <span>{{ project.projectSkill }}</span>
-                                        <span>{{ project.projectSkill }}</span>
-                                        <span>{{ project.projectSkill }}</span>
-                                        <span>{{ project.projectSkill }}</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="task-listing-bid">
-                                <div class="task-listing-bid-inner">
-                                    <div class="task-offers">
-                                        <strong>$1,000 - $2,500</strong>
-                                        <span>Fixed Price</span>
-                                    </div>
-                                    <span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
-                                </div>
-                            </div>
+                <div class="sort-by">
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" >
+                            Sort By :
                         </a>
-
-                    {% endfor %}
-
-                </div>
-                <!-- Tasks Container / End -->
-
-
-                <!-- Pagination -->
-                <div class="clearfix"></div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Pagination -->
-                        <div class="pagination-container margin-top-60 margin-bottom-60">
-                            <nav class="pagination">
-                                <ul>
-                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
-                                    <li><a href="#" class="ripple-effect">1</a></li>
-                                    <li><a href="#" class="current-page ripple-effect">2</a></li>
-                                    <li><a href="#" class="ripple-effect">3</a></li>
-                                    <li><a href="#" class="ripple-effect">4</a></li>
-                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
-                                </ul>
-                            </nav>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {{ knp_pagination_sortable(offers,'Newest','o.dateCreation') }}
+                            {{ knp_pagination_sortable(offers,'Minimum Salary','o.priceMin') }}
+                            {{ knp_pagination_sortable(offers,'Maximum Salary','o.priceMax') }}
                         </div>
                     </div>
+
+                    </div>
+                </div>
+
+                <!-- Freelancers List Container -->
+                <!-- Row -->
+                <div class="row">
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-business-center"></i> My Offers</h3>
+
+                            </div>
+
+                            <div class="content">
+                                <ul class="dashboard-box-list">
+                                    {% for lo in offers %}
+
+                                    <li>
+                                        <!-- Job Listing -->
+                                        <div class="job-listing">
+
+                                            <!-- Job Listing Details -->
+                                            <div class="job-listing-details">
+
+                                                <!-- Details -->
+                                                <div class="job-listing-description">
+                                                    <h3 class="job-listing-title"><a href="#">{{ lo.name }}</a> <span class="dashboard-status-button yellow"></span></h3>
+                                                    <h3 class="job-listing-title"><a href="#">{{ lo.type }}</a> <span class="dashboard-status-button yellow"></span></h3>
+
+                                                    <!-- Job Listing Footer -->
+                                                    <div class="job-listing-footer">
+                                                        <ul>
+
+                                                            <li><i class="price">{{ lo.priceMin }}</i>$ </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right always-visible">
+                                            <a href="{{ path('offer_readOne',{'id': lo.id}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Offer </a>
+                                            <a href="{{ path('offer_delete',{'id':lo.id}) }}" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                        </div>
+                                    </li>
+
+{% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Row / End -->
+                <!-- Freelancers Container / End -->
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                    <center>{{ knp_pagination_render(offers) }}</center>
                 </div>
                 <!-- Pagination / End -->
 

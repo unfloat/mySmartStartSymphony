@@ -3,11 +3,13 @@
 namespace BidBundle\Controller;
 
 use BidBundle\Entity\Bid;
+use Doctrine\ORM\OptimisticLockException;
 use ProjectBundle\Entity\Project;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use UserBundle\Entity\Freelancer;
 
 class BidController extends Controller
 {
@@ -17,8 +19,6 @@ class BidController extends Controller
     public function bidsAction()
     {
         $bids= $this->getDoctrine()->getRepository(Bid::class)->findAll();
-
-
         return $this->render('BidBundle:Freelancer:active_bids.html.twig',['bids'=>$bids]);
     }
 
@@ -46,8 +46,6 @@ class BidController extends Controller
 
     public function editBidAction(Request $request)
     {
-
-
         $em = $this->getDoctrine();
         $min = $request->get('min');
         $deliveryTime = $request->get('delivery');
@@ -75,9 +73,40 @@ class BidController extends Controller
 
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
+     * @param Project $project
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function manageBiddersAction($id)
+    public function manageBiddersAction(Project $project)
     {
-        return $this->render('BidBundle:Employer:manage_bidders.html.twig');
+        $projectBids = $this->getDoctrine()->getRepository(Bid::class)->findBy(['project'=>$project]);
+        $numberBids = count($projectBids);
+
+
+        return $this->render('BidBundle:Employer:manage_bidders.html.twig',['bids'=>$projectBids,'project'=>$project, 'numberOfBids'=>$numberBids]);
     }
+
+
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     * @param Project $projectid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function acceptBidAction(Request $request, Freelancer $freelancer,Project $projectid)
+    {
+        try {
+            $manager = $this->get('mgilet.notification');
+            $notif = $manager->createNotification('Bid accepted :)');
+            $notif->setMessage($projectid->getEmployer()->getUsername().' accepted your bid on  '.$projectid->getProjectName() );
+            $notif->setLink('/bids');
+
+            $manager->addNotification([$freelancer], $notif, true);
+
+        } catch (OptimisticLockException $e) {
+        }
+
+        return $this->redirectToRoute('employer_dashboard');
+    }
+
+
 }

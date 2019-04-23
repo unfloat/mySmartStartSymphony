@@ -23,8 +23,8 @@
                         </div>
                         <div class="right-side">
                             <div class="salary-box">
-                                <div class="salary-type">Project Budget</div>
-                                <div class="salary-amount">$0-1</div>
+                                <div class="salary-type"></div>
+                                <div class="salary-amount">${{ project.minBudget }}-{{ project.maxBudget }}</div>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
 
                 <!-- Description -->
                 <div class="single-page-section">
-                    <h3 class="margin-bottom-25">Project Description</h3>
+                    <h3 class="margin-bottom-25">{{ project.projectDescription }}</h3>
                     <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
 
                     <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
@@ -106,89 +106,6 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="bid">
-                                <!-- Avatar -->
-                                <div class="bids-avatar">
-                                    <div class="freelancer-avatar">
-                                        <div class="verified-badge"></div>
-                                        <a href="single-freelancer-profile.html"><img src="images/user-avatar-big-02.jpg" alt=""></a>
-                                    </div>
-                                </div>
-
-                                <!-- Content -->
-                                <div class="bids-content">
-                                    <!-- Name -->
-                                    <div class="freelancer-name">
-                                        <h4><a href="single-freelancer-profile.html">David Peterson <img class="flag" src="images/flags/de.svg" alt="" data-tippy-placement="top" data-tippy="" data-original-title="Germany"></a></h4>
-                                        <div class="star-rating" data-rating="4.2"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star empty"></span></div>
-                                    </div>
-                                </div>
-
-                                <!-- Bid -->
-                                <div class="bids-bid">
-                                    <div class="bid-rate">
-                                        <div class="rate">$2,200</div>
-                                        <span>in 14 days</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bid">
-                                <!-- Avatar -->
-                                <div class="bids-avatar">
-                                    <div class="freelancer-avatar">
-                                        <a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
-                                    </div>
-                                </div>
-
-                                <!-- Content -->
-                                <div class="bids-content">
-                                    <!-- Name -->
-                                    <div class="freelancer-name">
-                                        <h4><a href="single-freelancer-profile.html">Marcin Kowalski <img class="flag" src="images/flags/pl.svg" alt="" data-tippy-placement="top" data-tippy="" data-original-title="Poland"></a></h4>
-                                        <span class="not-rated">Minimum of 3 votes required</span>
-
-                                    </div>
-                                </div>
-
-                                <!-- Bid -->
-                                <div class="bids-bid">
-                                    <div class="bid-rate">
-                                        <div class="rate">$3,800</div>
-                                        <span>In 20 days</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bid">
-                                <!-- Avatar -->
-                                <div class="bids-avatar">
-                                    <div class="freelancer-avatar">
-                                        <a href="single-freelancer-profile.html"><img src="images/user-avatar-placeholder.png" alt=""></a>
-                                    </div>
-                                </div>
-
-                                <!-- Content -->
-                                <div class="bids-content">
-                                    <!-- Name -->
-                                    <div class="freelancer-name">
-                                        <h4><a href="single-freelancer-profile.html">Sebastiano Piccio <img class="flag" src="images/flags/it.svg" alt="" data-tippy-placement="top" data-tippy="" data-original-title="Italy"></a></h4>
-                                        <div class="star-rating" data-rating="4.5"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star half"></span></div>
-                                    </div>
-                                </div>
-
-                                <!-- Bid -->
-                                <div class="bids-bid">
-                                    <div class="bid-rate">
-                                        <div class="rate">$3,400</div>
-                                        <span>In 10 days</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                 </div>
 
@@ -204,12 +121,14 @@
                         <div class="bidding-widget">
                             <div class="bidding-headline"><h3>Bid on this job!</h3></div>
                             <div class="bidding-inner">
+                                {{ form_start(form) }}
+
                                 <!-- Headline -->
                                 <span class="bidding-detail">Set your <strong>minimal rate</strong></span>
 
                                 <!-- Price Slider -->
                                 <div class="bidding-value">$<span id="biddingVal"></span></div>
-
+                                {{ form_widget(form.minimalRate,{'attr':{'id':'slide-range','class':'bidding-slider','name':'qtyInput','data-slider-handle':'custom','data-slider-currency':'$','data-slider-min':project.minBudget  ,'data-slider-max': project.maxBudget ,'data-slider-value':"auto" ,'data-slider-step':"1" ,'data-slider-tooltip':"hide" }}) }}
                                 <!-- Headline -->
                                 <span class="bidding-detail margin-top-30">Set your <strong>delivery time</strong></span>
 
@@ -219,6 +138,7 @@
                                         <!-- Quantity Buttons -->
                                         <div class="qtyButtons">
                                             <div class="qtyDec"></div>
+                                            {{ form_widget(form.deliveryTime,{'attr':{'id':'count-time','name':'qtyInput','value':'1'}}) }}
                                             <div class="qtyInc"></div>
                                         </div>
                                     </div>
@@ -230,10 +150,17 @@
                                     </div>
                                 </div>
 
+
+
+                                <div id="message" hidden class="notification error closeable">
+                                    <p></p>
+                                    <a class="close"></a>
+                                </div>
+
+
                                 <!-- Button -->
                                 <button id="snackbar-place-bid placeBid" class="button ripple-effect move-on-hover full-width margin-top-30"><span>Place a Bid</span></button>
-
-                            </div>
+                                {{ form_end(form) }}
                             <div class="bidding-signup">Don't have an account? <a href="#sign-in-dialog" class="register-tab sign-in popup-with-zoom-anim">Sign Up</a></div>
                         </div>
                     </div>
@@ -242,6 +169,7 @@
                     <div class="sidebar-widget">
                         <h3>Bookmark or Share</h3>
 
+                        <a href="{{ path('freelancer_project',{'id':project.id}) }}">bookmark</a>
                         <!-- Bookmark Button -->
                         <button class="bookmark-button margin-bottom-25">
                             <span class="bookmark-icon"></span>
@@ -273,5 +201,45 @@
             </div>
         </div>
     </div>
+    {% block scripts %}
+        <script type="javascript">
+            $(document).ready(function(){
+                $("#placeBid").on("click", function(event){
+                    let deliveryTime=$('#count-time');
+                    let hourlyRate=$('#slide-range');
+                    let message = $('#message');
+
+                    event.preventDefault();
+                    $.ajax({
+                        url:'{{ path('place_bid') }}',
+                        dataType:"json",
+                        data:{"minimalRate":hourlyRate.val(),"deliveryTime":deliveryTime.val()},
+
+                        success:function(data) {
+                            message.removeAttr(hidden);
+                            $('#message > p').val(data);
+
+                        },
+
+
+                        error: function (err) {
+
+                        }
+
+                    });
+                });
+            });
+        </script>
+        <script>
+
+
+            // Snackbar for copy to clipboard button
+            $('.copy-url-button').click(function() {
+                Snackbar.show({
+                    text: 'Copied to clipboard!',
+                });
+            });
+        </script>
+    {% endblock %}
 
 {% endblock %}

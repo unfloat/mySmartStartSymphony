@@ -1,4 +1,5 @@
 {% extends "Home/Freelancer/home_layout.html.twig" %}
+
 {% block homecontent %}
     <!-- Page Content
     ================================================== -->
@@ -142,7 +143,7 @@
                     <!-- Task -->
                     {% for project in projects %}
 
-                        <a href="{{ path('project',{ 'id': project.id }) }}" class="task-listing">  <!-- j'ajoute id -->
+                        <a href="{{ path('project',{'id':project.id}) }}" class="task-listing">  <!-- j'ajoute id -->
 
                             <!-- Job Listing Details -->
                             <div class="task-listing-details">
@@ -155,12 +156,7 @@
                                         <li><i class="icon-material-outline-access-time"></i> 2 minutes ago</li>
                                     </ul>
                                     <p class="task-listing-text">{{ project.projectDescription }}</p>
-                                    <div class="task-tags">
-                                        <span>{{ project.projectSkill }}</span>
-                                        <span>{{ project.projectSkill }}</span>
-                                        <span>{{ project.projectSkill }}</span>
-                                        <span>{{ project.projectSkill }}</span>
-                                    </div>
+
                                 </div>
 
                             </div>
@@ -168,7 +164,7 @@
                             <div class="task-listing-bid">
                                 <div class="task-listing-bid-inner">
                                     <div class="task-offers">
-                                        <strong>$1,000 - $2,500</strong>
+                                        <strong>${{ project.minBudget }}- {{ project.maxBudget }}</strong>
                                         <span>Fixed Price</span>
                                     </div>
                                     <span class="button button-sliding-icon ripple-effect">Bid Now <i class="icon-material-outline-arrow-right-alt"></i></span>
@@ -181,13 +177,23 @@
                 </div>
                 <!-- Tasks Container / End -->
 
+
                 <!-- Pagination -->
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Pagination -->
                         <div class="pagination-container margin-top-60 margin-bottom-60">
-                            {{ knp_pagination_render(projects) }}
+                            <nav class="pagination">
+                                <ul>
+                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
+                                    <li><a href="#" class="ripple-effect">1</a></li>
+                                    <li><a href="#" class="current-page ripple-effect">2</a></li>
+                                    <li><a href="#" class="ripple-effect">3</a></li>
+                                    <li><a href="#" class="ripple-effect">4</a></li>
+                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

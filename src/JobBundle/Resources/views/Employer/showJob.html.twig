@@ -17,15 +17,10 @@
 
 
     <div class="job-overview">
-        <div class="job-overview-headline">Job {{ i.id }} Summary</div>
+        <div class="job-overview-headline">{{ i.title }}</div>
         <div class="job-overview-inner">
             <ul>
-                <li>
-                    <i class=></i>
-                    <span>Title</span>
-                    <h5>{{ i.title }}</h5>
 
-                </li>
                 <li>
                     <i class="icon-material-outline-location-on"></i>
                     <span>Location</span>
@@ -41,19 +36,49 @@
                     <span>Salary</span>
                     <h5>{{ i.minSalary }} - {{i.maxSalary  }}</h5>
                 </li>
+                <li>
+                    <i class="icon-material-outline-local-atm"></i>
+                    <span>Salary</span>
+                    <h5>{{ i.tags }}</h5>
+                </li>
 
 
             </ul>
             <br>
-            <br>
+
 
             <div class="col-xl-8 col-lg-8 content-right-offset">
 
                 <div class="single-page-section">
-                    <h3 class="margin-bottom-25">Job Description</h3>
-                    <p>{{ i.description }}</p>
+
+                    <!-- Accordion -->
+                    <div class="accordion js-accordion">
+
+                        <!-- Accordion Item -->
+                        <div class="accordion__item js-accordion-item">
+                            <div class="accordion-header js-accordion-header">Description</div>
+
+                            <!-- Accordtion Body -->
+                            <div class="accordion-body js-accordion-body" style="display: none;">
+
+                                <!-- Accordion Content -->
+                                <div class="accordion-body__contents">
+                                    <p>{{ i.description }}</p>
+                                </div>
+
+                            </div>
+                            <!-- Accordion Body / End -->
+                        </div>
+                        <!-- Accordion Item / End -->
+
+
+
+
+
+                    </div>
+                    <!-- Accordion / End -->
                 </div>
-                <br>
+
                 <a type="submit" class="apply-now-button"  href="{{ path("edit_job",{'id':i.id})}}">Edit &nbsp;</a>
                 <a type="submit" class="apply-now-button" href="{{ path("delete_job",{'id':i.id})}}">&nbsp; Delete</a>
             </div>
@@ -65,7 +90,15 @@
 
 
 
-        {% endfor %}
+
+
+
+
+
+
+
+
+    {% endfor %}
 
 
 

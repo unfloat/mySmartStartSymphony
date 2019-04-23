@@ -1,0 +1,98 @@
+offer_homepage:
+    path:     /
+    defaults: { _controller: OfferBundle:Default:index }
+
+
+offer_Employer:
+    path:     /MakeOffer
+    defaults: { _controller: OfferBundle:Offer:create }
+
+
+offer_list:
+    path:     /offerlist
+    defaults: { _controller: OfferBundle:Offer:listOffers }
+
+offer_delete:
+    path:     /offerDelete/{id}
+    defaults: { _controller: OfferBundle:Offer:deleteOffer }
+
+
+offer_readOne:
+    path:     /readOne/{id}
+    defaults: { _controller: OfferBundle:OfferDetails:readOffer }
+
+offer_stat:
+    path:     /stat
+    defaults: { _controller: OfferBundle:Statistics:statistic }
+
+offer_accept:
+  path:     /acceptOffer/{id}
+  defaults: { _controller: OfferBundle:OfferDetails:acceptOffer }
+
+offer_reject:
+  path:     /rejectOffer/{id}
+  defaults: { _controller: OfferBundle:OfferDetails:rejectOffer }
+
+offer_History:
+    path:     /historyOffers
+    defaults: { _controller: OfferBundle:HistoryOffers:listOffers }
+
+offer_Old:
+  path:     /oldOffers/{id}
+  defaults: { _controller: OfferBundle:OldOffers:readOffer }
+
+offerList_Employer:
+  path:     /Employer/listOffers
+  defaults: { _controller: OfferBundle:EmployerOffers:listOffers }
+
+offer_DetailsOfferEmployer:
+  path:     /Employer/detailsOffers/{id}
+  defaults: { _controller: OfferBundle:EmployerOfferDetails:readOffer }
+
+
+
+
+offer_send-notification:
+  path:     /notification
+  defaults: { _controller: OfferBundle:DefaultController:sendNotification }
+
+
+Skills_create:
+  path:     /skills/create
+  defaults: { _controller: OfferBundle:Skills:create }
+
+
+Skills_read:
+  path:     /skills/read
+  defaults: { _controller: OfferBundle:Skills:read }
+
+Skills_update:
+  path:     /skills/update/{id}
+  defaults: { _controller: OfferBundle:Skills:update }
+
+Skills_delete:
+  path:     /skills/delete/{id}
+  defaults: { _controller: OfferBundle:Skills:delete }
+
+Category_create:
+  path:     /category/create
+  defaults: { _controller: OfferBundle:Category:create }
+
+Category_read:
+  path:     /category/read
+  defaults: { _controller: OfferBundle:Category:read }
+
+Category_update:
+  path:     /category/update/{id}
+  defaults: { _controller: OfferBundle:Category:update }
+
+
+Category_delete:
+  path:     /category/delete/{id}
+  defaults: { _controller: OfferBundle:Category:delete }
+
+
+
+
+
+

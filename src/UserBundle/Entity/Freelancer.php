@@ -3,13 +3,15 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\UserInterface;
+use Mgilet\NotificationBundle\Annotation\Notifiable;
+use Mgilet\NotificationBundle\NotifiableInterface;
 
 /**
  * Freelancer
  * @ORM\Entity(repositoryClass="UserBundle\Repository\FreelancerRepository")
+ * @Notifiable(name="freelancer")
  */
-class Freelancer extends User
+class Freelancer extends User implements NotifiableInterface
 {
     public function __construct()
     {
@@ -62,9 +64,35 @@ class Freelancer extends User
     private $intro;
 
     /**
-     * @ORM\OneToMany(targetEntity="BookmarkBundle\Entity\FreelancersBookmark", mappedBy="bookmarkingFreelancer")
+     * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="freelancer")
+     */
+    private $bids;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BookmarkBundle\Entity\Bookmark", mappedBy="freelancer")
      */
     private $bookmarks;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReviewBundle\Entity\Review", mappedBy="freelancerReviewedId")
+     */
+    private $reviewId;
+
+    /**
+     * @return mixed
+     */
+    public function getReviewId()
+    {
+        return $this->reviewId;
+    }
+
+    /**
+     * @param mixed $reviewId
+     */
+    public function setReviewId($reviewId)
+    {
+        $this->reviewId = $reviewId;
+    }
 
 
     /**
@@ -196,5 +224,98 @@ class Freelancer extends User
     {
         return $this->intro;
     }
-}
 
+
+
+    /**
+     * Add bid
+     *
+     * @param \BidBundle\Entity\Bid $bid
+     *
+     * @return Freelancer
+     */
+    public function addBid(\BidBundle\Entity\Bid $bid)
+    {
+        $this->bids[] = $bid;
+
+        return $this;
+    }
+
+    /**
+     * Remove bid
+     *
+     * @param \BidBundle\Entity\Bid $bid
+     */
+    public function removeBid(\BidBundle\Entity\Bid $bid)
+    {
+        $this->bids->removeElement($bid);
+    }
+
+    /**
+     * Get bids
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBids()
+    {
+        return $this->bids;
+    }
+
+    /**
+     * Add bookmark
+     *
+     * @param \BookmarkBundle\Entity\Bookmark $bookmark
+     *
+     * @return Freelancer
+     */
+    public function addBookmark(\BookmarkBundle\Entity\Bookmark $bookmark)
+    {
+        $this->bookmarks[] = $bookmark;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookmark
+     *
+     * @param \BookmarkBundle\Entity\Bookmark $bookmark
+     */
+    public function removeBookmark(\BookmarkBundle\Entity\Bookmark $bookmark)
+    {
+        $this->bookmarks->removeElement($bookmark);
+    }
+
+    /**
+     * Get bookmarks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBookmarks()
+    {
+        return $this->bookmarks;
+    }
+
+    /**
+     * Add reviewId
+     *
+     * @param \ReviewBundle\Entity\Review $reviewId
+     *
+     * @return Freelancer
+     */
+    public function addReviewId(\ReviewBundle\Entity\Review $reviewId)
+    {
+        $this->reviewId[] = $reviewId;
+
+        return $this;
+    }
+
+    /**
+     * Remove reviewId
+     *
+     * @param \ReviewBundle\Entity\Review $reviewId
+     */
+    public function removeReviewId(\ReviewBundle\Entity\Review $reviewId)
+    {
+        $this->reviewId->removeElement($reviewId);
+    }
+}

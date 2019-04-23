@@ -4,7 +4,7 @@
 {% block content %}
     <!-- Employer Headline -->
     <div class="dashboard-headline">
-        <h3>Howdy, Tom!</h3>
+        <h3>Howdy, {{ freelancer.username }}!</h3>
         <span>We are glad to see you again!</span>
 
         <!-- Breadcrumbs -->
@@ -35,11 +35,10 @@
         <div class="fun-fact" data-fun-fact-color="#efa80f">
             <div class="fun-fact-text">
                 <span>Reviews</span>
-                <h4>28</h4>
+                <h4>{{ nombreReviews }}</h4>
             </div>
             <div class="fun-fact-icon"><i class="icon-material-outline-rate-review"></i></div>
         </div>
-
         <!-- Last one has to be hidden below 1600px, sorry :( -->
         <div class="fun-fact" data-fun-fact-color="#2a41e6">
             <div class="fun-fact-text">
@@ -105,6 +104,27 @@
                 </div>
             </div>
             <!-- Employer Box / End -->
+
+
+        </div>
+        <!-- Employer Box -->
+        <div class="col-xl-12">
+            <div class="dashboard-box">
+                {% if mgilet_notification_count(app.user) > 0 %}
+
+                    <div class="headline">
+                        <h3><i class="icon-material-baseline-notifications-none"></i>{{mgilet_notification_count (app.user)}} Notifications</h3>
+                    </div>
+
+                {% endif %}
+                <div class="content">
+                    <ul class="dashboard-box-list">
+                        {{ mgilet_notification_render(app.user) }}
+
+                    </ul>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -150,8 +170,116 @@
             </div>
         </div>
     </div>
+    <!-- PORTFOLIO MANAGEMENT BOX -->
+    <div class="col-xl-16">
+        <!-- Portfolio Box -->
+        <div class="dashboard-box main-box-in-row">
+            <div class="headline">
+                <h3><i class="icon-feather-bar-chart-2"></i> Your Portfolio Management</h3>
 
-{% block scripts %}
+            </div>
+            <div class="content">
+                <!-- Chart -->
+                <!-- Accordion -->
+                <div class="accordion js-accordion col-xl-auto">
+                    <div class="submit-field">
+                        <h5>Accordion</h5>
+                    </div>
+
+                    <!-- Accordion Item -->
+                    <div class="accordion__item js-accordion-item">
+                        <div class="accordion-header js-accordion-header"> ABOUT ME </div>
+
+                        <!-- Accordtion Body -->
+                        <div class="accordion-body js-accordion-body" style="display: none;">
+
+                            <!-- Accordion Content -->
+                            <div class="accordion-body__contents">
+                                {{ portfolio.description }}
+                            </div>
+
+                        </div>
+                        <!-- Accordion Body / End -->
+                    </div>
+                    <!-- Accordion Item / End -->
+
+                    <!-- Accordion Item -->
+                    <div class="accordion__item js-accordion-item">
+                        <div class="accordion-header js-accordion-header">EXPERIENCE AND SKILLS</div>
+
+                        <!-- Accordtion Body -->
+                        <div class="accordion-body js-accordion-body" style="display: none;">
+
+
+                            <!-- Sub Accordion Container -->
+                            <div class="accordion js-accordion">
+
+                                <!-- Sub Accordion -->
+                                <div class="accordion__item js-accordion-item">
+                                    <div class="accordion-header js-accordion-header">PREVIOUS EXPERIENCES</div>
+                                    <div class="accordion-body js-accordion-body" style="display: none;">
+                                        <div class="accordion-body__contents">
+                                            {{ portfolio.previousExperiences }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sub Accordion -->
+                                <div class="accordion__item js-accordion-item">
+                                    <div class="accordion-header js-accordion-header">MY SKILLS LIST</div>
+                                    <div class="accordion-body js-accordion-body">
+                                        <div class="accordion-body__contents">
+                                            {{ portfolio.skills }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Sub Accordion / End -->
+                        </div>
+                        <!-- Accordion Body / End -->
+                    </div>
+                    <!-- Accordion Item / End -->
+
+
+
+                </div>
+                <!-- Accordion / End -->
+
+
+
+                <div class="col-xl-12">
+                    <div class="submit-field">
+                        <h5>Attachments</h5>
+
+                        <!-- Attachments -->
+                        <div class="attachments-container margin-top-0 margin-bottom-0">
+                            <div class="attachment-box ripple-effect">
+                                <span>{{ portfolio.devisName }}</span>
+                            </div>
+
+                        </div>
+                        <a href="{{ path("edit_portfolio",{'id':portfolio.id})}}" class="button big dark ripple-effect">EDIT</a>
+                        <div class="clearfix"></div>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    {% block scripts %}
         <script type="javascript">
             $(document).ready(function(){
                 $("#saveNote").on("click", function(event){
@@ -189,95 +317,9 @@
                 });
             });
         </script>
-    <script>
-        // Snackbar for user status switcher
-        $('#snackbar-user-status label').click(function() {
-            Snackbar.show({
-                text: 'Your status has been changed!',
-                pos: 'bottom-center',
-                showAction: false,
-                actionText: "Dismiss",
-                duration: 3000,
-                textColor: '#fff',
-                backgroundColor: '#383838'
-            });
-        });
-    </script>
 
 
-    <script>
-        Chart.defaults.global.defaultFontFamily = "Nunito";
-        Chart.defaults.global.defaultFontColor = '#888';
-        Chart.defaults.global.defaultFontSize = '14';
 
-        var ctx = document.getElementById('chart').getContext('2d');
-
-        var chart = new Chart(ctx, {
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: ["January", "February", "March", "April", "May", "June"],
-                // Information about the dataset
-                datasets: [{
-                    label: "Views",
-                    backgroundColor: 'rgba(42,65,232,0.08)',
-                    borderColor: '#2a41e8',
-                    borderWidth: "3",
-                    data: [196,132,215,362,210,252],
-                    pointRadius: 5,
-                    pointHoverRadius:5,
-                    pointHitRadius: 10,
-                    pointBackgroundColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointBorderWidth: "2",
-                }]
-            },
-
-            // Configuration options
-            options: {
-
-                layout: {
-                    padding: 10,
-                },
-
-                legend: { display: false },
-                title:  { display: false },
-
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: false
-                        },
-                        gridLines: {
-                            borderDash: [6, 10],
-                            color: "#d8d8d8",
-                            lineWidth: 1,
-                        },
-                    }],
-                    xAxes: [{
-                        scaleLabel: { display: false },
-                        gridLines:  { display: false },
-                    }],
-                },
-
-                tooltips: {
-                    backgroundColor: '#333',
-                    titleFontSize: 13,
-                    titleFontColor: '#fff',
-                    bodyFontColor: '#fff',
-                    bodyFontSize: 13,
-                    displayColors: false,
-                    xPadding: 10,
-                    yPadding: 10,
-                    intersect: false
-                }
-            },
-
-
-        });
-
-    </script>
     {% endblock %}
 
 

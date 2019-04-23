@@ -2,6 +2,8 @@
 
 namespace FrontBundle\Controller;
 
+use PortfolioBundle\Entity\Portfolio;
+use ReviewBundle\Entity\Review;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use UserBundle\Entity\Freelancer;
@@ -42,9 +44,12 @@ class PagesController extends Controller
 
     public function freelancerProfileAction(Freelancer $freelancer)
     {
-
-        return $this->render('@Front/Employer/freelancerProfile.html.twig', array("freelancer"=>$freelancer));
+        $review=$this->getDoctrine()->getRepository(Review::class)->findBy(['freelancerReviewedId'=>$freelancer]);
+        $portfolio=$this->getDoctrine()->getRepository(Portfolio::class)->findOneBy(['freelancer'=>$freelancer]);
+        return $this->render('@Front/Employer/freelancerProfile.html.twig', array("freelancer"=>$freelancer,'review'=>$review,'portfolio'=>$portfolio));
     }
+
+
 
 
     /**
@@ -66,15 +71,7 @@ class PagesController extends Controller
         return $this->render('@Front/Freelancer/companyProfile.html.twig');
     }
 
-    public function jobListAction()
-    {
-        return $this->render('@Front/Freelancer/jobList.html.twig');
-    }
 
-    public function jobPageAction()
-    {
-        return $this->render('@Front/Freelancer/jobPage.html.twig');
-    }
 
 
 

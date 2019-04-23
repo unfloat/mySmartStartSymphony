@@ -2,17 +2,20 @@
 
 namespace ReviewBundle\Controller;
 
+use ProjectBundle\Entity\Project;
 use ReviewBundle\Entity\Review;
+use ReviewBundle\Entity\ReviewEmp;
+use ReviewBundle\Form\ReviewEmpType;
 use ReviewBundle\Form\ReviewType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class ReviewController extends Controller
 {
     /**
-     * @Security("has_role('ROLE_FREELANCER')")
+     * @Security("has_role('ROLE_EMPLOYER')")
      */
     public function rateFreelancerAction()
     {
@@ -20,15 +23,24 @@ class ReviewController extends Controller
         return $this->render('ReviewBundle:Review:affiche_Review.html.twig', array('review'=>$review));
     }
 
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
     public function afficheReviewAction()
     {
-        $review=$this->getDoctrine()->getRepository(Review::class)->findAll();
-        return $this->render('ReviewBundle:Review:affiche_Review.html.twig', array('review'=>$review));
+        $review=$this->getDoctrine()->getRepository(Review::class)->findBy(['employerReviewerId'=>$this->getUser()]);
+
+        return $this->render('ReviewBundle:Review:affiche_Review.html.twig', ['review'=>$review]);
     }
 
-    public function addReviewAction(Request $request)
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+    public function addReviewAction(Request $request )
     {
+        $currentUser=$this->getUser();
         $review = new Review();
+        $review->setEmployerReviewerId($currentUser);
         $form = $this->createForm(ReviewType::class,$review);
         $form->handleRequest($request);
 
@@ -42,6 +54,9 @@ class ReviewController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
     public function deleteReviewAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -51,6 +66,9 @@ class ReviewController extends Controller
         return $this->redirectToRoute('affiche_Review');
     }
 
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
     public function updateReviewAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -66,16 +84,23 @@ class ReviewController extends Controller
         return $this->render('ReviewBundle:Review:reviewForm.html.twig',['form'=>$form->createView()]);
     }
 
-
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
     public function rateEmployerAction()
     {
-        $reviews=$this->getDoctrine()->getRepository(ReviewEmp::class)->findAll();
+        $reviews=$this->getDoctrine()->getRepository(ReviewEmp::class)->findBy(['freelancerReviewerId'=>$this->getUser()]);
         return $this->render('ReviewBundle:Review:rate_employer.html.twig', array('reviewEmp'=>$reviews));
     }
 
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
     public function addReviewEmpAction(Request $request)
     {
+        $currentUser=$this->getUser();
         $reviews = new ReviewEmp();
+        $reviews->setFreelancerReviewerId($currentUser);
         $form = $this->createForm(ReviewEmpType::class,$reviews);
         $form->handleRequest($request);
 
@@ -89,6 +114,9 @@ class ReviewController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
     public function deleteReviewEmpAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -98,6 +126,9 @@ class ReviewController extends Controller
         return $this->redirectToRoute('rate_employer');
     }
 
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
     public function updateReviewEmpAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();

@@ -29,7 +29,14 @@ class AppKernel extends Kernel
             new DashboardBundle\DashboardBundle(),
             new BlogBundle\BlogBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-
+            new Mgilet\NotificationBundle\MgiletNotificationBundle(),
+            new OfferBundle\OfferBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
+            new PortfolioBundle\PortfolioBundle(),
+            new ReportBundle\ReportBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+            new BidApiBundle\BidApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

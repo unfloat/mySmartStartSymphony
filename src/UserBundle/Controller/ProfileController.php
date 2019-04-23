@@ -83,13 +83,35 @@ class ProfileController extends BaseController
     public function editAction(Request $request)
     {
         $user = $this->getUser();
-
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
         if (in_array("ROLE_EMPLOYER", $user->getRoles()))
         {
+            $form = $this->formFactory->createForm();
+            $form->setData($user);
+            $em = $this->getDoctrine()->getManager();
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $event = new FormEvent($form, $request);
+                $em->flush();
+                if (null === $response = $event->getResponse()) {
+                    $url = $this->generateUrl('fos_user_profile_show');
+                    $response = new RedirectResponse($url);
+                }
+
+                //$this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+                return $response;
+            }
+
+
+            return $this->render('@User/Profile/Employer/edit_employer.html.twig', array(
+                'form' => $form->createView(),
+            ));
 
         }
         elseif ((in_array("ROLE_FREELANCER", $user->getRoles())))

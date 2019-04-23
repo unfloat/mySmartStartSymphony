@@ -1,3 +1,7 @@
+bid_api:
+    resource: "@BidApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 blog:
     resource: "@BlogBundle/Resources/config/routing.yml"
     prefix:   /
@@ -37,6 +41,21 @@ user:
 homepage:
     resource: "@FrontBundle/Resources/config/routing.yml"
     prefix:   /
+
+logout:
+    path: /logout
+
+offer:
+    resource: "@OfferBundle/Resources/config/routing.yml"
+    prefix:   /offer
+
+mgilet_notification:
+    resource: "@MgiletNotificationBundle/Controller/"
+    prefix: /notifications
+
+portfolio:
+    resource: "@PortfolioBundle/Resources/config/routing.yml"
+    prefix:   /portfolio
 
 
 

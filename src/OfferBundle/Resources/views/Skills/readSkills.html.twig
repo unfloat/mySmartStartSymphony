@@ -1,0 +1,22 @@
+<h1>Skills</h1>
+
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>Category</td>
+        <td>Offer</td>
+        <td></td>
+    </tr>
+
+    {% for s in skills %}
+        <tr>
+            <td>{{s.name}}</td>
+            <td>{{s.category}}</td>
+            <td></td>
+            <td><a href="{{ path('Skills_update',{'id':s.id}) }}">update</a></td>
+            <td><a href="{{ path('Skills_delete',{'id':s.id}) }}">delete</a></td>
+
+        </tr>
+    {% endfor %}
+
+</table>

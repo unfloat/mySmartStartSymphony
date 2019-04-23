@@ -1,5 +1,5 @@
-{% extends "home_layout.html.twig" %}
-{% block content %}
+{% extends "Home/Freelancer/home_layout.html.twig" %}
+{% block homecontent %}
 
     <!-- Titlebar
 ================================================== -->
@@ -61,48 +61,14 @@
             </div>
             <div class="col-xl-12">
                 <div class="companies-list">
-                    <a href="{{ path('front_Company')}}" class="company">
+                    <a href="{{ path('company_profile')}}" class="company">
                         <div class="company-inner-alignment">
                             <span class="company-logo"><img src="{{ asset('images/company-logo-placeholder.png') }}" alt=""></span>
                             <h4>Acra</h4>
                             <div class="star-rating" data-rating="3.5"></div>
                         </div>
                     </a>
-                    <a href="{{ path('front_Company')}}" class="company">
-                        <div class="company-inner-alignment">
-                            <span class="company-logo"><img src="{{ asset('images/browse-companies-02.png') }}" alt=""></span>
-                            <h4>Acue</h4>
-                            <div class="star-rating" data-rating="5.0"></div>
-                        </div>
-                    </a>
-                    <a href="{{ path('front_Company')}}" class="company">
-                        <div class="company-inner-alignment">
-                            <span class="company-logo"><img src="{{ asset('images/browse-companies-04.png') }}" alt=""></span>
-                            <h4>Acorta</h4>
-                            <span class="company-not-rated">Minimum of 3 votes required</span>
-                        </div>
-                    </a>
-                    <a href="{{ path('front_Company')}}" class="company">
-                        <div class="company-inner-alignment">
-                            <span class="company-logo"><img src="{{ asset('images/company-logo-placeholder.png') }}" alt=""></span>
-                            <h4>Acuneol</h4>
-                            <span class="company-not-rated">Minimum of 3 votes required</span>
-                        </div>
-                    </a>
-                    <a href="{{ path('front_Company')}}" class="company">
-                        <div class="company-inner-alignment">
-                            <span class="company-logo"><img src="{{ asset('images/browse-companies-03.png') }}" alt=""></span>
-                            <h4>Acodia</h4>
-                            <div class="star-rating" data-rating="4.9"></div>
-                        </div>
-                    </a>
-                    <a href="{{ path('front_Company')}}" class="company">
-                        <div class="company-inner-alignment">
-                            <span class="company-logo"><img src="{{ asset('images/company-logo-placeholder.png') }}" alt=""></span>
-                            <h4>Acagic</h4>
-                            <span class="company-not-rated">Minimum of 3 votes required</span>
-                        </div>
-                    </a>
+
                 </div>
             </div>
         </div>

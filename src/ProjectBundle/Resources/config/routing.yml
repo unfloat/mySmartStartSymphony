@@ -1,39 +1,38 @@
 create_task:
-    path:     /projectCreate
+    path:     /create
     defaults: { _controller: ProjectBundle:Project:projectCreate }
 
 
-list_manage_projects:
-    path:     /manage_projects
+manage_projects:
+    path:     /manage
     defaults: { _controller: ProjectBundle:Project:manage_projects }
 
-delete_manage_projects:
-    path:     /delete_manage_projects/{id}
+
+
+delete_project:
+    path:     /delete/{id}
     defaults: { _controller: ProjectBundle:Project:delete_manage_projects }
+
+update_project:
+    path:     /update/{id}
+    defaults: { _controller: ProjectBundle:Project:update_manage_projects }
 
 
 project:
-    path:     /project
-    defaults: { _controller: ProjectBundle:Project:project }
-
-list_projects:
-    path:     /projects
-    defaults: { _controller: ProjectBundle:Project:projects }
-
-
-
-
-
-
-freelancer_projects:
-    path:     /listprojects
-    defaults: { _controller: ProjectBundle:Project:projectsList }
-
-freelancer_project:
     path:     /project/{id}
     defaults: { _controller: ProjectBundle:Project:singleProject }
 
+listprojects:
+    path:     /projects
+    defaults: { _controller: ProjectBundle:Project:projectsList }
 
+
+
+
+
+bookmark_project:
+    path:     /book/{id}
+    defaults: { _controller: ProjectBundle:Project:bookMark }
 
 
 
