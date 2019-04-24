@@ -1,3 +1,14 @@
-bid_api_homepage:
-    path:     /
-    defaults: { _controller: BidApiBundle:Default:index }
+api_bids:
+    path:     /all
+    defaults: { _controller: BidApiBundle:BidApi:allBids }
+
+api_place_bid:
+    path:     /place/{deliveryTime}/{hourlyRate}
+    defaults: { _controller: BidApiBundle:BidApi:placeBid }
+
+api_find_bid:
+    path:     /find/{id}
+    defaults: { _controller: BidApiBundle:BidApi:findBid }
+
+
+
