@@ -50,3 +50,11 @@ services:
         class: UserBundle\EventListener\RegistrationListener
         tags:
             - { name: kernel.event_subscriber }
+
+
+    App\Normalizer\EntityNormalizer:
+        public: false
+        autowire: true
+        autoconfigure: true
+        tags:
+            - { name: serializer.normalizer }

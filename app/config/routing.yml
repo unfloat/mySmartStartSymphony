@@ -1,6 +1,10 @@
+bookmark_api:
+    resource: "@BookmarkApiBundle/Resources/config/routing.yml"
+    prefix:   /api/bookmark
+
 bid_api:
     resource: "@BidApiBundle/Resources/config/routing.yml"
-    prefix:   /api
+    prefix:   /api/bid
 
 blog:
     resource: "@BlogBundle/Resources/config/routing.yml"

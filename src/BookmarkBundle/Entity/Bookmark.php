@@ -122,35 +122,14 @@ class Bookmark
      * Get projects
      *
      * @return \Doctrine\Common\Collections\Collection
-     */
+
     public function getProjects()
     {
         return $this->projects;
     }
+     *  */
 
-    /**
-     * Set user
-     *
-     * @param \UserBundle\Entity\User $user
-     *
-     * @return Bookmark
-     */
-    public function setUser(\UserBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
 
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \UserBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 
 
     /**
@@ -167,15 +146,17 @@ class Bookmark
         return $this;
     }
 
+
     /**
      * Get freelancer
      *
      * @return \UserBundle\Entity\Freelancer
-     */
+     * */
     public function getFreelancer()
     {
         return $this->freelancer;
     }
+
 
     /**
      * Set project

@@ -30,7 +30,8 @@
         "twig/twig": "^1.0||^2.0",
         "cmen/google-charts-bundle": "^3.0",
         "vich/uploader-bundle": "^1.4",
-        "friendsofsymfony/ckeditor-bundle": "^1.2"
+        "friendsofsymfony/ckeditor-bundle": "^1.2",
+      "ext-json": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

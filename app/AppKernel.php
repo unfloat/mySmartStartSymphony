@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new ReportBundle\ReportBundle(),
             new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new BidApiBundle\BidApiBundle(),
+            new BookmarkApiBundle\BookmarkApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

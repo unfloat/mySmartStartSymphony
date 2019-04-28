@@ -1,14 +1,21 @@
 api_bids:
-    path:     /all
+    path:     /all/{id}
     defaults: { _controller: BidApiBundle:BidApi:allBids }
+    methods:  [GET]
 
 api_place_bid:
-    path:     /place/{deliveryTime}/{hourlyRate}
+    path:     /place/{deliveryTime}/{minimalRate}/{project}/{freelancer}
     defaults: { _controller: BidApiBundle:BidApi:placeBid }
 
 api_find_bid:
     path:     /find/{id}
     defaults: { _controller: BidApiBundle:BidApi:findBid }
+    methods:  [GET]
+
+api_edit_bid:
+    path:     /edit/{id}/{deliveryTime}/{hourlyRate}
+    defaults: { _controller: BidApiBundle:BidApi:editBid }
+    methods:  [PUT]
 
 
 

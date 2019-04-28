@@ -1,0 +1,11 @@
+api_bookmarks:
+    path:     /all/{id}
+    defaults: { _controller: BookmarkApiBundle:BookmarkApi:allBookmarks }
+
+api_add_bookmarks:
+    path:     /add/{project}/{freelancer}
+    defaults: { _controller: BookmarkApiBundle:BookmarkApi:placeBookmark }
+
+api_find_bookmark:
+    path:     /find/{id}
+    defaults: { _controller: BookmarkApiBundle:BookmarkApi:findBookmark }
