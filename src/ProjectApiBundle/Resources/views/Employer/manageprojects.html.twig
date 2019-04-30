@@ -1,0 +1,235 @@
+{% extends "Dashboard/Employer/dashboard_layout.html.twig" %}
+
+{% block content %}
+
+    <!-- Headline -->
+    <div class="dashboard-headline">
+        <h3 class="notify-box margin-top-15">Manage Projects</h3>
+    </div>
+    <!-- End Headline -->
+    <!-- Content-->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="row tasks-list-container margin-top-35">
+                {% for mp in manage_projects %}
+                    <div class="col-md-5 task-listing" style="width: 60%;margin-left: 5%" >
+                        <ul class="dashboard-box-list">
+                            <li>
+                                <div>
+                                    <div>
+                                        <div class="job-listing-description">
+                                            <h3 class="task-listing-title" style="width: auto;float: left;">
+                                                <a href="#small-dialog" class="popup-with-zoom-anim">{{ mp.projectName }}</a>
+                                            </h3>
+                                            {% if "now"|date('Y-m-d') > mp.projectEndDay|date('Y-m-d') %}
+                                                <span class="dashboard-status-button yellow" style="margin-top: 3%;">Expiring</span>
+                                                <ul class="job-listing-footer" >
+                                                    <li style="list-style-type: none !important;">
+                                                        <i class="icon-material-outline-access-time"></i> from
+                                                        {% set difference = date(mp.projectEndDay).diff(date("now")) %}
+                                                        {% set leftDays = difference.days %}
+                                                        {% if leftDays == 1 %}
+                                                            1 day
+                                                        {% else %}
+                                                            {{ leftDays }} days
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            {% else %}
+
+                                                <span class="dashboard-status-button green" style="margin-top: 3%;">In Progress</span>
+                                                <ul  class="job-listing-footer" >
+                                                    <li  style="list-style-type: none !important;">
+                                                        <i class="icon-material-outline-access-time"></i> from
+                                                        {% set difference = date(mp.projectStartDay).diff(date("now")) %}
+                                                        {% set leftDays = difference.days %}
+                                                        {% if leftDays == 1 %}
+                                                            1 day
+                                                        {% else %}
+                                                            {{ leftDays }} days
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Buttons -->
+                                <div class="buttons-to-right always-visible" style="margin-bottom: -10px;margin-left:14%;">
+                                    <a href="{{ path('bidders',{'id':'1'}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">3</span></a>
+                                    <a href="{{ path('update_manage_projects', {'id': mp.id}) }}" class="button ripple-effect" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                    <a href="{{ path('delete_manage_projects', {'id': mp.id}) }}" class="button ripple-effect"  data-tippy-placement="top" title="Remove Project"><i class="icon-feather-trash-2"></i></a>
+                                </div>
+                                <!-- End Buttons -->
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Pop up -->
+                    <div id="small-dialog" class="zoom-anim-dialog dialog-with-tabs mfp-hide">
+                        <div class="sign-in-form">
+                            <ul class="popup-tabs-nav" style="pointer-events: none;">
+                                <li class="active"><a href="#tab">{{ mp.projectName }}</a></li>
+                            </ul>
+                            <div class="popup-tabs-container">
+                                <div class="popup-tab-content" id="tab" style="">
+                                    <!-- Welcome Text -->
+                                    <div class="welcome-text">
+                                        <h3>Take a look 😎</h3>
+                                    </div>
+                                    <!-- End Welcome Text -->
+                                    <!-- Values -->
+                                    <h4 style="margin-left: 1%; color: #2a41e8">Category</h4>
+                                    <p class="with-border" style="
+                                            border: 1px solid #e0e0e0;
+                                            margin-bottom: 22px;
+                                            box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+                                            height: 48px;
+                                            line-height: 48px;
+                                            padding: 0 20px;
+                                            outline: none;
+                                            font-size: 16px;
+                                            color: gray;
+                                            max-width: 100%;
+                                            width: 100%;
+                                            box-sizing: border-box;
+                                            display: block;
+                                            background-color: #fff;
+                                            font-weight: 500;
+                                            opacity: 1;
+                                            border-radius: 4px;">{{ mp.idCategory.name|default('undefined') }}</p>
+                                    <h4 style="margin-left: 1%; color: #2a41e8">Skill required</h4>
+                                    <p class="with-border" style="
+                                            border: 1px solid #e0e0e0;
+                                            margin-bottom: 22px;
+                                            box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+                                            height: 48px;
+                                            line-height: 48px;
+                                            padding: 0 20px;
+                                            outline: none;
+                                            font-size: 16px;
+                                            color: gray;
+                                            max-width: 100%;
+                                            width: 100%;
+                                            box-sizing: border-box;
+                                            display: block;
+                                            background-color: #fff;
+                                            font-weight: 500;
+                                            opacity: 1;
+                                            border-radius: 4px;">{{ mp.idSkill.name|default('undefined') }}</p>
+                                    <h4 style="margin-left: 1%; color: #2a41e8">Location</h4>
+                                    <p class="with-border" style="
+                                            border: 1px solid #e0e0e0;
+                                            margin-bottom: 22px;
+                                            box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+                                            height: 48px;
+                                            line-height: 48px;
+                                            padding: 0 20px;
+                                            outline: none;
+                                            font-size: 16px;
+                                            color: gray;
+                                            max-width: 100%;
+                                            width: 100%;
+                                            box-sizing: border-box;
+                                            display: block;
+                                            background-color: #fff;
+                                            font-weight: 500;
+                                            opacity: 1;
+                                            border-radius: 4px;">{{ mp.projectLocation }}</p>
+                                    <h4 style="margin-left: 1%; color: #2a41e8">Description</h4>
+                                    <textarea name="textarea" cols="10" class="with-border"
+                                              style="
+                                                 border: 1px solid #e0e0e0;
+                                                 margin-bottom: 22px;
+                                                 box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+                                                 height: 48px;
+                                                 line-height: 48px;
+                                                 padding: 0 20px;
+                                                 outline: none;
+                                                 font-size: 16px;
+                                                 color: gray;
+                                                 max-width: 100%;
+                                                 width: 100%;
+                                                 box-sizing: border-box;
+                                                 display: block;
+                                                 background-color: #fff;
+                                                 font-weight: 500;
+                                                 opacity: 1;
+                                                 ">{{ mp.projectDescription }}</textarea>
+                                    <h4 style="margin-left: 1%; color: #2a41e8">Minimum Budget</h4>
+                                    <p class="with-border" style="
+                                            border: 1px solid #e0e0e0;
+                                            margin-bottom: 22px;
+                                            box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+                                            height: 48px;
+                                            line-height: 48px;
+                                            padding: 0 20px;
+                                            outline: none;
+                                            font-size: 16px;
+                                            color: gray;
+                                            max-width: 100%;
+                                            width: 100%;
+                                            box-sizing: border-box;
+                                            display: block;
+                                            background-color: #fff;
+                                            font-weight: 500;
+                                            opacity: 1;
+                                            border-radius: 4px;">{{ mp.minBudget }}<span> TND</span></p>
+                                    <h4 style="margin-left: 1%; color: #2a41e8">Maximum Budget</h4>
+                                    <p class="with-border" style="
+                                            border: 1px solid #e0e0e0;
+                                            margin-bottom: 22px;
+                                            box-shadow: 0 1px 4px 0 rgba(0,0,0,.05);
+                                            height: 48px;
+                                            line-height: 48px;
+                                            padding: 0 20px;
+                                            outline: none;
+                                            font-size: 16px;
+                                            color: gray;
+                                            max-width: 100%;
+                                            width: 100%;
+                                            box-sizing: border-box;
+                                            display: block;
+                                            background-color: #fff;
+                                            font-weight: 500;
+                                            opacity: 1;
+                                            border-radius: 4px;">{{ mp.maxBudget }}<span> TND</span></p>
+                                    <!-- End Values -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Pop up -->
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+    <!-- End Content-->
+
+    <!-- Pagination -->
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pagination-container margin-top-60 margin-bottom-60">
+                {{ knp_pagination_render(manage_projects) }}
+            </div>
+        </div>
+    </div>
+    <!-- End Pagination -->
+
+
+    <!-- Pop up -->
+    {% block scripts %}
+        <script type="javascript">
+            $(document).ready(function () {
+                $("#showProject").on("click", function (event) {
+                    event.preventDefault();
+                });
+            });
+        </script>
+    {% endblock %}
+    <!-- End Pop up -->
+
+{% endblock %}

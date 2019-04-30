@@ -1,0 +1,104 @@
+{% extends "Dashboard/Employer/dashboard_layout.html.twig" %}
+
+{% block content %}
+<!-- Employer Content-->
+
+        <!-- Employer Headline -->
+        <div class="dashboard-headline">
+            <h3>Manage Tasks</h3>
+
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs" class="dark">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li>Manage Tasks</li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Employer Box -->
+            <div class="col-xl-12">
+                <div class="dashboard-box margin-top-0">
+
+                    <!-- Headline -->
+                    <div class="headline">
+                        <h3><i class="icon-material-outline-assignment"></i> My Tasks</h3>
+                    </div>
+
+                    <div class="content">
+                        <ul class="dashboard-box-list">
+                            <li>
+                                {% for project in projects %}
+                                <!-- Job Listing -->
+                                <div class="job-listing width-adjustment">
+
+
+                                    <!-- Job Listing Details -->
+                                    <div class="job-listing-details">
+
+                                        <!-- Details -->
+                                        <div class="job-listing-description">
+                                            <h3 class="job-listing-title"><a href="{{ path('update_project',{'id':project.id   }) }}">{{ project.projectName }}</a> <span class="dashboard-status-button yellow">Expiring</span></h3>
+
+                                            <!-- Job Listing Footer -->
+                                            <div class="job-listing-footer">
+                                                <ul>
+                                                    <li><i class="icon-material-outline-access-time"></i> 23 hours left</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Task Details -->
+                                <ul class="dashboard-task-info">
+                                    <li><strong>{{ count[project.id]['numberOfBids'] }}</strong><span>Bids</span></li>
+                                    <li><strong>${{ count[project.id]['average'] }}</strong><span>Avg. Bid</span></li>
+                                    <li><strong>{{ count[project.id]['minDeliveryTime'] }}</strong><span>Delivery Time</span></li>
+                                </ul>
+
+                                <!-- Buttons -->
+                                <div class="buttons-to-right always-visible">
+                                    {% if count[project.id]['numberOfBids'] > 0 %}
+                                        <a href="{{ path('bidders',{'id': project.id}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">{{ count[project.id]['numberOfBids'] }}</span></a>
+                                    {% endif %}
+                                    <a href="{{ path('update_project', {'id': project.id}) }}" class="button gray ripple-effect ico" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                    <a href="{{ path('delete_project', {'id': project.id}) }}" class="button gray ripple-effect ico" data-tippy-placement="top" title="Remove Project"><i class="icon-feather-trash-2"></i></a>
+                                </div>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Row / End -->
+
+        <!-- Pagination -->
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Pagination -->
+                <div class="pagination-container margin-top-60 margin-bottom-60">
+                    <nav class="pagination">
+                        <ul>
+                            <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
+                            <li><a href="#" class="ripple-effect">1</a></li>
+                            <li><a href="#" class="current-page ripple-effect">2</a></li>
+                            <li><a href="#" class="ripple-effect">3</a></li>
+                            <li><a href="#" class="ripple-effect">4</a></li>
+                            <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Pagination / End -->
+
+
+{% endblock %}
