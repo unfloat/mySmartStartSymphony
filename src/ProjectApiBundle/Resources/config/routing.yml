@@ -1,38 +1,7 @@
-create_task:
-    path:     /create
-    defaults: { _controller: ProjectBundle:Project:projectCreate }
+allProjectsM:
+    path:     /projects/all
+    defaults: { _controller: ProjectBundle:Project:allProjectsM }
 
-
-manage_projects:
-    path:     /manage
-    defaults: { _controller: ProjectBundle:Project:manage_projects }
-
-
-
-delete_project:
-    path:     /delete/{id}
-    defaults: { _controller: ProjectBundle:Project:delete_manage_projects }
-
-update_project:
-    path:     /update/{id}
-    defaults: { _controller: ProjectBundle:Project:update_manage_projects }
-
-
-project:
-    path:     /project/{id}
-    defaults: { _controller: ProjectBundle:Project:singleProject }
-
-listprojects:
-    path:     /projects
-    defaults: { _controller: ProjectBundle:Project:projectsList }
-
-
-
-
-
-bookmark_project:
-    path:     /book/{id}
-    defaults: { _controller: ProjectBundle:Project:bookMark }
-
-
-
+createProjectM:
+    path:     /projects/newProject
+    defaults: { _controller: ProjectBundle:Project:createProjectM }
