@@ -26,7 +26,7 @@ class BookmarkApiController extends Controller
         $encoder = new JsonEncoder();
         $normalizer = new GetSetMethodNormalizer();
         $bookmarks = $this->getDoctrine()->getRepository(Bookmark::class)
-            ->findBy(["project" => $id]);
+            ->findBy(["freelancer" => $id]);
         $projectCallback = function ($project) {
             return $project instanceof Project ? $projectProps = ["projectName" => $project->getProjectName(),
                 "projectDescription" => $project->getProjectDescription(), "minBudget" => $project->getMinBudget(),
