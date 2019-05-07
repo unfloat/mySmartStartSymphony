@@ -23,6 +23,7 @@ class BidApiController extends Controller
     {
         $encoder = new JsonEncoder();
         $normalizer = new GetSetMethodNormalizer();
+        //$normalizer = new ObjectNormalizer();
         $bids = $this->getDoctrine()->getRepository(Bid::class)
             ->findBy(["freelancer" => $id]);
         $projectCallback = function ($project) {
@@ -35,9 +36,19 @@ class BidApiController extends Controller
         $normalizer->setCallbacks(['project' => $projectCallback]);
         $normalizer->setIgnoredAttributes(['freelancer']);
 
+        /*$normalizer->setCircularReferenceLimit(2);
+        $normalizer->setCircularReferenceHandler(function ($objet)
+        {
+            return $objet->getId();
+        });
+        */
+
 
         $serializer = new Serializer([$normalizer], [$encoder]);
+        //$serializer = new Serializer([$normalizer]);
+        //$jsonContent = $serializer->normalize($bids);
         $formatted = $serializer->normalize($bids);
+
 
         return new JsonResponse($formatted);
     }
@@ -75,9 +86,12 @@ class BidApiController extends Controller
 
 
         $projectCallback = function ($project) {
-            return $project instanceof Project ? $projectProps = ["projectName" => $project->getProjectName(),
+            return $project instanceof Project ? $projectProps = [
+                "projectName" => $project->getProjectName(),
+                "projectDescription" => $project->getProjectDescription(),
                 "minBudget" => $project->getMinBudget(),
-                "maxBudget" => $project->getMaxBudget()]
+                "maxBudget" => $project->getMaxBudget()
+            ]
                 : '';
         };
 
@@ -97,29 +111,6 @@ class BidApiController extends Controller
 
     public function findBidAction($id)
     {
-        /*
-        $bid = $this->getDoctrine()->getRepository(Bid::class)
-            ->find($id);
-
-        if (!$bid) {
-            throw $this->createNotFoundException(sprintf(
-                'No bid found'
-            ));
-        }
-
-
-        $data = array(
-            'minimalRate' => $bid->getMinimalRate(),
-            'deliveryTime' => $bid->getDeliveryTime(),
-            'minBudget' => $bid->getProject()->getMinBudget(),
-            'maxBudget' => $bid->getProject()->getMaxBudget(),
-
-        );
-        var_dump($data);
-        $response = new Response(json_encode($data), 200);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
-        */
         $bid = $this->getDoctrine()->getRepository(Bid::class)
             ->find($id);
         $encoder = new JsonEncoder();
@@ -128,6 +119,7 @@ class BidApiController extends Controller
             ->findBy(["freelancer" => $id]);
         $projectCallback = function ($project) {
             return $project instanceof Project ? $projectProps = ["projectName" => $project->getProjectName(),
+                "projectDescription" => $project->getProjectDescription(),
                 "minBudget" => $project->getMinBudget(),
                 "maxBudget" => $project->getMaxBudget()]
                 : '';
@@ -148,10 +140,11 @@ class BidApiController extends Controller
     {
        $id = $request->get('id');
 
-               $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $bid = $this->getDoctrine()->getRepository(Bid::class)
             ->find($id);
+
 
 
         $deliveryTime = $request->get('deliveryTime');
@@ -180,6 +173,39 @@ class BidApiController extends Controller
 
     }
 
+    public function deleteBidAction($id, Request $request)
+    {
+        $id = $request->get('id');
 
+        $em = $this->getDoctrine()->getManager();
+
+        $bid = $this->getDoctrine()->getRepository(Bid::class)
+            ->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($bid);
+        $em->flush();
+
+        return new JsonResponse("deleted");
+
+    }
+
+    public function findProject($id){
+    $project = $this->getDoctrine()->getRepository(Project::class)
+            ->find($id);
+        $encoder = new JsonEncoder();
+        $normalizer = new GetSetMethodNormalizer();
+        
+
+        $normalizer->setCallbacks(['project' => $projectCallback]);
+        $normalizer->setIgnoredAttributes(['freelancer']);
+
+
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        $formatted = $serializer->normalize($bid);
+
+        return new JsonResponse($formatted);
+
+}
 
 }

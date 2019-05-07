@@ -26,10 +26,12 @@ class BookmarkApiController extends Controller
         $encoder = new JsonEncoder();
         $normalizer = new GetSetMethodNormalizer();
         $bookmarks = $this->getDoctrine()->getRepository(Bookmark::class)
-            ->findBy(["freelancer" => $id]);
+            ->findBy(["project" => $id]);
         $projectCallback = function ($project) {
             return $project instanceof Project ? $projectProps = ["projectName" => $project->getProjectName(),
-                "projectDescription" => $project->getProjectDescription()] : '';
+                "projectDescription" => $project->getProjectDescription(), "minBudget" => $project->getMinBudget(),
+                "maxBudget" => $project->getMaxBudget()]
+                : '';
         };
 
         $normalizer->setCallbacks(['project' => $projectCallback]);
@@ -72,7 +74,6 @@ class BookmarkApiController extends Controller
             $dateAdded = new \DateTime("now");
         } catch (\Exception $e) {
         };
-        var_dump($dateAdded);
 
             //$request->get('dateAdded');
         $project = $this->getDoctrine()->getRepository(Project::class)
@@ -122,43 +123,22 @@ class BookmarkApiController extends Controller
 
     }
 
-    public function editBookmarkAction(Request $request)
+
+    public function deleteBookmarkAction($id, Request $request)
     {
-        $dateAdded = $request->get('dateAdded');
-        $hourlyRate = $request->get('hourlyRate');
         $id = $request->get('id');
+
         $em = $this->getDoctrine()->getManager();
 
-        $bid = $this->getDoctrine()->getRepository(Bid::class)
+        $bookmark = $this->getDoctrine()->getRepository(Bookmark::class)
             ->find($id);
 
-        if (empty($bid)) {
-            return new Response(Response::HTTP_NOT_FOUND);
-        }
-        elseif(!empty($deliveryTime) && !empty($hourlyRate)){
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($bookmark);
+        $em->flush();
 
-            $bid->setDeliveryTime($deliveryTime);
-            $bid->setMinimalRate($hourlyRate);
-            $em->flush();
-            return new Response(Response::HTTP_OK);
-        }
-        elseif(empty($deliveryTime) && !empty($hourlyRate)){
-
-            $bid->setMinimalRate($hourlyRate);
-            $em->flush();
-            return new Response(Response::HTTP_OK);
-        }
-        elseif(!empty($deliveryTime) && empty($hourlyRate)){
-
-            $bid->setDeliveryTime($deliveryTime);
-            $em->flush();
-            return new Response(Response::HTTP_OK);
-        }
-
-        return new Response(Response::HTTP_NOT_ACCEPTABLE);
-
+        return new JsonResponse("deleted");
 
     }
-
 
 }

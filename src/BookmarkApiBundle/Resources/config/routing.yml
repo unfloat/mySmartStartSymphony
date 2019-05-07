@@ -9,3 +9,7 @@ api_add_bookmarks:
 api_find_bookmark:
     path:     /find/{id}
     defaults: { _controller: BookmarkApiBundle:BookmarkApi:findBookmark }
+
+api_delete_bookmark:
+    path:     /delete/{id}
+    defaults: { _controller: BookmarkApiBundle:BookmarkApi:deleteBookmark }
