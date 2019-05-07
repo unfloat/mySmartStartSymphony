@@ -1,0 +1,7 @@
+allProjectsM:
+    path:     /projects/all
+    defaults: { _controller: ProjectBundle:Project:allProjectsM }
+
+createProjectM:
+    path:     /projects/newProject
+    defaults: { _controller: ProjectBundle:Project:createProjectM }

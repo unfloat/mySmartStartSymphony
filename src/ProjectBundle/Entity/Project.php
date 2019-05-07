@@ -3,16 +3,12 @@
 namespace ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mgilet\NotificationBundle\Annotation\Notifiable;
-use Mgilet\NotificationBundle\NotifiableInterface;
 
 /**
  * Project
  *
  * @ORM\Table(name="project")
  * @ORM\Entity(repositoryClass="ProjectBundle\Repository\ProjectRepository")
- * @Notifiable(name="project")
-
  */
 class Project implements NotifiableInterface
 {
@@ -26,14 +22,33 @@ class Project implements NotifiableInterface
     private $id;
 
     /**
- * @var string
- *
- * @ORM\Column(name="projectName", type="string", length=255)
- */
-
-
+     * @var string
+     *
+     * @ORM\Column(name="projectName", type="string", length=255)
+     */
     private $projectName;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="OfferBundle\Entity\Category")
+     * @ORM\JoinColumn(name="idCategory",referencedColumnName="id")
+     */
+    protected $idCategory;
+
+    /**
+     * @return mixed
+     */
+    public function getIdCategory()
+    {
+        return $this->idCategory;
+    }
+
+    /**
+     * @param mixed $idCategory
+     */
+    public function setIdCategory($idCategory)
+    {
+        $this->idCategory = $idCategory;
+    }
 
     /**
      * @var string
@@ -64,71 +79,100 @@ class Project implements NotifiableInterface
      */
     private $projectDescription;
 
-    /**
-     * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
-     */
-    private $projectBids;
-
-    /**
-     * @ORM\OneToMany(targetEntity="BookmarkBundle\Entity\Bookmark", mappedBy="project")
-     */
-    private $projectBookmarks;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer")
-     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
-     */
-    private $employer;
-
 
     /**
      * @var string
      *
-     * @ORM\Column(name="publishingDate", type="date")
+     * @ORM\Column(name="address", type="string", length=255)
      */
-
-    private $publishingDate;
+    private $address;
 
     /**
      * @return string
      */
-    public function getPublishingDate()
+    public function getAddress()
     {
-        return $this->publishingDate;
+        return $this->address;
     }
 
     /**
-     * @param string $publishingDate
+     * @param string $address
      */
-    public function setPublishingDate($publishingDate)
+    public function setAddress($address)
     {
-        $this->publishingDate = $publishingDate;
+        $this->address = $address;
     }
 
     /**
-     * @return string
-     */
-    public function getValidityPeriod()
-    {
-        return $this->validityPeriod;
-    }
-
-    /**
-     * @param string $validityPeriod
-     */
-    public function setValidityPeriod($validityPeriod)
-    {
-        $this->validityPeriod = $validityPeriod;
-    }
-
-
-    /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="validityPeriod", type="date")
+     * @ORM\Column(name="projectStartDay", type="date")
      */
+    private $projectStartDay;
 
-    private $validityPeriod;
+    /**
+     * @return \DateTime
+     */
+    public function getProjectStartDay()
+    {
+        return $this->projectStartDay;
+    }
+
+    /**
+     * @param \DateTime $projectStartDay
+     */
+    public function setProjectStartDay($projectStartDay)
+    {
+        $this->projectStartDay = $projectStartDay;
+    }
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="projectEndDay", type="date")
+     */
+    private $projectEndDay;
+
+    /**
+     * @return \DateTime
+     */
+    public function getProjectEndDay()
+    {
+        return $this->projectEndDay;
+    }
+
+    /**
+     * @param \DateTime $projectEndDay
+     */
+    public function setProjectEndDay($projectEndDay)
+    {
+        $this->projectEndDay = $projectEndDay;
+    }
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="OfferBundle\Entity\Skills")
+     * @ORM\JoinColumn(name="idSkill",referencedColumnName="id")
+     */
+    private $idSkill;
+
+    /**
+     * @return mixed
+     */
+    public function getIdSkill()
+    {
+        return $this->idSkill;
+    }
+
+    /**
+     * @param mixed $idSkill
+     */
+    public function setIdSkill($idSkill)
+    {
+        $this->idSkill = $idSkill;
+    }
+
     /**
      * Get id
      *
@@ -236,9 +280,6 @@ class Project implements NotifiableInterface
         return $this->maxBudget;
     }
 
-
-
-
     /**
      * Set projectDescription
      *
@@ -263,6 +304,71 @@ class Project implements NotifiableInterface
         return $this->projectDescription;
     }
 
+    /**
+     * @ORM\OneToMany(targetEntity="BidBundle\Entity\Bid", mappedBy="project")
+     */
+    private $projectBids;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BookmarkBundle\Entity\Bookmark", mappedBy="project")
+     */
+    private $projectBookmarks;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer")
+     * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
+     */
+    private $employer;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publishingDate", type="date")
+     */
+
+    private $publishingDate;
+
+    /**
+     * @return string
+     */
+    public function getPublishingDate()
+    {
+        return $this->publishingDate;
+    }
+
+    /**
+     * @param string $publishingDate
+     */
+    public function setPublishingDate($publishingDate)
+    {
+        $this->publishingDate = $publishingDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValidityPeriod()
+    {
+        return $this->validityPeriod;
+    }
+
+    /**
+     * @param string $validityPeriod
+     */
+    public function setValidityPeriod($validityPeriod)
+    {
+        $this->validityPeriod = $validityPeriod;
+    }
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="validityPeriod", type="date")
+     */
+
+    private $validityPeriod;
 
     /**
      * Set employer
@@ -363,3 +469,4 @@ class Project implements NotifiableInterface
         return $this->projectBookmarks;
     }
 }
+
