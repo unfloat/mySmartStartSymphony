@@ -18,5 +18,15 @@ api_delete_bid:
     path:     /delete/{id}
     defaults: { _controller: BidApiBundle:BidApi:deleteBid }
 
+api_bidders:
+    path:     /bidders/{id}
+    defaults: { _controller: BidApiBundle:BidApi:biddersPerProject }
 
+api_project:
+    path:     /project/{description}
+    defaults: { _controller: BidApiBundle:BidApi:findProject }
+
+api_projects:
+    path:     /projects
+    defaults: { _controller: BidApiBundle:BidApi:allProjects }
 

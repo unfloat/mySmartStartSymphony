@@ -36,23 +36,12 @@ class BidApiController extends Controller
         $normalizer->setCallbacks(['project' => $projectCallback]);
         $normalizer->setIgnoredAttributes(['freelancer']);
 
-        /*$normalizer->setCircularReferenceLimit(2);
-        $normalizer->setCircularReferenceHandler(function ($objet)
-        {
-            return $objet->getId();
-        });
-        */
-
-
         $serializer = new Serializer([$normalizer], [$encoder]);
-        //$serializer = new Serializer([$normalizer]);
-        //$jsonContent = $serializer->normalize($bids);
         $formatted = $serializer->normalize($bids);
 
 
         return new JsonResponse($formatted);
     }
-
 
     public function placeBidAction(Request $request)
     {
@@ -190,22 +179,82 @@ class BidApiController extends Controller
 
     }
 
-    public function findProject($id){
+    public function findProjectAction($description){
     $project = $this->getDoctrine()->getRepository(Project::class)
-            ->find($id);
+            ->findOneBy(["projectName"=> $description]);
         $encoder = new JsonEncoder();
         $normalizer = new GetSetMethodNormalizer();
         
-
-        $normalizer->setCallbacks(['project' => $projectCallback]);
-        $normalizer->setIgnoredAttributes(['freelancer']);
-
+        $employerCallback = function ($employer) {
+            return $employer instanceof Employer ? $employerProps = ["employer" => $employer->getType()
+                /*,"projectDescription" => $project->getProjectDescription()*/]
+                : '';
+        };
+        $normalizer->setCallbacks(['employer' => $employerCallback]);
+        $normalizer->setIgnoredAttributes(['projectBids','projectBookmarks','publishingDate','validityPeriod']);
+        
 
         $serializer = new Serializer([$normalizer], [$encoder]);
-        $formatted = $serializer->normalize($bid);
+        $formatted = $serializer->normalize($project);
+        var_dump($formatted);
 
         return new JsonResponse($formatted);
 
 }
+
+ public function allProjectsAction(Request $request)
+    {
+        $encoder = new JsonEncoder();
+        $normalizer = new GetSetMethodNormalizer();
+        //$normalizer = new ObjectNormalizer();
+        $bids = $this->getDoctrine()->getRepository(Project::class)
+            ->findBy(["freelancer" => $id]);
+            
+        $employerCallback = function ($employer) {
+            return $employer instanceof Employer ? $employerProps = ["employer" => $employer->getType()
+                /*,"projectDescription" => $project->getProjectDescription()*/]
+                : '';
+        };
+        $normalizer->setCallbacks(['employer' => $employerCallback]);
+        $normalizer->setIgnoredAttributes(['projectBids','projectBookmarks','publishingDate','validityPeriod']);
+        
+
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        $formatted = $serializer->normalize($bids);
+
+
+        return new JsonResponse($formatted);
+
+    }
+
+    public function biddersPerProjectAction($id)
+    {
+        $encoder = new JsonEncoder();
+        $normalizer = new GetSetMethodNormalizer();
+        //$normalizer = new ObjectNormalizer();
+        $bids = $this->getDoctrine()->getRepository(Bid::class)
+            ->findBy(["project" => $id]);
+        $projectCallback = function ($project) {
+            return $project instanceof Project ? $projectProps = ["projectName" => $project->getProjectName(),
+                "minBudget" => $project->getMinBudget(),
+                "maxBudget" => $project->getMaxBudget()]
+                : '';
+        };
+
+        $freelancerCallback = function ($freelancer) {
+            return $freelancer instanceof Freelancer ? $freelancerProps = ["freelancerName" => $freelancer->getFirstName()]
+                : '';
+        };
+
+
+        $normalizer->setCallbacks(['project' => $projectCallback, 'freelancer' => $freelancerCallback ]);
+
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        $formatted = $serializer->normalize($bids);
+
+
+        return new JsonResponse($formatted);
+    }
+
 
 }
