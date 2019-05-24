@@ -48,19 +48,7 @@ class NoteController extends Controller
         $formatted = $serializer->normalize($note);
         return new JsonResponse($formatted);
     }
-
-
-    public function deleteNoteMAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $manage_notes=$em->getRepository(Note::class)->find($id);
-        $em->remove($manage_notes);
-        $em->flush();
-        $serializer = new Serializer([new ObjectNormalizer()]);
-        $formatted = $serializer->normalize($manage_notes);
-        return new JsonResponse($formatted);
-
-    }
+    
 
 
     public function updateNoteMAction(Request $request,$id)
