@@ -1,15 +1,56 @@
-blog_affiche:
-  path:     /affiche
-  defaults: { _controller: BlogBundle:Comment:affiche }
+blog_pageBlogPost:
+  path:     /pageBlogPost
+  defaults: { _controller: BlogBundle:Comment:pageBlogPost }
 
-blog_ajout:
-  path:     /ajout
-  defaults: { _controller: BlogBundle:Comment:ajout }
+
+blog_addComment:
+  path:     /addComment/{idArticle}
+  defaults: { _controller: BlogBundle:Comment:addComment }
+
+blog_viewComment:
+  path:     /viewComment/{idArticle}
+  defaults: { _controller: BlogBundle:Comment:viewComment }
+
+blog_editComment:
+  path:     /edit/{id}
+  defaults: { _controller: BlogBundle:Comment:edit }
 
 blog_delete:
   path:     /delete/{id}
   defaults: { _controller: BlogBundle:Comment:supprimer }
 
-blog_edit:
-  path:     /edit/{id}
-  defaults: { _controller: BlogBundle:Comment:edit }
+blog_replyComment:
+  path:     /replyComment/{idComment}
+  defaults: { _controller: BlogBundle:Comment:replyComment }
+
+
+
+blog_ajoutArticle:
+  path:     /add
+  defaults: { _controller: BlogBundle:Article:add }
+
+blog_afficheArticle:
+  path:     /afficheArticle
+  defaults: { _controller: BlogBundle:Article:afficheArticle }
+
+blog_editArticle:
+  path:     /editArticle/{id}
+  defaults: { _controller: BlogBundle:Article:edit }
+
+blog_deleteArticle:
+  path:     /deleteArticle/{id}
+  defaults: { _controller: BlogBundle:Article:supprimer }
+
+
+blog_listArticle:
+  path:     /list
+  defaults: { _controller: BlogBundle:Article:list }
+
+blog_connexion:
+  path:     /cnx
+  defaults: { _controller: BlogBundle:Connection:index }
+
+blog_connexionComment:
+  path:     /conn
+  defaults: { _controller: BlogBundle:Connection:Conn }
+

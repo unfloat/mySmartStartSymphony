@@ -1,0 +1,157 @@
+{% extends "Dashboard/Freelancer/dashboard_layout.html.twig" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12">
+
+        <h3 class="margin-top-35 margin-bottom-30">Add Comment</h3>
+
+        <!-- Form -->
+        {{ form_start(form) }}
+
+
+        <div class="row">
+            <div class="col-xl-7">
+
+                {{ form_widget(form.commentContent) }}
+
+            </div>
+        </div>
+
+
+        {{ form_end(form) }}
+
+    </div>
+</div>
+
+{% block scripts %}
+    <script type="javascript">
+        $(document).ready(function(){
+            $("#saveNote").on("click", function(event){
+                let note=$('#note-textarea');
+                let priority=$('#priority-textarea');
+                let message=$('#message');
+                let notif=$('#notif');
+
+                event.preventDefault();
+                $.ajax({
+                    url:'{{ path('new_note') }}',
+                    dataType:"json",
+                    data:{"note":note.val(),"priority":priority.val()},
+
+                    success: function(response) {
+                        if (response.validate === false) {
+                            message.text(response.message);
+                            notif.addClass("error").removeClass("notice");
+
+                        }else
+                        {
+                            message.text(response.message);
+                            notif.addClass("success").removeClass("error").removeClass("notice");
+                            window.location.href = response.redirect;
+                        }
+                    },
+
+
+
+                    error: function (err) {
+
+                    }
+
+                });
+            });
+        });
+    </script>
+    <script>
+        // Snackbar for user status switcher
+        $('#snackbar-user-status label').click(function() {
+            Snackbar.show({
+                text: 'Your status has been changed!',
+                pos: 'bottom-center',
+                showAction: false,
+                actionText: "Dismiss",
+                duration: 3000,
+                textColor: '#fff',
+                backgroundColor: '#383838'
+            });
+        });
+    </script>
+
+
+    <script>
+        Chart.defaults.global.defaultFontFamily = "Nunito";
+        Chart.defaults.global.defaultFontColor = '#888';
+        Chart.defaults.global.defaultFontSize = '14';
+
+        var ctx = document.getElementById('chart').getContext('2d');
+
+        var chart = new Chart(ctx, {
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June"],
+                // Information about the dataset
+                datasets: [{
+                    label: "Views",
+                    backgroundColor: 'rgba(42,65,232,0.08)',
+                    borderColor: '#2a41e8',
+                    borderWidth: "3",
+                    data: [196,132,215,362,210,252],
+                    pointRadius: 5,
+                    pointHoverRadius:5,
+                    pointHitRadius: 10,
+                    pointBackgroundColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointBorderWidth: "2",
+                }]
+            },
+
+            // Configuration options
+            options: {
+
+                layout: {
+                    padding: 10,
+                },
+
+                legend: { display: false },
+                title:  { display: false },
+
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: false
+                        },
+                        gridLines: {
+                            borderDash: [6, 10],
+                            color: "#d8d8d8",
+                            lineWidth: 1,
+                        },
+                    }],
+                    xAxes: [{
+                        scaleLabel: { display: false },
+                        gridLines:  { display: false },
+                    }],
+                },
+
+                tooltips: {
+                    backgroundColor: '#333',
+                    titleFontSize: 13,
+                    titleFontColor: '#fff',
+                    bodyFontColor: '#fff',
+                    bodyFontSize: 13,
+                    displayColors: false,
+                    xPadding: 10,
+                    yPadding: 10,
+                    intersect: false
+                }
+            },
+
+
+        });
+
+    </script>
+{% endblock %}
+
+
+{% endblock %}

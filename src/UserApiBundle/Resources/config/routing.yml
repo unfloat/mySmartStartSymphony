@@ -1,0 +1,3 @@
+user_api_login:
+    path:     /login/{username}/{password}
+    defaults: { _controller: UserApiBundle:ApiLogin:login }

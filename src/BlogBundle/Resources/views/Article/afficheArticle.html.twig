@@ -1,0 +1,279 @@
+{% extends "Dashboard/Freelancer/dashboard_layout.html.twig" %}
+{% block content %}
+
+<div id="page-content" class="container">
+<div id="titlebar" class="white margin-bottom-30">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Article</h2>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li><a href="{{ path('blog_ajoutArticle') }}">Create an article</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Recent Blog Posts -->
+<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+	<div class="container">
+		<div class="panel-body">
+        {% for i in article %}
+			<div class="col-xl-12">
+				<div class="blog-carousel">
+
+					<a href="" class="blog-compact-item-container">
+						<div  class="widget-content">
+							<img src="{{ asset('images/blog-04a.jpg') }}" alt="">
+							<span class="blog-item-tag">Tips</span>
+							<div class="blog-compact-item-content">
+								<ul class="blog-post-tags">
+									<li>{{ "now"|date("d/m/Y, H:m" ) }}</li>
+								</ul>
+								{{ i.content }} <br>
+							</div>
+						</div>
+					</a>
+
+				</div>
+		    </div>
+        {% endfor %}
+		</div>
+	</div>
+</div>
+
+<!-- Section -->
+<div class="section gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8">
+
+				<!-- Section Headline h4 -->
+				<div class="section-headline margin-top-60 margin-bottom-35">
+					<h4>Recent Articles</h4>
+				</div>
+
+				<!-- Blog Post -->
+				<div class="panel-body">
+					{% for article in article %}
+
+						<div class="blog-post">
+							<!-- Blog Post Thumbnail -->
+							<div class="blog-post-thumbnail">
+								<span class="blog-item-tag">{{ article.title }}</span>
+								<img src="{{ asset('img/symfony.jpg') }}" alt="">
+							</div>
+							<!-- Blog Post Content -->
+							<div class="blog-post-content">
+                                {{ article.content }} <br>
+								<span class="blog-post-date col-xl-6">
+			                       {{ "now"|date("d/m/Y, H:m" ) }}
+		                       </span><br>
+								<a href="{{ path('blog_editArticle',{'id':article.id}) }}" class="icon-feather-edit button">Edit Article</a>
+								<a href="{{ path('blog_deleteArticle',{'id':article.id}) }}" class="icon-feather-trash button">Delete Article </a><br>
+								<a href="{{ path('blog_addComment',{'idArticle':article.id}) }}" class="btn-group icon-feather-plus-square">Comment</a>
+								<a href="{{ path('blog_viewComment',{'idArticle':article.id}) }}" class="btn-group icon-feather-list">View Comment</a><br>
+							</div>
+							<!-- Icon -->
+							<div class="entry-icon"></div>
+						</div>
+
+                    {% endfor %}
+				 </div>
+
+				<!-- Pagination 123  -->
+				    <div class="row">
+						<div class="col-md-12">
+						<!-- Pagination -->
+						<div class="pagination-container margin-top-10 margin-bottom-20">
+							<nav class="pagination">
+								<ul>
+									<li><a href="#" class="current-page ripple-effect">1</a></li>
+									<li><a href="#" class="ripple-effect">2</a></li>
+									<li><a href="#" class="ripple-effect">3</a></li>
+									<li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
+								</ul>
+							</nav>
+						</div>
+					    </div>
+					</div>
+				<!-- Pagination / End -->
+			</div>
+
+			<div class="col-xl-4 col-lg-4 content-left-offset">
+				<div class="sidebar-container margin-top-65">
+
+					<!-- Search -->
+					<div class="sidebar-widget margin-bottom-40">
+						<form method="post" action="{{ path('blog_afficheArticle') }}">
+						<div class="input-with-icon">
+							<input id="keyword" name="keyword" type="text" placeholder="Search">
+							<i class="icon-material-outline-search"></i>
+						</div>
+						</form>
+					</div>
+
+					<!-- Widget -->
+					<div class="sidebar-widget">
+
+						<h3>Trending Articles</h3>
+						<div class="panel-body">
+                        {% for i in article %}
+
+							<ul class="widget-tabs">
+								<!-- Post #1 -->
+								<li>
+									<a href="" class="widget-content active">
+										<img src="{{ asset('images/blog-02a.jpg') }}" alt="">
+										<div class="widget-text">
+                                            {{ i.content }} <br>
+											<span>{{ "now"|date("d/m/Y, H:m" ) }}</span>
+										</div>
+									</a>
+								</li>
+							</ul>
+
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+    {% block scripts %}
+		<script type="javascript">
+            $(document).ready(function(){
+                $("#saveNote").on("click", function(event){
+                    let note=$('#note-textarea');
+                    let priority=$('#priority-textarea');
+                    let message=$('#message');
+                    let notif=$('#notif');
+
+                    event.preventDefault();
+                    $.ajax({
+                        url:'{{ path('new_note') }}',
+                        dataType:"json",
+                        data:{"note":note.val(),"priority":priority.val()},
+
+                        success: function(response) {
+                            if (response.validate === false) {
+                                message.text(response.message);
+                                notif.addClass("error").removeClass("notice");
+
+                            }else
+                            {
+                                message.text(response.message);
+                                notif.addClass("success").removeClass("error").removeClass("notice");
+                                window.location.href = response.redirect;
+                            }
+                        },
+
+
+
+                        error: function (err) {
+
+                        }
+
+                    });
+                });
+            });
+		</script>
+		<script>
+            // Snackbar for user status switcher
+            $('#snackbar-user-status label').click(function() {
+                Snackbar.show({
+                    text: 'Your status has been changed!',
+                    pos: 'bottom-center',
+                    showAction: false,
+                    actionText: "Dismiss",
+                    duration: 3000,
+                    textColor: '#fff',
+                    backgroundColor: '#383838'
+                });
+            });
+		</script>
+
+
+		<script>
+            Chart.defaults.global.defaultFontFamily = "Nunito";
+            Chart.defaults.global.defaultFontColor = '#888';
+            Chart.defaults.global.defaultFontSize = '14';
+
+            var ctx = document.getElementById('chart').getContext('2d');
+
+            var chart = new Chart(ctx, {
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June"],
+                    // Information about the dataset
+                    datasets: [{
+                        label: "Views",
+                        backgroundColor: 'rgba(42,65,232,0.08)',
+                        borderColor: '#2a41e8',
+                        borderWidth: "3",
+                        data: [196,132,215,362,210,252],
+                        pointRadius: 5,
+                        pointHoverRadius:5,
+                        pointHitRadius: 10,
+                        pointBackgroundColor: "#fff",
+                        pointHoverBackgroundColor: "#fff",
+                        pointBorderWidth: "2",
+                    }]
+                },
+
+                // Configuration options
+                options: {
+
+                    layout: {
+                        padding: 10,
+                    },
+
+                    legend: { display: false },
+                    title:  { display: false },
+
+                    scales: {
+                        yAxes: [{
+                            scaleLabel: {
+                                display: false
+                            },
+                            gridLines: {
+                                borderDash: [6, 10],
+                                color: "#d8d8d8",
+                                lineWidth: 1,
+                            },
+                        }],
+                        xAxes: [{
+                            scaleLabel: { display: false },
+                            gridLines:  { display: false },
+                        }],
+                    },
+
+                    tooltips: {
+                        backgroundColor: '#333',
+                        titleFontSize: 13,
+                        titleFontColor: '#fff',
+                        bodyFontColor: '#fff',
+                        bodyFontSize: 13,
+                        displayColors: false,
+                        xPadding: 10,
+                        yPadding: 10,
+                        intersect: false
+                    }
+                },
+
+
+            });
+
+		</script>
+    {% endblock %}
+{% endblock %}

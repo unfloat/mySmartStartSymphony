@@ -30,7 +30,7 @@ class ProfileController extends BaseController
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager)
     {
 
-        parent::__construct($eventDispatcher,$formFactory,$userManager);
+        parent::__construct($eventDispatcher, $formFactory, $userManager);
 
     }
 
@@ -45,13 +45,13 @@ class ProfileController extends BaseController
     {
         $user = $this->getUser();
 
-            if (!is_object($user) || !$user instanceof UserInterface) {
-                throw new AccessDeniedException('This user does not have access to this section.');
-            }
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
 
-            return $this->render('@FOSUser/Profile/show.html.twig', array(
-                'user' => $user,
-            ));
+        return $this->render('@FOSUser/Profile/show.html.twig', array(
+            'user' => $user,
+        ));
     }
 
     /**
@@ -73,6 +73,7 @@ class ProfileController extends BaseController
             'user' => $user,
         ));
     }
+
     /**
      * Edit the user.
      *
@@ -87,8 +88,7 @@ class ProfileController extends BaseController
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        if (in_array("ROLE_EMPLOYER", $user->getRoles()))
-        {
+        if (in_array("ROLE_EMPLOYER", $user->getRoles())) {
             $form = $this->formFactory->createForm();
             $form->setData($user);
             $em = $this->getDoctrine()->getManager();
@@ -113,9 +113,7 @@ class ProfileController extends BaseController
                 'form' => $form->createView(),
             ));
 
-        }
-        elseif ((in_array("ROLE_FREELANCER", $user->getRoles())))
-        {
+        } elseif ((in_array("ROLE_FREELANCER", $user->getRoles()))) {
             $form = $this->formFactory->createForm();
             $form->setData($user);
             $em = $this->getDoctrine()->getManager();
@@ -141,11 +139,184 @@ class ProfileController extends BaseController
             ));
 
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    ///
+    ///
 
 
-
-
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+    public function manage_projectAction()
+    {
+        $manage_project = $this->getDoctrine()->getRepository(Project::class)->findAll();
+        return $this->render('@Project/Employer/manage_project.html.twig', array('manage_project' => $manage_project));
 
     }
+
+
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+    public function manage_projectsAction(Request $request)
+    {
+        $manage_projects = $this->getDoctrine()->getRepository(Project::class)->findAll();
+
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $manage_projects, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 4)/*limit per page*/
+        );
+
+        return $this->render('@Project/Employer/manage_projects.html.twig', ["manage_projects" => $result]);
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+    public function delete_manage_projectsAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $manage_project = $em->getRepository(Project::class)->find($id);
+        $em->remove($manage_project);
+        $em->flush();
+        return $this->redirectToRoute('list_manage_projects');
+
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_EMPLOYER')")
+     */
+    public function update_manage_projectsAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $manage_projects = $em->getRepository(Project::class)->find($id);
+        $form = $this->createForm(ProjectType::class, $manage_projects);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($manage_projects);
+            $em->flush();
+            return $this->redirect($this->generateUrl('list_manage_projects'));
+        }
+        return $this->render('@Project/Employer/post_project.html.twig', ['form' => $form->createView()]);
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function projectAction(Project $project)
+    {
+        $id_proj = $project->getId();
+        $project = $this->getDoctrine()->getRepository(Project::class)->find(['id' => $id_proj]);
+        return $this->render('@Project/Freelancer/singletask.html.twig', ["project" => $project]);
+
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function projectsAction(Request $request, $sortBy = "projectName")
+    {
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
+
+        $projects = $this->getDoctrine()->getRepository(Project::class)->findBy(array(), array($sortBy => 'asc'));
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1), 4
+        /*$request->query->getInt('limit', 4)/*limit per page*/
+        );
+        return $this->render('@Project/Freelancer/tasks.html.twig', array("projects" => $result, "categories" => $categories, "skills" => $skills));
+
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function searchParametersAction(Request $request)
+    {
+
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
+        $projects = $this->getDoctrine()->getRepository(Project::class)
+            ->findParameters($request->get("location"),
+                $request->get("categories"),
+                $request->get("skills"),
+                $request->get("sortBy"));
+
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1), 4
+        /*$request->query->getInt('limit', 4)/*limit per page*/
+        );
+        return $this->render('@Project/Freelancer/tasks.html.twig', array("projects" => $result, "categories" => $categories, "skills" => $skills));
+
+    }
+
+
+    public function mailAction($address)
+    {
+        $message = (new \Swift_Message('Mail'))
+            ->setFrom('foobar.esprit@gmail.com')
+            ->setTo($address)
+            ->setBody(
+                $this->renderView(
+                    '@Project/Freelancer/mail.html.twig', array(
+                        'address' => $address,
+                    )
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+        return new Response("Your email was sent successfully ");
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function projectsListAction()
+    {
+        $projects = $this->getDoctrine()->getRepository(Project::class)->findAll();
+        return $this->render('@Project/Freelancer/taskslist.html.twig', ["projects" => $projects]);
+
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function singleProjectAction(Request $request, Project $project)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $bid = new Bid();
+        $form = $this->createForm(BidType::class, $bid);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $bid->setProject($project);
+            $em->persist($bid);
+            $em->flush();
+            return $this->redirectToRoute('freelancer_projects');
+        }
+
+        return $this->render('@Project/Freelancer/singletask.html.twig', ["project" => $project, "form" => $form->createView()]);
+
+    }
+
+
+
 
 }

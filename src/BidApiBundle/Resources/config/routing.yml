@@ -23,7 +23,7 @@ api_bidders:
     defaults: { _controller: BidApiBundle:BidApi:biddersPerProject }
 
 api_project:
-    path:     /project/{description}
+    path:     /project/{id}
     defaults: { _controller: BidApiBundle:BidApi:findProject }
 
 api_projects:

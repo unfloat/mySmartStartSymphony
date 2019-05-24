@@ -38,6 +38,40 @@ class Category
     private $description;
 
     /**
+     * @ORM\OneToMany(targetEntity="OfferBundle\Entity\Skills", mappedBy="category")
+     */
+    private $skills;
+
+
+    /**
+     * One product category has many features projects. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="ProjectBundle\Entity\Project", mappedBy="projectCategory")
+     */
+    private $projects;
+    // ...
+
+    public function __construct() {
+        $this->projects = new ArrayCollection();
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param mixed $skills
+     */
+    public function setSkills($skills)
+    {
+        $this->skills = $skills;
+    }
+
+    /**
      * @return string
      */
     public function getName()

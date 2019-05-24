@@ -1,6 +1,6 @@
 create_task:
     path:     /create
-    defaults: { _controller: ProjectBundle:Project:projectCreate }
+    defaults: { _controller: ProjectBundle:Project:createProject }
 
 
 manage_projects:
@@ -24,7 +24,15 @@ project:
 
 listprojects:
     path:     /projects
-    defaults: { _controller: ProjectBundle:Project:projectsList }
+    defaults: { _controller: ProjectBundle:Project:projects }
+
+searchParameters:
+    path:     /searchParameters
+    defaults: { _controller: ProjectBundle:Project:searchParameters }
+
+mail:
+    path:     /mail/{address}
+    defaults: { _controller: ProjectBundle:Project:mail }
 
 
 

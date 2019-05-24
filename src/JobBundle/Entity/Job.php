@@ -75,14 +75,16 @@ class Job
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="job")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="jobs")
      * @ORM\JoinColumn(name="employer_id", referencedColumnName="id")
      */
+
     private $employer;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="OfferBundle\Entity\Category", inversedBy="job")
+     * One jobhas One Category.
+     * @ORM\OneToOne(targetEntity="OfferBundle\Entity\Category")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;

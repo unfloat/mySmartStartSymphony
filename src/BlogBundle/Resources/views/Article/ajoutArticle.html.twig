@@ -1,0 +1,131 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSs -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/colors/blue.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/normalize.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/skeleton.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/dropdown.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/tooltipster.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/tooltipster-shadow.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/selectize.default.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/featherlight.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/jsalert.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/typo.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/form.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/layout.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/home.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/media.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/box.css') }}"/>
+
+</head>
+
+<body style="">
+<div class="container">
+    <div class="row" style="">
+        <!-- /Logo -->
+    </div> <!-- /Header -->
+    <div class="row">
+        <br>
+        <div class="center"> <h2 style="text-align: center;">Deposit an article</h2> </div>
+        <br>
+        <!-- Votre annonce -->
+        {{ form_start(form) }}
+    </div>
+    <div class="row">
+        <div class="three columns">
+                    <h5 class="grey blue">
+                        <strong>What do you need&nbsp;?</strong>
+                    </h5>
+                    <p class="grey no-mobile" style="margin: 0;">Describe the mission you want to assign to freelance. Be precise enough.</p>
+                </div>
+
+        <div class="eight columns offset-by-one box" style="border-left: 2px solid rgb(44, 187, 238); padding-left: 25px; border-top-color: rgb(44, 187, 238); border-right-color: rgb(44, 187, 238); border-bottom-color: rgb(44, 187, 238);">
+                    <div class="required">
+                        <label for="PostTitle">Title</label>
+                        {{ form_widget(form.title) }}
+                    </div>
+                    <div class="required">
+                     <label for="PostBody">Description </label>
+                        {{ form_widget(form.content) }}
+                    </div>
+                    <p class="important-message">The description should not contain your name or contact information.
+                        <a href="" class="help" data-featherlight="ajax">Help</a>
+                    </p>
+
+                    <!-- Fichiers joints -->
+                    <div class="">
+
+                        {{ form_row(form.file) }}
+                    </div>
+                </div>
+    </div>
+
+    <br>
+
+       <div class="row">
+           <div class="twelve columns" style="text-align: right;">
+               <div class="submit">
+                  {{ form_widget(form.save) }}
+               </div>
+           </div>
+       </div>
+       <div style="display:none;">
+          <input type="hidden" name="data[_Token][fields]" value="88400aa2606c2cf66d2f0e444a9c464467a8b5b7%3APost.captcha_code" id="TokenFields881838070" autocomplete="off"><input type="hidden" name="data[_Token][unlocked]" value="pays%7Cville" id="TokenUnlocked693357006" autocomplete="off">
+       </div>
+    {{ form_end(form) }}
+
+
+        <script>
+            // Texte par défaut (exemples)
+            $('.defaultText').focus(function(srcc) {
+                if ($(this).val() == $(this)[0].title) {
+                    $(this).val('');
+                    $(this).css("color","#222");
+                }
+            });
+            $('.defaultText').blur(function() {
+                if ($(this).val() == '') {
+                    $(this).val($(this)[0].title);
+                    $(this).css("color","#999");
+                }
+            });
+            // Limite de 3 checkboxes
+            $('.checklimit input[type=checkbox]').on('change', function() {
+                if($('.checklimit input[type=checkbox]:checked').length > 3) {
+                    this.checked = false;
+                }
+            });
+            // Champs masqués
+            if ($('.change').is(':checked')) {
+                $(".hiddenfields").hide();
+            }
+            $(function(){
+                $('.change').change(function(){
+                    if(this.checked) {
+                        $('.hiddenfields').slideUp();
+                    } else {
+                        $('.hiddenfields').slideDown();
+                    }
+                });
+            });
+            // Couleur du trait
+            $('.box').on('mouseover', function(e){
+                $('.box').css('border-color', '#EEE');
+                $(this).css('border-color', '#2CBBEE');
+                $('h5').removeClass('blue');
+                $(this).prev('div').find('h5').addClass('blue');
+            });
+        </script>
+    </div>
+    <script type="text/javascript" src="">
+    </script>
+
+</body>
+</html>

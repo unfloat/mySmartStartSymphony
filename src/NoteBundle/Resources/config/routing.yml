@@ -1,20 +1,42 @@
+allNotesM:
+    path:     /notes/all
+    defaults: { _controller: NoteBundle:Note:allNotesM }
+
+createNoteM:
+    path:     /notes/newNote
+    defaults: { _controller: NoteBundle:Note:createNoteM }
+
+deleteNoteM:
+    path:     /notes/{id}/deleteNote
+    defaults: { _controller: NoteBundle:Note:deleteNoteM }
+
+updateNoteM:
+    path:     /notes/{id}/updateNote
+    defaults: { _controller: NoteBundle:Note:updateNoteM }
+
+
+
+
 note_homepage:
     path:     /
     defaults: { _controller: NoteBundle:Default:index }
 
-create_self_note:
-    path:     /create_self_note
-    defaults: { _controller: NoteBundle:Note:create_self_note }
+self_notes_list:
+    path:     /self_notes_list
+    defaults: { _controller: NoteBundle:Note:self_notes_list }
 
-self_notes:
-    path:     /self_notes
-    defaults: { _controller: NoteBundle:Note:self_notes }
-
-delete_selfNote:
-    path:     /delete_selfNote/{id}
-    defaults: { _controller: NoteBundle:Note:delete_selfNote }
+delete_self_note:
+    path:     /delete_self_note/{id}
+    defaults: { _controller: NoteBundle:Note:delete_self_note }
 
 update_self_note:
     path:     /update_self_note/{id}
     defaults: { _controller: NoteBundle:Note:update_self_note }
 
+create_self_note:
+    path:     /create_self_note
+    defaults: { _controller: NoteBundle:Note:create_self_note }
+
+searchParameters:
+    path:     /searchParameters
+    defaults: { _controller: NoteBundle:Note:searchParameters}

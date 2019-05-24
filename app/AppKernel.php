@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new BidApiBundle\BidApiBundle(),
             new BookmarkApiBundle\BookmarkApiBundle(),
+            new UserApiBundle\UserApiBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -12,6 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Skills
 {
+
+    public function __construct() {
+        $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
     /**
      * @var int
      *
@@ -30,33 +35,31 @@ class Skills
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="Skills")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="skills")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="Skills")
-     * @ORM\JoinColumn(name="offer_id", referencedColumnName="id")
-     */
-    private $offer;
+    private $offers;
 
     /**
      * @return mixed
      */
-    public function getOffer()
+    public function getOffers()
     {
-        return $this->offer;
+        return $this->offers;
     }
 
     /**
-     * @param mixed $offer
+     * @param mixed $offers
      */
-    public function setOffer($offer)
+    public function setOffers($offers)
     {
-        $this->offer = $offer;
+        $this->offers = $offers;
     }
+
+
 
     /**
      * @return mixed

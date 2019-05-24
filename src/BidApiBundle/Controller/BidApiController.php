@@ -144,7 +144,7 @@ class BidApiController extends Controller
         $normalizer = new GetSetMethodNormalizer();
 
         $serializer = new Serializer([$normalizer], [$encoder]);
-    
+
 
 
        if (empty($bid)) {
@@ -156,8 +156,10 @@ class BidApiController extends Controller
             $bid->setDeliveryTime($deliveryTime);
             $bid->setMinimalRate($hourlyRate);
             $em->flush();
-            $formatted = $serializer->normalize($bid);
-            return new JsonResponse($formatted);
+            /*$formatted = $serializer->normalize($bid);
+            return new JsonResponse($formatted);*/
+            return new Response(Response::HTTP_OK);
+
         }
 
     }
@@ -179,20 +181,20 @@ class BidApiController extends Controller
 
     }
 
-    public function findProjectAction($description){
+   /* public function findProjectByDescriptionAction($description){
     $project = $this->getDoctrine()->getRepository(Project::class)
             ->findOneBy(["projectName"=> $description]);
         $encoder = new JsonEncoder();
         $normalizer = new GetSetMethodNormalizer();
-        
+
         $employerCallback = function ($employer) {
             return $employer instanceof Employer ? $employerProps = ["employer" => $employer->getType()
-                /*,"projectDescription" => $project->getProjectDescription()*/]
+                ,"projectDescription" => $project->getProjectDescription()]
                 : '';
         };
         $normalizer->setCallbacks(['employer' => $employerCallback]);
         $normalizer->setIgnoredAttributes(['projectBids','projectBookmarks','publishingDate','validityPeriod']);
-        
+
 
         $serializer = new Serializer([$normalizer], [$encoder]);
         $formatted = $serializer->normalize($project);
@@ -200,16 +202,38 @@ class BidApiController extends Controller
 
         return new JsonResponse($formatted);
 
-}
+}*/
 
+ /*public function findProjectAction($id){
+    $project = $this->getDoctrine()->getRepository(Project::class)
+            ->findOneBy(["id"=> $id]);
+        $encoder = new JsonEncoder();
+        $normalizer = new GetSetMethodNormalizer();
+
+        $employerCallback = function ($employer) {
+            return $employer instanceof Employer ? $employerProps = ["employer" => $employer->getType()
+                ,"projectDescription" => $project->getProjectDescription()]
+                : '';
+        };
+        $normalizer->setCallbacks(['employer' => $employerCallback]);
+        $normalizer->setIgnoredAttributes(['projectBids','projectBookmarks','publishingDate','validityPeriod']);
+
+
+        $serializer = new Serializer([$normalizer], [$encoder]);
+        $formatted = $serializer->normalize($project);
+
+        return new JsonResponse($formatted);
+
+}
+*/
  public function allProjectsAction(Request $request)
     {
+
         $encoder = new JsonEncoder();
         $normalizer = new GetSetMethodNormalizer();
         //$normalizer = new ObjectNormalizer();
-        $bids = $this->getDoctrine()->getRepository(Project::class)
-            ->findBy(["freelancer" => $id]);
-            
+        $projects = $this->getDoctrine()->getRepository(Project::class)->findAll();
+
         $employerCallback = function ($employer) {
             return $employer instanceof Employer ? $employerProps = ["employer" => $employer->getType()
                 /*,"projectDescription" => $project->getProjectDescription()*/]
@@ -217,10 +241,10 @@ class BidApiController extends Controller
         };
         $normalizer->setCallbacks(['employer' => $employerCallback]);
         $normalizer->setIgnoredAttributes(['projectBids','projectBookmarks','publishingDate','validityPeriod']);
-        
+
 
         $serializer = new Serializer([$normalizer], [$encoder]);
-        $formatted = $serializer->normalize($bids);
+        $formatted = $serializer->normalize($projects);
 
 
         return new JsonResponse($formatted);

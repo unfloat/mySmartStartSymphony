@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="row tasks-list-container margin-top-35">
-                {% for mp in manage_projects %}
+                {% for mp in manage_project %}
                     <div class="col-md-5 task-listing" style="width: 60%;margin-left: 5%" >
                         <ul class="dashboard-box-list">
                             <li>
@@ -57,9 +57,11 @@
                                 </div>
                                 <!-- Buttons -->
                                 <div class="buttons-to-right always-visible" style="margin-bottom: -10px;margin-left:14%;">
-                                    <a href="{{ path('bidders',{'id':'1'}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">3</span></a>
-                                    <a href="{{ path('update_manage_projects', {'id': mp.id}) }}" class="button ripple-effect" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                    <a href="{{ path('delete_manage_projects', {'id': mp.id}) }}" class="button ripple-effect"  data-tippy-placement="top" title="Remove Project"><i class="icon-feather-trash-2"></i></a>
+                                    {% if count[mp.id]['numberOfBids'] > 0 %}
+                                        <a href="{{ path('bidders',{'id': mp.id}) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Bidders <span class="button-info">{{ count[mp.id]['numberOfBids'] }}</span></a>
+                                    {% endif %}
+                                    <a href="{{ path('update_project', {'id': mp.id}) }}" class="button ripple-effect" title="Edit Project" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                    <a href="{{ path('delete_project', {'id': mp.id}) }}" class="button ripple-effect"  data-tippy-placement="top" title="Remove Project"><i class="icon-feather-trash-2"></i></a>
                                 </div>
                                 <!-- End Buttons -->
                             </li>
@@ -213,7 +215,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="pagination-container margin-top-60 margin-bottom-60">
-                {{ knp_pagination_render(manage_projects) }}
+                {{ knp_pagination_render(manage_project) }}
             </div>
         </div>
     </div>

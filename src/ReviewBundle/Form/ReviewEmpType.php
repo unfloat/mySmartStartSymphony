@@ -30,11 +30,11 @@ class ReviewEmpType extends AbstractType
             'choice_label'=>'projectName',
             'multiple'=>false,
         ))
-            ->add('employerReviewedId',EntityType::class, array(
-                'class'=>'UserBundle:Employer',
-                'choice_label'=>'username',
-                'multiple'=>false,
-            ))
+//            ->add('employerReviewedId',EntityType::class, array(
+//                'class'=>'UserBundle:Employer',
+//                'choice_label'=>'username',
+//                'multiple'=>false,
+//            ))
 
             ->add('rating',RangeType::class,[
                 'attr' => [

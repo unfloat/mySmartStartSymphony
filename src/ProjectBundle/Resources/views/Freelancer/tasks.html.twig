@@ -1,0 +1,152 @@
+{% extends "Home/Freelancer/home_layout.html.twig" %}
+{% block homecontent %}
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="sidebar-container" style="margin-top: 35%">
+
+                    <!-- Form Sort/Filter -->
+                    <form method="get" action="{{ path('searchParameters') }}">
+
+                        <!-- Location -->
+                        <div class="sidebar-widget">
+                            <h3>Location</h3>
+                            <div class="input-with-icon">
+                                <div id="autocomplete-container">
+                                    <input id="autocomplete-input" type="text" placeholder="Location" name="location"> <i class="icon-material-outline-location-on"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Location -->
+
+                        <!-- Category -->
+                        <div class="sidebar-widget">
+                            <h3>Category</h3>
+                            <select title="All Categories" name="categories">
+                                <option value="any" selected>Select a category</option>
+                                {% for c in categories %}
+                                    <option value="{{ c.id }}">
+                                        {{ c.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- End Category -->
+
+                        <!-- Skills -->
+                        <div class="sidebar-widget">
+                            <h3>Skills</h3>
+                            <select title="All Skills" name="skills" >
+                                <option value="any" selected>Select a skil</option>
+
+                                {% for s in skills %}
+                                    <option value="{{ s.id }}">
+                                        {{ s.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- End Skills -->
+
+                        <!-- Sort -->
+                        <div class="sidebar-widget">
+                            <h3>Sort By </h3>
+                            <div>
+                                <select name="sortBy" style="width: 200%">
+                                    <option value="any">Random</option>
+                                    <option value="projectName">name</option>
+                                    <option value="projectStartDay">Start Day</option>
+                                    <option value="projectEndDay">End Day</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- End Sort -->
+
+                        <!-- Go and Reset Buttons -->
+                        <a href="#"><input type="submit" value="Go !" class="button blue ripple-effect button-sliding-icon" style=" margin-left: 15% ; width: 130px"></a>
+                        <a href="{{ path('listprojects') }}"><input id="autocomplete-input" type="button" class="button blue ripple-effect button-sliding-icon" value="Reset" style="margin-left: 15% ;width: 130px"></a>
+                        <!-- End Go and Reset Buttons -->
+
+                    </form>
+                    <!-- Form Sort/Filter -->
+
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 content-left-offset">
+                <h3 class="notify-box margin-top-15">Search Results</h3>
+
+                <!-- Tasks Container -->
+                <div class="tasks-list-container compact-list margin-top-35">
+                    <!-- Task -->
+                    {% for project in projects %}
+                        <!-- Details -->
+                        <div class="row task-listing" style="background-color: white;">
+                            <div class="col-md-8  task-listing-details">
+                                <div class="task-listing-description">
+
+                                    <a href="{{ path('project',{'id':project.id}) }}">
+                                        <h3 class="task-listing-title">{{ project.projectName }}</h3>
+                                    </a>
+
+                                    <ul class="task-icons">
+                                        <li>
+                                            <i class="icon-material-outline-location-on"></i>
+                                            {{ project.projectLocation }}
+                                        </li>
+                                        <li>
+                                            <i class="icon-material-outline-access-time"></i>
+                                            {% set difference = date(project.projectStartDay).diff(date("now")) %}
+                                            {% set leftDays = difference.days %}
+                                            {% if leftDays == 1 %}
+                                                1 day
+                                            {% else %}
+                                                {{ leftDays }} days
+                                            {% endif %}
+                                        </li>
+                                        <li>
+                                            <i style="margin-top: 3px" class="icon-material-outline-local-atm">
+                                            </i>
+                                        <li>{{ project.minBudget }} - {{ project.maxBudget }}</li>
+                                    </ul>
+
+                                    <p class="task-listing-text">{{ project.projectDescription }}</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4 task-offers" style="margin-top: 7%;">
+                                <a href="{{ path('project',{'id':project.id}) }}" class=" button full-width button-sliding-icon" style="width: 170px;">
+                                    More Details
+                                    <i class="icon-material-outline-arrow-right-alt"></i>
+                                </a>
+                                <a  href="{{ path('mail',{'address':project.address}) }}" ><input type="submit" style="width: 170px; margin-top: 10px;" value="Send Mail"></a>
+                            </div>
+                        </div>
+                        <!-- End Details -->
+
+                    {% endfor %}
+                    <!-- End Task -->
+
+                </div>
+
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pagination-container margin-top-60 margin-bottom-60">
+                            {{ knp_pagination_render(projects) }}
+                        </div>
+                    </div>
+                </div>
+                <!-- Pagination / End -->
+
+            </div>
+        </div>
+    </div>
+    <!-- End Page Content -->
+
+
+{% endblock %}

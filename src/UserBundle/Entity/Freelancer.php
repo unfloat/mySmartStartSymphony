@@ -79,6 +79,11 @@ class Freelancer extends User implements NotifiableInterface
     private $reviewId;
 
     /**
+     * @ORM\OneToMany(targetEntity="OfferBundle\Entity\Offer", mappedBy="freelancer")
+     */
+    private $offers;
+
+    /**
      * @return mixed
      */
     public function getReviewId()

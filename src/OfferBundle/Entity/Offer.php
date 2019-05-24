@@ -60,13 +60,34 @@ class Offer
 
 
 
+
+
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="Offer")
+     * One Offer has One Category.
+     * @ORM\OneToOne(targetEntity="OfferBundle\Entity\Category")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
 
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param mixed $skills
+     */
+    public function setSkills($skills)
+    {
+        $this->skills = $skills;
+    }
 
 
 
@@ -227,17 +248,18 @@ class Offer
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Freelancer", inversedBy="Offer")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Freelancer", inversedBy="offers")
      * @ORM\JoinColumn(name="freelancer_id",referencedColumnName="id")
      */
     private $freelancer;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="Offer")
-     * @ORM\JoinColumn(name="Employer_id",referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Employer", inversedBy="offers")
+     * @ORM\JoinColumn(name="employer_id",referencedColumnName="id")
      */
     private $employer;
+
 
     /**
      * @return mixed

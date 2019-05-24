@@ -49,6 +49,12 @@ class Employer extends User implements NotifiableInterface
      */
     private $jobs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="OfferBundle\Entity\Offer", mappedBy="employer")
+     */
+    private $offers;
+
+
 
     /**
      * @ORM\OneToMany(targetEntity="ReviewBundle\Entity\ReviewEmp", mappedBy="employerReviewedId")

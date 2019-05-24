@@ -26,33 +26,14 @@ class Project implements NotifiableInterface
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="projectName", type="string", length=255)
-     */
+ * @var string
+ *
+ * @ORM\Column(name="projectName", type="string", length=255)
+ */
+
+
     private $projectName;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="OfferBundle\Entity\Category")
-     * @ORM\JoinColumn(name="idCategory",referencedColumnName="id")
-     */
-    protected $idCategory;
-
-    /**
-     * @return mixed
-     */
-    public function getIdCategory()
-    {
-        return $this->idCategory;
-    }
-
-    /**
-     * @param mixed $idCategory
-     */
-    public function setIdCategory($idCategory)
-    {
-        $this->idCategory = $idCategory;
-    }
 
     /**
      * @var string
@@ -75,12 +56,6 @@ class Project implements NotifiableInterface
      */
     private $maxBudget;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="projectSkill", type="string", length=255)
-     */
-    private $projectSkill;
 
     /**
      * @var string
@@ -106,54 +81,105 @@ class Project implements NotifiableInterface
     private $employer;
 
 
+
+
     /**
-     * @var string
+     * One product has many features. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="OfferBundle\Entity\Skills", mappedBy="project")
+     */
+    private $skills;
+
+
+
+    /**
+     * @var \DateTime
      *
-     * @ORM\Column(name="publishingDate", type="date")
+     * @ORM\Column(name="projectStartDay", type="date")
      */
-
-    private $publishingDate;
+    private $projectStartDay;
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPublishingDate()
+    public function getProjectStartDay()
     {
-        return $this->publishingDate;
+        return $this->projectStartDay;
     }
 
     /**
-     * @param string $publishingDate
+     * @param \DateTime $projectStartDay
      */
-    public function setPublishingDate($publishingDate)
+    public function setProjectStartDay($projectStartDay)
     {
-        $this->publishingDate = $publishingDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValidityPeriod()
-    {
-        return $this->validityPeriod;
-    }
-
-    /**
-     * @param string $validityPeriod
-     */
-    public function setValidityPeriod($validityPeriod)
-    {
-        $this->validityPeriod = $validityPeriod;
+        $this->projectStartDay = $projectStartDay;
     }
 
 
     /**
      * @var string
      *
-     * @ORM\Column(name="validityPeriod", type="date")
+     * @ORM\Column(name="address", type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjectCategory()
+    {
+        return $this->projectCategory;
+    }
+
+    /**
+     * @param mixed $projectCategory
+     */
+    public function setProjectCategory($projectCategory)
+    {
+        $this->projectCategory = $projectCategory;
+    }
+
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="projectEndDay", type="date")
      */
 
-    private $validityPeriod;
+    private $projectEndDay;
+
+    /**
+     * @return string
+     */
+    public function getProjectEndDay()
+    {
+        return $this->projectEndDay;
+    }
+
+    /**
+     * @param string $projectEndDay
+     */
+    public function setProjectEndDay($projectEndDay)
+    {
+        $this->projectEndDay = $projectEndDay;
+    }
     /**
      * Get id
      *
@@ -188,29 +214,6 @@ class Project implements NotifiableInterface
         return $this->projectName;
     }
 
-    /**
-     * Set projectCategory
-     *
-     * @param string $projectCategory
-     *
-     * @return Project
-     */
-    public function setProjectCategory($projectCategory)
-    {
-        $this->projectCategory = $projectCategory;
-
-        return $this;
-    }
-
-    /**
-     * Get projectCategory
-     *
-     * @return string
-     */
-    public function getProjectCategory()
-    {
-        return $this->projectCategory;
-    }
 
     /**
      * Set projectLocation
@@ -284,29 +287,8 @@ class Project implements NotifiableInterface
         return $this->maxBudget;
     }
 
-    /**
-     * Set projectSkill
-     *
-     * @param string $projectSkill
-     *
-     * @return Project
-     */
-    public function setProjectSkill($projectSkill)
-    {
-        $this->projectSkill = $projectSkill;
 
-        return $this;
-    }
 
-    /**
-     * Get projectSkill
-     *
-     * @return string
-     */
-    public function getProjectSkill()
-    {
-        return $this->projectSkill;
-    }
 
     /**
      * Set projectDescription
@@ -362,6 +344,9 @@ class Project implements NotifiableInterface
     public function __construct()
     {
         $this->projectBids = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->skills = new  \Doctrine\Common\Collections\ArrayCollection();
+
+
     }
 
     /**
@@ -430,5 +415,45 @@ class Project implements NotifiableInterface
     public function getProjectBookmarks()
     {
         return $this->projectBookmarks;
+    }
+
+
+
+
+
+
+
+    /**
+     * Add skill
+     *
+     * @param \OfferBundle\Entity\Skills $skill
+     *
+     * @return Project
+     */
+    public function addSkill(\OfferBundle\Entity\Skills $skill)
+    {
+        $this->skills[] = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Remove skill
+     *
+     * @param \OfferBundle\Entity\Skills $skill
+     */
+    public function removeSkill(\OfferBundle\Entity\Skills $skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
+    /**
+     * Get skills
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkills()
+    {
+        return $this->skills;
     }
 }

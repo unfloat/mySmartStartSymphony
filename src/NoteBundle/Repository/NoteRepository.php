@@ -10,4 +10,16 @@ namespace NoteBundle\Repository;
  */
 class NoteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findParameters($nam, $pr, $sort) {
+        $sql = '';
+        $sql=$sql." and n.priority=".$pr." ";
+        if($sort != 'any') {
+            $sql=$sql . " order by n.".$sort.' desc';
+        }
+        $query=$this->getEntityManager()
+            ->createQuery("select n from NoteBundle:Note n where n.noteName like :parameter ".$sql)
+            ->setParameter('parameter','%'.$nam.'%');
+        return $query->getResult();
+    }
+
 }

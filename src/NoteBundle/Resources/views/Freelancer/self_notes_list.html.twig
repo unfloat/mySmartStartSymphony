@@ -1,0 +1,122 @@
+{% extends "Home/Freelancer/home_layout.html.twig" %}
+{% block homecontent %}
+
+    <!-- Page Content-->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-1 col-lg-4">
+                <div class="sidebar-container" style="margin-top: 25%">
+
+                    <div class="sidebar-widget">
+                        <div class="keywords-container">
+
+                            <div class="clearfix">
+                                {#<!--Form-->#}
+                                {#<form method="get" action="{{ path('searchParameters') }}">#}
+                                {#<!-- Name -->#}
+                                {#<div class="sidebar-widget">#}
+                                {#<h3>Name</h3>#}
+                                {#<div class="input-with-icon">#}
+                                {#<div id="autocomplete-container">#}
+                                {#<input id="autocomplete-input" type="text" placeholder="Note Title" name="noteName">#}
+                                {#</div>#}
+                                {#</div>#}
+                                {#</div>#}
+                                {#<!-- End name -->#}
+
+                                {#<!-- priority -->#}
+                                {#<div class="sidebar-widget">#}
+                                {#<h3>Priority</h3>#}
+                                {#<div class="input-with-icon">#}
+                                {#<div id="autocomplete-container">#}
+                                {#<input id="autocomplete-input" type="text" placeholder="Priority" name="priority"></div>#}
+                                {#</div>#}
+                                {#</div>#}
+                                {#<!-- End priority -->#}
+
+                                {#<!-- sort -->#}
+                                {#<div class="sidebar-widget">#}
+                                {#<h3>Sort by </h3>#}
+                                {#<div>#}
+                                {#<select name="sortBy" style="width: 200%">#}
+                                {#<option value="any">Sort By</option>#}
+                                {#<option value="priority">priority</option>#}
+                                {#<option value="noteName">name</option>#}
+                                {#</select>#}
+                                {#</div>#}
+                                {#</div>#}
+                                {#<!-- End sort -->#}
+
+                                {#<!-- Go and Reset Buttons -->#}
+                                {#<a href="#"><input type="submit" value="Go !" class="button blue ripple-effect button-sliding-icon" style=" margin-left: 15% ; width: 130px"></a>#}
+                                {#<a href="{{ path('self_notes_list') }}"><input id="autocomplete-input" type="button" class="button blue ripple-effect button-sliding-icon" value="Reset" style="margin-left: 15% ;margin-top: 3%;width: 130px"></a>#}
+                                {#<!-- End Go and Reset Buttons -->#}
+
+                                {#</form>#}
+                                {#<!--End Form-->#}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-9 col-lg-8 content-left-offset">
+                <div class="headline" style="margin-bottom: 8%">
+                    <h3 class="notify-box margin-top-15">My Notes</h3>
+                    <!--Create Note Button-->
+                    <a href="{{ path('create_self_note') }}"><input  type="button" class="button blue ripple-effect button-sliding-icon" value="Add a Note" style="margin-left: 50% ;margin-top: 3%;width: 130px"></a>
+                    <!-- End Create Note Button-->
+
+                </div>
+
+                <div class="row">
+
+
+                    {% for n in self_notes_list %}
+                        <div class="zoom-anim-dialog dashboard-box margin-top-0" style="width:300px;margin: 4% 5% 8% 6%;">
+                            <div class="headline">
+                                <h3><i class="icon-feather-edit-3"></i>My Note {{ n.id }} : {{ n. noteName }}</h3>
+                                <div>
+                                    <div style="margin-top: 5%;">
+                                        {% if n.priority == "Height" %}
+                                            <div class="note-priority high">{{ n.priority}}</div>
+                                        {% endif %}
+                                        {% if n.priority == "Medium" %}
+                                            <div class="note-priority medium">{{ n.priority}}</div>
+                                        {% endif %}
+                                        {% if n.priority == "Low" %}
+                                            <div class="note-priority low">{{ n.priority}}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="dashboard-note" style="margin-top: 5%">
+                                        <h3 style="text-align: center">{{ n.noteText}}</h3>
+                                    </div>
+                                    <a href="{{ path('update_self_note', {'id': n.id}) }}" class="button ripple-effect margin-top-5 margin-bottom-10"><i class="icon-feather-edit"></i></a>
+                                    <a href="{{ path('delete_self_note', {'id': n.id}) }}" class="button ripple-effect margin-top-5 margin-bottom-10"><i class="icon-feather-trash-2"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="clearfix"></div>
+        <div class="row">
+            <div id="pagination" class="col-md-12">
+                <div class="pagination-container margin-top-60 margin-bottom-60">
+                    {{ knp_pagination_render(self_notes_list) }}
+                </div>
+            </div>
+        </div>
+        <!-- Pagination / End -->
+    </div>
+    <!-- End Page Content-->
+
+{% endblock %}

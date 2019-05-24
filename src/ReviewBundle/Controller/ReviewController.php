@@ -10,6 +10,7 @@ use ReviewBundle\Form\ReviewType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use UserBundle\Entity\User;
 
 
 class ReviewController extends Controller
@@ -101,6 +102,9 @@ class ReviewController extends Controller
         $currentUser=$this->getUser();
         $reviews = new ReviewEmp();
         $reviews->setFreelancerReviewerId($currentUser);
+
+        $employer=$this->getDoctrine()->getRepository(User::class)->find(2);
+        $reviews->setEmployerReviewedId($employer);
         $form = $this->createForm(ReviewEmpType::class,$reviews);
         $form->handleRequest($request);
 

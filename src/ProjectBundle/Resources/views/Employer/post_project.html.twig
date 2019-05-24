@@ -32,7 +32,12 @@
                             </div>
                         </div>
 
-
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Category</h5>
+                                {{ form_widget(form.projectCategory,{ 'attr': {'aria-expanded':'false','title':'Select Category','role':'button','data-toggle':'dropdown','class' : 'btn dropdown-toggle bs-placeholder btn-default','name' : 'projectCategory', 'placeholder': 'e.g. web'|trans} }) }}
+                            </div>
+                        </div>
 
                         <div class="col-xl-4">
                             <div class="submit-field">
@@ -54,7 +59,14 @@
                             <div class="submit-field">
                                 <div class="row">
 
-
+                                    <div class="col-md-4">
+                                        <h5>What skill is required?  <i class="help-icon" data-tippy-placement="right" data-tippy="" data-original-title="Leave blank if it's an online job"></i></h5>
+                                        <div >
+                                            <div class="submit-field">
+                                                {{ form_widget(form.skills,{ 'attr': {'aria-expanded':'false','title':'Select Skill','role':'button','data-toggle':'dropdown','class' : 'btn dropdown-toggle bs-placeholder btn-default','name' : 'skills', 'placeholder': 'e.g. symfony '|trans} }) }}
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-8">
                                         <h5>What is your estimated budget?</h5>
@@ -77,6 +89,25 @@
 
                                 </div>
 
+
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div>
+                                            <h5 class="submit-field">What is your Project's deadline?</h5>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            {{ form_widget(form.projectEndDay,{ 'attr': {'class' : 'with-border','name' : 'projectEndDay', 'placeholder': 'projectEndDay'|trans} }) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="submit-field">
+                                <h5>Employer Address</h5>
+                                {{ form_widget(form.address,{ 'attr': {'class' : 'with-border','address' : 'address', 'placeholder': 'emloyer@gmail.com'|trans} }) }}
                             </div>
                         </div>
 
@@ -87,13 +118,6 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="col-xl-12">
-                        <div class="submit-field">
-                            <h5>Describe your Project</h5>
-                            {{ form_widget(form.validityPeriod,{ 'attr': {'type':'date','class' : 'with-border','name' : 'validityPeriod' }}) }}
-                        </div>
                     </div>
 
                 </div>
@@ -108,6 +132,7 @@
 
         <!-- Button -->
         <div class="col-xl-12">
+
             <button class="button dark ripple-effect button-sliding-icon" style="background-color: #2a41e8" type="submit" value="post">
                 Post a Project
                 <i class="icon-material-outline-arrow-forward"></i>

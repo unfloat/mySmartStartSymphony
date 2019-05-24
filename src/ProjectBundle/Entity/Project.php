@@ -81,54 +81,126 @@ class Project implements NotifiableInterface
     private $employer;
 
 
+
+
     /**
-     * @var string
+     * Many features projects have one  category product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="OfferBundle\Entity\Category", inversedBy="projects")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $projectCategory;
+
+
+
+    /**
+     * @var \DateTime
      *
-     * @ORM\Column(name="publishingDate", type="date")
+     * @ORM\Column(name="projectStartDay", type="date")
      */
-
-    private $publishingDate;
+    private $projectStartDay;
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPublishingDate()
+    public function getProjectStartDay()
     {
-        return $this->publishingDate;
+        return $this->projectStartDay;
     }
 
     /**
-     * @param string $publishingDate
+     * @param \DateTime $projectStartDay
      */
-    public function setPublishingDate($publishingDate)
+    public function setProjectStartDay($projectStartDay)
     {
-        $this->publishingDate = $publishingDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValidityPeriod()
-    {
-        return $this->validityPeriod;
-    }
-
-    /**
-     * @param string $validityPeriod
-     */
-    public function setValidityPeriod($validityPeriod)
-    {
-        $this->validityPeriod = $validityPeriod;
+        $this->projectStartDay = $projectStartDay;
     }
 
 
     /**
      * @var string
      *
-     * @ORM\Column(name="validityPeriod", type="date")
+     * @ORM\Column(name="address", type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * Many Users P have Many GroupsS .
+     * @ORM\ManyToMany(targetEntity="OfferBundle\Entity\Skills")
+     * @ORM\JoinTable(name="projects_skills",
+     *      joinColumns={@ORM\JoinColumn(name="project_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="skill_id", referencedColumnName="id")}
+     *      )
+     */
+    private $skills;
+
+    /**
+     * @return mixed
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getProjectCategory()
+    {
+        return $this->projectCategory;
+    }
+
+    /**
+     * @param mixed $projectCategory
+     */
+    public function setProjectCategory($projectCategory)
+    {
+        $this->projectCategory = $projectCategory;
+    }
+
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="projectEndDay", type="date")
      */
 
-    private $validityPeriod;
+    private $projectEndDay;
+
+    /**
+     * @return string
+     */
+    public function getProjectEndDay()
+    {
+        return $this->projectEndDay;
+    }
+
+    /**
+     * @param string $projectEndDay
+     */
+    public function setProjectEndDay($projectEndDay)
+    {
+        $this->projectEndDay = $projectEndDay;
+    }
     /**
      * Get id
      *
@@ -293,6 +365,9 @@ class Project implements NotifiableInterface
     public function __construct()
     {
         $this->projectBids = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->skills = new \Doctrine\Common\Collections\ArrayCollection();
+
+
     }
 
     /**
@@ -362,4 +437,10 @@ class Project implements NotifiableInterface
     {
         return $this->projectBookmarks;
     }
+
+
+
+
+
+
 }

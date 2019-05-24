@@ -1,0 +1,126 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/colors/blue.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/normalize.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/skeleton.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/dropdown.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/tooltipster.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/tooltipster-shadow.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/selectize.default.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/featherlight.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/jsalert.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/typo.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/form.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/layout.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/home.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/media.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css2/box.css') }}"/>
+
+</head>
+
+<body id="blog" style="">
+
+<div id="page-content" class="container">
+
+    <br>
+    <div class="row">
+        <div class="twelve columns">
+            <h1 class="page-title" style="text-align: center;">The freelancer Blog</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="four columns offset-by-four">
+            <div id="search">
+                <form action="" id="searchForm" novalidate="novalidate" method="post" accept-charset="utf-8">
+                    <div style="display:none;">
+                        <input type="hidden" name="_method" value="POST">
+                        <input type="hidden" name="data[_Token][key]" value="3570ad5dd43d90d1eb9926f11aeb867920f1ae02fbfbcbb7b708a9077b2b120a5c66884bc992a8c5467e3b57fc50832fc481b35dc56364d1b6cc10b268acade3" id="Token894748129" autocomplete="off">
+                    </div>
+                    <div class="input text"><input name="data[Page][q]" id="q" class="defaultText defaultTextActive" title="Search an article" type="text" value=""></div>
+                    <div style="display:none;">
+                        <input type="hidden" name="data[_Token][fields]" value="03367d5c4fa3427040bbd16c4c25f05e7beb85e1%3A" id="TokenFields2126039579" autocomplete="off">
+                        <input type="hidden" name="data[_Token][unlocked]" value="" id="TokenUnlocked86024445" autocomplete="off">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row group-mobile">
+        <div class="three columns">
+
+
+            <img src="{{ asset('img/symfony.jpg') }}" alt="Symfony" class="u-max-full-width scale-with-grid" title="Symfony" style=""></div>
+        <div class="nine columns">
+            <h5 style="margin-bottom: 0;">
+                <a href="">Symfony</a></h5>
+            <p class="grey">{{ "now"|date("d/m/Y, H:m" ) }}</p>
+            <p>Symfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony.</p>
+            <a href="https://symfony.com/doc/3.4/changelog.html" class="button">Read more</a>
+            <a href="{{ path('blog_ajoutArticle') }}" class="button">Comment</a>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row group-mobile">
+        <div class="three columns">
+           <img src="{{ asset('img/java.jpg') }}" alt="Java" class="u-max-full-width scale-with-grid" title="Java" style="">
+        </div>
+        <div class="nine columns">
+            <h5 style="margin-bottom: 0;">
+                <a href="">Java</a></h5>
+            <p class="grey">{{ "now"|date("d/m/Y, H:m" ) }}</p>
+            <p>JDK 8 is a superset of JRE 8, and contains everything that is in JRE 8, plus tools such as the compilers and debuggers necessary for developing applets and applications. JRE 8 provides the libraries, the Java Virtual Machine (JVM), and other components to run applets and applications written in the Java programming language. Note that the JRE includes components not required by the Java SE specification, including both standard and non-standard Java components</p>
+            <a href="https://docs.oracle.com/javase/8/docs/" class="button">Read more</a>
+            <a href="{{ path('blog_ajoutArticle') }}" class="button">Comment</a>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row group-mobile">
+        <div class="three columns">
+           <img src="{{ asset('img/android.jpg') }}" alt="Android" class="u-max-full-width scale-with-grid" title="Android" style="">
+        </div>
+        <div class="nine columns">
+            <h5 style="margin-bottom: 0;">
+                <a href="">Android</a></h5>
+            <p class="grey">{{ "now"|date("d/m/Y, H:m" ) }}</p>
+            <p>Whether you're building for Android handsets, Wear OS by Google, Android TV, Android Auto, or Android Things, this section provides the guides and API reference you need.</p>
+            <a href="https://developer.android.com/docs" class="button">Read more</a>
+            <a href="{{ path('blog_ajoutArticle') }}" class="button">Comment</a>
+        </div>
+    </div>
+
+
+<div id="jsalert-container">
+
+    <script>
+        var status = Cookies.get('jsalert-cookiesaccept');
+        if (status != 'hide') {
+            $('#jsalert-cookiesaccept').slideDown();
+        }
+        $('#jsalert-cookiesaccept .jsalert-hide').click(function () {
+            $('#jsalert-cookiesaccept').slideUp();
+            Cookies.set('jsalert-cookiesaccept', 'hide');
+        });
+        $('#jsalert-cookiesaccept .jsalert-close').click(function () {
+            return false;
+        });
+    </script>
+
+</div>
+</div>
+
+</body>
+</html>

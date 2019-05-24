@@ -6,6 +6,8 @@ use BidBundle\Entity\Bid;
 use BidBundle\Form\BidType;
 use BookmarkBundle\Entity\Bookmark;
 use Doctrine\ORM\OptimisticLockException;
+use OfferBundle\Entity\Category;
+use OfferBundle\Entity\Skills;
 use ProjectBundle\Entity\Project;
 use ProjectBundle\Form\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,6 +25,24 @@ class ProjectController extends Controller
      * @Security("has_role('ROLE_EMPLOYER')")
      */
 
+    public function createProjectAction(Request $request)
+    {
+        $project = new Project();
+        $project->setProjectStartDay(new \DateTime('now'));
+
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $em->persist($project);
+            $em->flush();
+            return $this->redirectToRoute('employer_dashboard');
+        }
+        return $this->render('@Project/Employer/post_project.html.twig', ['form' => $form->createView()]);
+    }
+
+
+/*
     public function projectCreateAction(Request $request)
     {
         $project = new Project();
@@ -44,13 +64,13 @@ class ProjectController extends Controller
         return $this->render('@Project/Employer/post_project.html.twig',['form'=>$form->createView()]);
 
     }
-
+*/
 
     /**
      * @Security("has_role('ROLE_EMPLOYER')")
      */
 
-    public function manage_projectsAction()
+    public function manage_projectsAction(Request $request)
     {
         $count = [];
         $sum = 0;
@@ -82,28 +102,19 @@ class ProjectController extends Controller
             }
         }
 
-
-        return $this->render('@Project/Employer/manage_projects.html.twig',["projects" => $projects,'count'=>$count]);
-
-    }
-
-
-    /**
-     * @Security("has_role('ROLE_EMPLOYER')")
-     */
-    public function manageprojectsAction(Request $request)
-    {
-        $manage_projects= $this->getDoctrine()->getRepository(Project::class)->findAll();
-
         $paginator= $this->get('knp_paginator');
         $result=$paginator->paginate(
-            $manage_projects, /* query NOT result */
+            $projects, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             $request->query->getInt('limit', 4)/*limit per page*/
         );
 
-        return $this->render('@Project/Employer/manage_projects.html.twig',["manage_projects" => $result]);
+
+
+        return $this->render('@Project/Employer/manage.html.twig',["manage_project" => $result,'count'=>$count]);
+
     }
+
 
 
     /**
@@ -149,6 +160,66 @@ class ProjectController extends Controller
 
     }
 
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function projectsAction(Request $request,$sortBy="projectName")
+    {
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
+
+        $projects= $this->getDoctrine()->getRepository(Project::class)->findBy(array(), array($sortBy=>'asc'));
+        $paginator= $this->get('knp_paginator');
+        $result=$paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1),4
+        /*$request->query->getInt('limit', 4)/*limit per page*/
+        );
+        return $this->render('@Project/Freelancer/tasks.html.twig',array("projects"=>$result, "categories"=>$categories,"skills"=>$skills));
+
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_FREELANCER')")
+     */
+    public function searchParametersAction(Request $request)
+    {
+
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+        $skills = $this->getDoctrine()->getRepository(Skills::class)->findAll();
+        $projects=$this->getDoctrine()->getRepository(Project::class)
+            ->findParameters($request->get("location"),
+                $request->get("categories"),
+                $request->get("skills"),
+                $request->get("sortBy"));
+
+        $paginator= $this->get('knp_paginator');
+        $result=$paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1),4
+        /*$request->query->getInt('limit', 4)/*limit per page*/
+        );
+        return $this->render('@Project/Freelancer/tasks.html.twig',array("projects"=>$result, "categories"=>$categories,"skills"=>$skills));
+
+    }
+
+    public function mailAction($address){
+        $message = (new \Swift_Message('Mail'))
+            ->setFrom('foobar.esprit@gmail.com')
+            ->setTo($address)
+            ->setBody(
+                $this->renderView(
+                    '@Project/Freelancer/mail.html.twig', array(
+                        'address'=>$address,
+                    )
+                ),
+                'text/html'
+            ) ;
+        $this->get('mailer')->send($message);
+        return new Response("Your email was sent successfully ");
+    }
+
 
     //hethi vue single task feha bid
     //bellehi mé tmessouhech
@@ -162,6 +233,7 @@ class ProjectController extends Controller
      */
     public function singleProjectAction(Request $request,Project $project)
     {
+
         $freelancer = $this->getUser();
 
         $bookmark = $this->getDoctrine()->getRepository(Bookmark::class)->findOneBy(['project' => $project,'freelancer' => $this->getUser()]);
@@ -176,7 +248,7 @@ class ProjectController extends Controller
         if ($freelancerBid)
         {
             $message = "You already placed a bid on this project :(";
-            return $this->render('@Project/Freelancer/task.html.twig',['bookmark'=>$bookmark,"message" => $message,"project" => $project,"form" => $form->createView()]);
+            return $this->render('@Project/Freelancer/singletask.html.twig',['bookmark'=>$bookmark,"message" => $message,"project" => $project,"form" => $form->createView()]);
         }
 
         if($form->isSubmitted())

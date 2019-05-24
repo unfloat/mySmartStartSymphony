@@ -29,9 +29,56 @@ class Note
     private $priority;
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Freelancer")
+     * @ORM\JoinColumn(name="idFreelancer",referencedColumnName="id")
+     */
+    private $idFreelancer;
+
+    /**
+     * @return mixed
+     */
+    public function getIdFreelancer()
+    {
+        return $this->idFreelancer;
+    }
+
+    /**
+     * @param mixed $idFreelancer
+     */
+    public function setIdFreelancer($idFreelancer)
+    {
+        $this->idFreelancer = $idFreelancer;
+    }
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="noteText", type="string", length=255)
+     * @ORM\Column(name="noteName", type="string", length=255)
+     */
+    private $noteName;
+
+    /**
+     * @return string
+     */
+    public function getNoteName()
+    {
+        return $this->noteName;
+    }
+
+    /**
+     * @param string noteName
+     */
+    public function setNoteName($noteName)
+    {
+        $this->noteName = $noteName;
+    }
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="noteText", type="text", length=255)
      */
     private $noteText;
 

@@ -48,7 +48,7 @@ class Bid implements NotifiableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="ProjectBundle\Entity\Project", inversedBy="projectBids")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $project;
 
